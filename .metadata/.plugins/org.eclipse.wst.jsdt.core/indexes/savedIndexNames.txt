@@ -1,0 +1,8 @@
+INDEX VERSION 1.3+/home/jfanasco/workspace/Evolucion/repositorio_primera_linea (copia)/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+3726938049.index
+2316484586.index
+1725552017.index
+4274461926.index
+3680000475.index
+2222747049.index
+3829020998.index
