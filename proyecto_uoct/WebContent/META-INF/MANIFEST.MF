@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Class-Path: EJBproyecto_uoct.jar 
+ EJBproyecto_uoctClient.jar
+
