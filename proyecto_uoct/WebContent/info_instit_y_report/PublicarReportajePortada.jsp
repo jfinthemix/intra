@@ -9,8 +9,8 @@
 <title>Publicaci&oacute;n de reportajes</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
  <META HTTP-EQUIV="Cache-Control" CONTENT ="no-cache">.
-
-
+<link href="../util/styla.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" src="../util/valid/gen_validatorv2.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -19,9 +19,7 @@
 <div class="box boxpost">
 <h4>Datos del reportaje</h4>
 
-<form id="formReportaje" class="form-horizontal" action="/info_instit_y_report/reportAction.do">
-
-<input type="hidden" name="hacia" value="ingresarReportaje" >
+<form class="form-horizontal" action="/info_instit_y_report/reportAction.do">
 <div class="form-group">
     								<label for="inputTitulo" class="col-sm-4 control-label">Título</label>
     								<div class="col-sm-8">
@@ -41,30 +39,32 @@
   		<div class="form-group">
     								<label for="inputImagen" class="col-sm-4 control-label">Imagen</label>
     								<div class="col-sm-8">
-      								<p class="form-control-static">
-      								<input name="foto" type="file" id="inputImagen"></p>
+      								<p class="form-control-static"><input name="foto" type="file" id="inputImagen"></p>
     								</div>
     							</div>	
     <div class="form-group">
     								<label for="inputContenido" class="col-sm-4 control-label">Contenido del reportaje</label>
     								<div class="col-sm-8">
-      								<textarea maxlength="4000" name="desc_rep" class="form-control" rows="20" id="inputContenido"></textarea>
+      								<textarea name="desc_rep" class="form-control" rows="20" id="inputContenido"></textarea>
     								</div>
   								</div>
   									<div class="boxOpciones">
     								<div class="form-group">
     									<div class="col-sm-12">
-      									<a type="submit" href="javascript:submitThisform()" class="botoVerde">Publicar</a>
+      									<button type="submit" class="botoVerde">Publicar</button>
       								</div>
   									</div>
     							</div>					
 </form>
 </div>
-<jsp:include page="/comunes/pieContenido.jsp" />
+ <div class="verMas">
+							<a href="javascript:history.back()"><span class="glyphicons glyphicons-undo"></span> Volver</a>
+							<a href="javascript:void(0)" class="pull-right"><span class="glyphicons glyphicons-circle-exclamation-mark"></span> Ayuda</a>
+</div>
  
 
  <script language="JavaScript" type="text/javascript">
-/*var frmvalidator  = new Validator("IngReportajeFBean");
+var frmvalidator  = new Validator("IngReportajeFBean");
 frmvalidator.addValidation("tipo_rep","req","Debe ingresar la posición del reportaje");
 frmvalidator.addValidation("tipo_rep","dontselect=0","Debe ingresar la posición del reportaje" );
 
@@ -75,59 +75,9 @@ frmvalidator.addValidation("foto","req","Debe Ingresar fotografía");
 
 frmvalidator.addValidation("desc_rep","req","Debe Ingresar descripción del reportaje");
 frmvalidator.addValidation("desc_rep","maxlen=4000","Descripción no puede superar los 4000 caracteres");
-*/
-</script>
-<script type="text/javascript">
-function submitThisform()
-{
-	
-	var form= $('#formReportaje')
-	var action='/info_instit_y_report/reportAction.do';
-	
-	form.validate({
-		  rules: {
-		    // simple rule, converted to {required:true}
-		    tipo_rep: {
-		    	required:true,
-		    	notEqualTo:"0"
-		    },
-		    foto:{
-		    	required:true
-		    },
-		    tit_rep:{
-		    	required:true
-		    },
-		    desc_rep:{
-		    	required:true
-		    }
-		    
-		    },
-		    messages: {
-		    	 tipo_rep: {
-				    	required:true,
-				    	notEqualTo:"0"
-				    },
-				    foto:{
-				    	required:true
-				    },
-				    tit_rep:{
-				    	required:true
-				    },
-				    desc_rep:{
-				    	required:true
-				    }
-            }
-		  });
-	
-	 if(form.valid()) 
-	 {
-	  SubmitFormulario(action, form);
-	 }
-		
-}
-
 
 </script>
+
 
   
 </body>

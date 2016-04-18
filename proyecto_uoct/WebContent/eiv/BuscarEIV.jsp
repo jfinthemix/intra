@@ -8,65 +8,89 @@ List listaestados= (List) request.getAttribute("listaEstados");
 List listaeiv=(List) request.getAttribute("listaEIV");
 List comunas=(List)request.getAttribute("comunas");
 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-%>
-<html>
-<head>
-<title>Buscar EIV</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
+%><!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="jfanasco" >
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
+		<script type="text/javascript">
+		function submitThisForm1() {
+	var formulario = $('#formBusEIV');
+	//SelectAllList(formulario.listaRel);
+	var action = 'eiv/eivAction.do';
+	SubmitFormulario(action,formulario);
 
-  <!-- validador -->
-<script language="JavaScript" src="../util/valid/gen_validatorv2.js" type="text/javascript"></script>
-  <!-- calendario popup-->
-<script language="JavaScript" src="calendar1.js" type="text/javascript"></script><!-- Date only with year scrolling -->
-
-</head>
-
-<body>
-<table width="750" border="0">
-  <tr>
-    <td><h3 align="center">Buscar EISTU</h3></td>
-  </tr>
-  <tr>
-    <td><div align="center"></div></td>
-  </tr>
-  <form action="eivAction.do" name="formBusEIV" method="POST">
-    <input type="hidden" name="hacia" value="buscarEIV" />
-    <tr>
-      <td><div align="center">
-          <table width="500" border="1">
-            <tr>
-              <td width="168" bgcolor="#ADD8E4">
-<div align="right"><strong>Por
-                  Codigo del EISTU</strong></div></td>
-              <td width="316">EISTU - <input type="text" name="ideiv" size="5" maxlength="5"></td>
-            </tr>
-            <tr>
-              <td bgcolor="#ADD8E4">
-<div align="right"><strong>Palabra Clave</strong></div></td>
-              <td><input name="palClave" type="text" id="palClave" maxlength="50"></td>
-            </tr>
-            <tr>
-              <td bgcolor="#ADD8E4">
-<div align="right"><strong>Por Fecha de Vencimiento</strong></div></td>
-              <td><table width="196" border="0">
-                  <tr>
-                    <td width="59" bgcolor="#F7FBC4">Entre el</td>
-                    <td width="116"><input type="text" name="fechaVencimiento" size=8 readonly="readonly">
-                      <a href="javascript:cal1.popup();"><img src="img/cal.gif" width="16" height="16" border="0" alt="Seleccionar fecha"></a></td>
-                  </tr>
-                  <tr>
-                    <td bgcolor="#F7FBC4">y el</td>
-                    <td><input type="text" name="fechaVencimiento_b" size=8 readonly="readonly">
-                      <a href="javascript:cal2.popup();"><img src="img/cal.gif" width="16" height="16" border="0" alt="Seleccionar fecha"></a></td>
-                  </tr>
-                </table></td>
-            </tr>
-            <tr>
-              <td width="168" bgcolor="#ADD8E4">
-<div align="right"><strong>Por Estado</strong></div></td>
-              <td><select name="estado">
-                  <option value="">&nbsp;</option>
+}
+		</script>
+		
+		<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+					
+				
+					<div class="col-sm-6 desarrollo">
+					
+						<h2>Buscar EIV</h2>
+						
+				 		<div class="box boxpost">
+				 			<h4>Datos de EISTU</h4>
+				 			<form class="form-horizontal" action="eiv/eivAction.do" name="formBusEIV" id="formBusEIV">
+				 			<input type="hidden" name="hacia" value="buscarEIV" />
+				 				<div class="form-group">
+    								<label for="inputCodigo" class="col-sm-4 control-label">Código de EISTU</label>
+    								<div class="col-sm-2 guionpost">
+      								<p class="form-control-static">EISTU</p>
+    								</div>
+    								<div class="col-sm-6">
+      								<input type="text" class="form-control" id="inputCodigo" name="ideiv">
+    								</div>
+    							</div>
+  								<div class="form-group">
+    								<label for="inputPalabra" class="col-sm-4 control-label">Palabra clave</label>
+    								<div class="col-sm-8">
+      								<input type="text"  name="palClave" class="form-control" id="inputPalabra">
+    								</div>
+    							</div>
+  								<div class="form-group input-daterange">
+    								<label for="inputFecha" class="col-sm-4 control-label">Fecha de vencimiento</label>
+    								<div class="col-sm-2">
+    									<label class="control-label">Entre el:</label>
+    								</div>
+    								<div class="col-sm-2 noPadL">
+      								<input type="text" class="form-control inputFecha pad2" id="inputDesde" name="fechaVencimiento">
+    								</div>
+    								<div class="col-sm-2">
+      								<label class="control-label">Hasta el:</label>
+    								</div>
+    								<div class="col-sm-2 noPadL">
+    									<input type="text" class="form-control inputFecha pad2" name="fechaVencimiento_b" id="inputHasta">
+    								</div>
+  								</div>
+  								<div class="form-group">
+    								<label for="selectEstado" class="col-sm-4 control-label">Estado</label>
+    								<div class="col-sm-8">
+      								<select class="form-control" id="selectEstado" name="estado">
+      									<option value="">&nbsp;</option>
                   <%
         Iterator i =listaestados.iterator();
          while ( i.hasNext()){
@@ -74,28 +98,24 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
            out.println("<option value=\""+estado.getId()+"\">"+ estado.getStr()+"</option>" );
          }
          %>
-                </select></td>
-            </tr>
-
-
-            <tr>
-              <td bgcolor="#ADD8E4">
-<div align="right"><strong>Por Estado en SEREMITT</strong></div></td>
-              <td>
-                <select name="estadoSeremitt">
-                <option value="0"></option>
-                <option value="1">Aprobado</option>
-                <option value="2">Rechazado</option>
-
-                </select>
-              </td>
-            </tr>
-
-            <tr>
-              <td bgcolor="#ADD8E4">
-<div align="right"><strong>Por Ingeniero encargado</strong></div></td>
-              <td><select name="idIngeniero">
-                  <option value="">&nbsp;</option>
+      								</select>
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="selectEstadoS" class="col-sm-4 control-label">Estado en SEREMITT</label>
+    								<div class="col-sm-8">
+      								<select class="form-control" id="selectEstadoS" name="estadoSeremitt">
+      									 <option value="0" selected>Seleccionar</option>
+      									 <option value="1">Aprobado</option>
+      									 <option value="2">Rechazado</option>
+      								</select>
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="selectIng" class="col-sm-4 control-label">Ingeniero encargado</label>
+    								<div class="col-sm-8">
+      								<select class="form-control" id="selectIng" name="idIngeniero">
+      									<option value="">seleccione ingeniero</option>
                   <%
 
         Iterator ii =listaingenieros.iterator();
@@ -110,13 +130,15 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
 
          %>
-                </select></td>
-            </tr>
-            <tr>
-              <td bgcolor="#ADD8E4">
-<div align="right"><strong>Por Comuna</strong></div></td>
-              <td><select name="idComuna">
-                  <option value="">&nbsp;</option>
+      								</select>
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="selectComuna" class="col-sm-4 control-label">Comuna</label>
+    								<div class="col-sm-8">
+      								<select class="form-control" id="selectComuna" name="idComuna">
+      									
+      									 <option value="">Seleccionar</option>
                   <% if(comunas!=null){
             Iterator ic=comunas.iterator();
             while(ic.hasNext()){
@@ -127,53 +149,40 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
            }
          }
          %>
-                </select></td>
-            </tr>
-            <tr>
-              <td bgcolor="#ADD8E4">
-<div align="right"><strong>Por Red Involucrada</strong></div></td>
-              <td><input type="text" name="red" maxlength="3" size="5" /></td>
-            </tr>
-
-            <tr>
-              <td bgcolor="#ADD8E4">
-<div align="right"><strong>Por Consultor</strong></div></td>
-              <td><input type="text" name="consultor" maxlength="50" size="30" /></td>
-            </tr>
-          </table>
-        </div></td>
-    </tr>
-    <tr>
-      <td><div align="center">
-          <input type="submit" name="Submit" value="Buscar">
-          &nbsp;
-          <input type="reset" name="Submit2" value="Anular">
-        </div></td>
-    </tr>
-    <tr>
-      <td><div align="center">
-          <script language="JavaScript" type="text/javascript">
-                var frmvalidator  = new Validator("formBusEIV");
-                frmvalidator.addValidation("ideiv","maxlen=10","Codigo del EIV no puede superar los 10 caracteres");
-                frmvalidator.addValidation("ideiv","numeric");
-
-                </script>
-          <script language="JavaScript" type="text/javascript">
-				var cal1 = new calendar1(document.forms['formBusEIV'].elements['fechaVencimiento']);
-				cal1.year_scroll = true;
-				cal1.time_comp = false;
-				var cal2 = new calendar1(document.forms['formBusEIV'].elements['fechaVencimiento_b']);
-				cal2.year_scroll = true;
-				cal2.time_comp = false;
-            </script>
-        </div>
-        <%    if(listaeiv !=null){
+      								</select>
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputRedes" class="col-sm-4 control-label">Red involucrada</label>
+    								<div class="col-sm-8">
+    									<input type="text" id="inputRedes" class="form-control" name="red">
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputConsultor" class="col-sm-4 control-label">Consultor</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control" id="inputConsultor" name="consultor" >
+    								</div>
+    							</div>
+    							<div class="boxOpciones">
+    								<div class="form-group">
+    									<div class="col-sm-12">
+    										<a href="javascript:void(0)" onclick="javascript:submitThisForm1();" class="botoVerde busca"><span class="glyphicons glyphicons-search"></span> Buscar</a>
+      								</div>
+  									</div>
+    							</div>
+  							</form>
+						</div>
+						
+						
+			
+<%    if(listaeiv !=null){
   Iterator ieiv= listaeiv.iterator();
   request.setAttribute("eivses",ieiv);
-  %>
-        <display:table name="eivses" pagesize="15" id="eivs" requestURI="eivAction.do" class="its" >
+  %>	<div class="box boxpost col-sm-15">	
+        <display:table name="eivses" pagesize="15" id="eivs" requestURI="eivAction.do" class="table table-striped table-bordered table-hover" >
         <display:column  title="EISTU" href="eivAction.do?hacia=detalleEIV" sortable="true" sortProperty="idEIV">
-        <a href="eivAction.do?hacia=detalleEIV&id_eiv=<%=((EIVdeListaVO)eivs).getIdEIV()%>">EISTU-<%=((EIVdeListaVO)eivs).getIdEIV() %></a>
+        <a onclick="javascript:LlamadaPagina('eiv/eivAction.do?hacia=detalleEIV&id_eiv=<%=((EIVdeListaVO)eivs).getIdEIV()%>');" href="javascript:void(0);">EISTU-<%=((EIVdeListaVO)eivs).getIdEIV() %></a>
         </display:column>
         <display:column title="Nombre del EISTU"> <%=((EIVdeListaVO)eivs).getNomEiv() %>
         </display:column>
@@ -225,13 +234,32 @@ out.print(((EIVdeListaVO)eivs).getNomEncarg()+" "+((EIVdeListaVO)eivs).getApeEnc
 
 
 		</display:table>
-        <% }%>
-      </td>
-    </tr>
-  </form>
-</table>
-<hr>
-<div align="center"><img src="../util/img/volver.jpg" alt="Volver" onclick="history.back()"></div> <div align="right"><a href="../ayuda/eiv.html" target="_blank">Ayuda</a>
-  </div>
-</body>
+		</div>
+        <% }%>						
+				 			
+				 		
+				 		
+					
+					</div>
+			
+					
+			
+				</div><!-- /row -->
+			
+      		
+      	</div><!-- /container -->
+		
+		</div><!-- /main -->
+	
+
+     
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.es.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/truncate.js"></script>
+    <script src="js/uoct.js"></script>
+  </body>
 </html>

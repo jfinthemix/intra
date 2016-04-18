@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%@ page contentType="text/html; charset=iso-8859-1" language="java" import="proyecto_uoct.proyecto.VO.DetalleProyectoVO,java.util.List,java.util.Iterator" errorPage="" %>
 <%@ page import="proyecto_uoct.usuario.VO.UsuarioVO" %>
 <%@ page import="proyecto_uoct.proyecto.VO.DocumentodeListaProyVO,proyecto_uoct.proyecto.VO.OTdeListaVO"%>
@@ -13,13 +14,28 @@ DetalleProyectoVO detproy= (DetalleProyectoVO) request.getAttribute("detalleProy
 
 %>
 
-<html>
-<head>
-<title>Detalle de Iniciativa</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
-
-
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="Unidad Operativa de Control de Tránsito">
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
 <script type="text/javascript">
 
 function confirmaEliminacion(){
@@ -29,27 +45,28 @@ return resp;
 }
 
 </script>
-
-</head>
-
-<body>
-<div align="center">
-  <table width="750" border="0">
-    <tr>
-      <td><h3>OTs de la Iniciativa : <%=detproy.getNomProy() %></h3></td>
-    </tr>
-    <tr>
-      <td><div align="right"><a href="proyectoAction.do?hacia=aRegOT&idProy=<%=detproy.getIdProy()%>">Registrar
-          una nueva OT</a></div></td>
-    </tr>
-    <tr>
-      <td> <div align="left">
-          <%
+	
+	
+		
+		
+		<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+					
+				
+					<div class="col-sm-6 desarrollo">
+					
+						
+						<h3>OTs de la Iniciativa : <%=detproy.getNomProy() %></h3>
+						<div class="box boxpost">
+				 			<h4>OTs de la Iniciativa</h4>
+				 			 <%
  List ots=(List) detproy.getOTs();
  if(ots.size()!=0){
  request.setAttribute("otss",ots);
  %>
-          <display:table id="o" name="otss" requestURI="proyectoAction.do" class="its">
+          <display:table id="o" name="otss" requestURI="proyectoAction.do" class="table table-striped table-bordered table-hover">
 
           <display:column title="Nombre de la OT" property="str" href="proyectoAction.do?hacia=detalleOT" paramId="idOT" paramProperty="id" maxLength="50">
           </display:column> <display:column title="Fecha Vencimiento" ><%= sdf.format(((OTdeListaVO)o).getFechaInicio()) %> </display:column> <display:column title="Estado" property="estadoOT">
@@ -85,14 +102,58 @@ return resp;
 
 		   </display:table>
           <%} %>
-        </div></td>
-    </tr>
-  </table>
-</div>
+        					<div class="boxOpciones">
+    							<div class="form-group">
+    								<div class="col-sm-offset-2 col-sm-10">
+    								
+      								<a href="javascript:Llamadalink2('aRegOT','&idProy=<%=detproy.getIdProy()%>')" class="botoVerde">Registrar OT</a>
+    								</div>
+  								</div>
+    						</div>
+						</div>
+				 			
+<script>
+	function Llamadalink2(hacia, link) {
+												
+		link = 'proyectos/proyectoAction.do'+ '?hacia=' + hacia + link ;
+		LlamadaPagina(link);
+
+												//clienteAction.do?hacia=detalleEntExt
+	}
+	
+	</script>				 		
+				 		
+					
+					</div>
+			
+					
+			
+				</div><!-- /row -->
+			
+      		
+      	</div><!-- /container -->
+		
+		</div><!-- /main -->
+	
+
+      <div class="container">
+			<footer>
+				<div class="row">
+					<div class="col-sm-12">
+						<p>Unidad Operativa de Control de Tránsito. <span id="pie"></span></p>
+					</div>
+				</div>
+        	</footer>
+		</div> <!-- /container -->
 
 
-<hr>
-<div align="center"><img src="../util/img/volver.jpg" alt="Volver" onclick="history.back()"></div>  <div align="center"><input type="button" value="Volver atrás" onclick="history.back()" style="font-family: Verdana; font-size: 12 pt"></div><div align="right"><a href="../ayuda/iniciativas.html" target="_blank">Ayuda</a>
-  </div>
-</body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.es.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/truncate.js"></script>
+    <script src="js/fullcalendar.min.js"></script>
+    <script src="js/uoct.js"></script>
+  </body>
 </html>

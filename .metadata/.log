@@ -126,3 +126,15 @@ Caused by: java.util.zip.ZipException: error in opening zip file
 
 !ENTRY org.jboss.ide.eclipse.as.core 4 0 2016-04-17 00:47:06.882
 !MESSAGE Unable to retrieve a list of remote deployment scanners
+
+!ENTRY org.jboss.ide.eclipse.as.core 4 0 2016-04-17 02:48:49.417
+!MESSAGE Unable to retrieve a list of remote deployment scanners
+
+!ENTRY org.jboss.ide.eclipse.as.core 4 0 2016-04-17 02:48:49.538
+!MESSAGE Unable to retrieve a list of remote deployment scanners
+
+!ENTRY org.jboss.ide.eclipse.as.core 4 0 2016-04-17 03:46:30.468
+!MESSAGE Unable to retrieve a list of remote deployment scanners
+
+!ENTRY org.jboss.ide.eclipse.as.core 4 0 2016-04-17 03:46:30.547
+!MESSAGE Unable to retrieve a list of remote deployment scanners

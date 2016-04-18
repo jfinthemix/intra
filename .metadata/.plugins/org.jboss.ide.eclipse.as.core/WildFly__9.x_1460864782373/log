@@ -5,3 +5,27 @@
 
 !ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2016-04-17 00:46:57.477
 !MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.wtp.core 1 16973825 2016-04-17 02:45:25.936
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2016-04-17 02:48:35.666
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2016-04-17 02:48:40.893
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2016-04-17 02:48:40.929
+!MESSAGE Module EARproyecto_uoct on WildFly  9.x  not yet fully deployed. Waiting...
+
+!ENTRY org.jboss.ide.eclipse.as.wtp.core 1 16973825 2016-04-17 03:46:00.919
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2016-04-17 03:46:17.459
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2016-04-17 03:46:22.174
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 0 2016-04-17 03:46:22.181
+!MESSAGE Module EARproyecto_uoct on WildFly  9.x  not yet fully deployed. Waiting...

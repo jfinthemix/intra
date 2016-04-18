@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.*,java.util.List,java.util.Iterator,proyecto_uoct.proyecto.VO.DetalleProyectoVO" errorPage="" %>
 <%@ page import="proyecto_uoct.usuario.VO.UsuarioVO,proyecto_uoct.proyecto.VO.ProyectodeListaVO,proyecto_uoct.documentacion.VO.ClienteVO " %>
 <%@ page import="java.text.SimpleDateFormat,java.util.Date" %>
@@ -13,41 +15,74 @@ SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy");
 Integer ano = Integer.valueOf(sdf2.format(hoy));
 
 %>
-<html>
-<head>
-<title>Búsqueda de Iniciativas</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
 
-</head>
 
-<body>
-<table width="750" border="0">
-  <tr>
-    <td><h3>Registrar NLO</h3></td>
-  </tr>
-  <tr>
-    <td>Seleccione el a&ntilde;o de inicio de la Iniciativa </td>
-  </tr>
-  <tr>
-    <td><form action="proyectoAction.do" method="POST">
-        <input type="hidden" name="hacia" value="busInitoNLO" />
-        <select name="ano" >
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="Unidad Operativa de Control de Tránsito">
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
+		
+		
+		<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+					
+				
+					<div class="col-sm-6 desarrollo">
+					
+						<h2>Registrar NLO</h2>
+						
+						<div class="box boxpost">
+				 			<h4>Seleccione la iniciativa para el registro de OT</h4>
+				 			<form class="form-horizontal" action="proyectoAction.do" method="POST" name="form1" id="form1" >
+				 			<input type="hidden" name="hacia" value="busInitoNLO" />
+				 			<input type="hidden" name="buscarProyecto" value="Buscar" />
+				 				<div class="form-group">
+    								<label for="selectInicio" class="col-sm-4 control-label">Año de inicio de la Iniciativa</label>
+    								<div class="col-sm-8">
+      								
+      									 <select name="ano" class="form-control" id="ano">
           <option value="<%=ano.intValue()+1%>"><%=ano.intValue()+1%></option>
           <%   for (int ia=0;ia<=5;ia++){%>
           <option value="<%=ano.intValue()-ia%>"><%=ano.intValue()-ia%></option>
           <%}%>
         </select>
-        <input type="submit" name="buscarProyecto" value="Buscar" />
-      </form></td>
-  </tr>
-  <tr>
-    <td>
-
-	<%if (proyectos!=null){
+    									
+    								</div>
+    							</div>
+  								<div class="boxOpciones">
+    								<div class="form-group">
+    									<div class="col-sm-12">
+    										<a href="javascript:void(0)" onclick="submitThisForm1();" class="botoVerde busca"><span class="glyphicons glyphicons-search"></span> Buscar</a>
+      								</div>
+  									</div>
+    							</div>
+  							</form>
+						</div>
+						
+						<%if (proyectos!=null){
 %>
-<div align="center">
-<display:table name="proyectos" id="inis" pagesize="15" class="its" requestURI="proyectoAction.do">
+<div class="box boxpost">
+<display:table name="proyectos" id="inis" pagesize="15" class="table table-striped table-bordered table-hover" requestURI="proyectoAction.do">
   <display:caption>Iniciativas de Inversión
   </display:caption>
 
@@ -66,7 +101,7 @@ Integer ano = Integer.valueOf(sdf2.format(hoy));
 
   <display:column title="Registrar NLO a OT">
     <% if(((ProyectodeListaVO)inis).getEsDelEquipo()){%>
-    <a href="proyectoAction.do?hacia=OTsdelProyToRegNLO&idProy=<%=((ProyectodeListaVO)inis).getIdProy()%>">Reg. NLO a OT</a>
+    <a href="javascript:Llamadalink('OTsdelProyToRegNLO','&idProy=<%=((ProyectodeListaVO)inis).getIdProy()%>')" >Reg. NLO a OT</a>
     <%}else{%>
     no disponible
    <% }%>
@@ -74,9 +109,9 @@ Integer ano = Integer.valueOf(sdf2.format(hoy));
 
   <display:column title="Registrar NLO a Iniciativa" >
     <% if(((ProyectodeListaVO)inis).getEsDelEquipo()){%>
-    <a href="proyectoAction.do?hacia=aRegNLOIni&idProy=<%=((ProyectodeListaVO)inis).getIdProy()%>">Reg. NLO a Iniciativa</a>
+    <a href="javascript:Llamadalink('aRegNLOIni','&idProy=<%=((ProyectodeListaVO)inis).getIdProy()%>')">Reg. NLO a Iniciativa</a>
     <%}else{ %>
-    no disponible
+    Ud.no tiene permiso
     <%} %>
   </display:column>
 
@@ -108,12 +143,62 @@ Integer ano = Integer.valueOf(sdf2.format(hoy));
   </div>
       <div align="left">
         <%} %>
-      </div></td>
-  </tr>
-</table>
-<hr>
-<div align="center"><img src="../util/img/volver.jpg" alt="Volver" onclick="history.back()"></div>  <div align="right"><a href="../ayuda/iniciativas.html" target="_blank">Ayuda</a>
-  </div>
-</body>
-</html>
+				 		
+					
+					</div>
+			
+					
+			
+				</div><!-- /row -->
+			
+      		
+      	</div><!-- /container -->
+		
+		</div><!-- /main -->
+	
 
+      <div class="container">
+			<footer>
+				<div class="row">
+					<div class="col-sm-12">
+						<p>Unidad Operativa de Control de Tránsito. <span id="pie"></span></p>
+					</div>
+				</div>
+        	</footer>
+		</div> <!-- /container -->
+
+<script type="text/javascript">
+											function submitThisForm1() {
+												
+												var formulario = $('#form1');
+
+												var action = 'proyectos/proyectoAction.do';
+												SubmitFormulario(action,formulario);
+
+											}
+											
+											
+											function Llamadalink(hacia, link) {
+												link = link.replace('#', '');
+												link = 'proyectos/proyectoAction.do' + '?hacia=' + hacia + link ;
+												//alert(link+' ' +param);
+												LlamadaPagina(link);
+
+												//clienteAction.do?hacia=detalleEntExt
+											}
+											
+											
+										</script>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.es.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/truncate.js"></script>
+    <script src="js/fullcalendar.min.js"></script>
+    <script src="js/uoct.js"></script>
+  </body>
+</html>

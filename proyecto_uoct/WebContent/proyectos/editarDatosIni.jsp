@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <%@ page contentType="text/html; charset=iso-8859-1" language="java" errorPage="" %>
 <%@ page import="java.util.List,java.util.Iterator,java.util.LinkedList" %>
 <%@ page import="proyecto_uoct.usuario.VO.UsuarioVO,proyecto_uoct.common.VO.IdStrVO,proyecto_uoct.proyecto.VO.*,java.text.SimpleDateFormat" %>
@@ -41,151 +43,36 @@ if (enc!=null && listausu!=null){
 
 %>
 
-<html>
-<head>
-  <title>Iniciativas de Inversión</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-
-    <script language="JavaScript" type="text/javascript">
-    <!-- Script para el traspaso de variables
-    sortitems = 1;
-
-    function move(fbox,tbox) {
-      for(var i=0; i<fbox.options.length; i++) {
-        if(fbox.options[i].selected && fbox.options[i].value != "") {
-          var no = new Option();
-          no.value = fbox.options[i].value;
-          no.text = fbox.options[i].text;
-          tbox.options[tbox.options.length] = no;
-     	  agregaEncargado(fbox);
-		  fbox.options[i].value = "";
-          fbox.options[i].text = "";
-        }
-      }
-      BumpUp(fbox);
-      if (sortitems) SortD(tbox);
-
-    }
-
-	//--------------------------
-
-    function move2(fbox,tbox) {
-      for(var i=0; i<fbox.options.length; i++) {
-        if(fbox.options[i].selected && fbox.options[i].value != "") {
-          var no = new Option();
-          no.value = fbox.options[i].value;
-          no.text = fbox.options[i].text;
-          tbox.options[tbox.options.length] = no;
-		  quitarEncargado(fbox);
-          fbox.options[i].value = "";
-          fbox.options[i].text = "";
-        }
-      }
-      BumpUp(fbox);
-	  BumpUp(this.form_proy.id_encargado);
-      if (sortitems) SortD(tbox);
-
-    }
-
-//-------------------------------------------------
 
 
 
-    function BumpUp(box)  {
-      for(var i=0; i<box.options.length; i++) {
-        if(box.options[i].value == "")  {
-          for(var j=i; j<box.options.length-1; j++)  {
-            box.options[j].value = box.options[j+1].value;
-            box.options[j].text = box.options[j+1].text;
-          }
-          var ln = i;
-          break;
-        }
-      }
-      if(ln < box.options.length)  {
-        box.options.length -= 1;
-        BumpUp(box);
-      }
-    }
 
-	//-------------------------------------------
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="Unidad Operativa de Control de Tránsito">
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
+	
+<script type="text/javascript">
 
-
-    function SortD(box)  {
-      var temp_opts = new Array();
-      var temp = new Object();
-      for(var i=0; i<box.options.length; i++)  {
-        temp_opts[i] = box.options[i];
-      }
-      for(var x=0; x<temp_opts.length-1; x++)  {
-        for(var y=(x+1); y<temp_opts.length; y++)  {
-          if(temp_opts[x].text > temp_opts[y].text)  {
-            temp = temp_opts[x].text;
-            temp_opts[x].text = temp_opts[y].text;
-            temp_opts[y].text = temp;
-            temp = temp_opts[x].value;
-            temp_opts[x].value = temp_opts[y].value;
-            temp_opts[y].value = temp;
-          }
-        }
-      }
-      for(var i=0; i<box.options.length; i++)  {
-        box.options[i].value = temp_opts[i].value;
-        box.options[i].text = temp_opts[i].text;
-      }
-    }
-
-	//-------------------------------------------
-
-
-	function agregaEncargado(nuevo){
-    for(var i=0; i<nuevo.options.length; i++) {
-		if(nuevo.options[i].selected && nuevo.options[i].value != "") {
-          var no = new Option();
-          no.value = nuevo.options[i].value;
-          no.text = nuevo.options[i].text;
-          this.form_proy.id_encargado.options[this.form_proy.id_encargado.options.length] = no;
-        }
-		}
-	}
-
-	//----------------------------------------
-
-	function quitarEncargado(box){
-    for(var i=0; i<box.options.length; i++) {
-	if(box.options[i].selected && box.options[i].value != "") {
-		for (var ii=0;ii<this.form_proy.id_encargado.options.length;ii++){
-		if(box.options[i].value==this.form_proy.id_encargado.options[ii].value){
-          this.form_proy.id_encargado.options[ii].value = "";
-          this.form_proy.id_encargado.options[ii].text = "";
-        }
-		}
-		}
-	}
-	}
-
-
-
-	// -->
-
-
-    <!------------- Funcion para seleccionar  todos los encargados de la Lista
-
-    function SelectAllList(CONTROL){
-      for(var i = 0;i < CONTROL.length;i++){
-        CONTROL.options[i].selected = true;
-
-      }
-    }
-
-
-
-<!--   Para el traspaso de variables del Cliente entre Ventanas -->
-var otra=null;
-function popUp(href, target, features) {
-    otra = window.open(href, target, features);
-    otra.window.focus();
-  }
 
 
 function pasaCli(nomCli, idCli){
@@ -194,72 +81,62 @@ function pasaCli(nomCli, idCli){
     otra.window.close();
   }
 
+</script>	
+	
+	
+		
+		<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+					
+				
+					<div class="col-sm-6 desarrollo">
+					
+						<h2>Editar Iniciativa de Inversión</h2>
+						
+				 		<div class="box boxpost">
+				 			<h4>Datos de Iniciativa</h4>
+				 			<form class="form-horizontal" name="form_proy" id="form_proy" method="post" action="proyectoAction.do">
+				 			<input type="hidden" name="hacia" id="hacia" value="actualizarIni">
+				 			 <input type="hidden" name="idIni" value="<%=detproy.getIdProy() %>"/>
+				 			 
+				 				<div class="form-group">
+    								<label for="inputTitulo" class="col-sm-4 control-label">Título*</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control" id="inputTitulo" name="nom_proy" maxlength="40" value="<%=detproy.getNomProy() %>">
+    								</div>
+    							</div>
+  								<div class="form-group">
+    								<label for="inputEjecutor" class="col-sm-4 control-label">Ejecutor*</label>
+    								<div class="col-sm-5">
+    								<input type="hidden" name="idCli" value="<%= detproy.getIdCliente()%>"/>
+      								<input type="text" class="form-control" id="inputEjecutor" name="nomCli" readonly="readonly" value="<%=detproy.getNomCliente()%>" >
+    								</div>
+    								<div class="col-sm-3">
+      								<a   href="documentacion/clienteAction.do?hacia=busCli_pop" target="_blank" onClick="popUp(this.href, this.target, 'width=900,height=800, scrollbars=1'); return false;"  class="botoGris botoMini noMarg"><span class="glyphicons glyphicons-search"></span> Buscar</a>
+    								</div>
+  								</div>
+  								<div class="form-group">
+    								<label for="inputInicio" class="col-sm-4 control-label">Fecha de inicio*</label>
+    								<div class="col-sm-8">
+      								<input class="form-control inputFecha" id="fechaini" name="fechaini" size="15" placeholder="DD-MM-YYYY" required="required" maxlength="10" pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-[0-9]{4}" type="date" value="<%=sdf.format(detproy.getFechaProy()) %>" >
+    								
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="txtDescripcion" class="col-sm-4 control-label">Descripción*</label>
+    								<div class="col-sm-8">
+      								<textarea class="form-control" id="descrip" name="descrip" rows="4" ><% if(detproy.getDescripcion()!=null && !detproy.getDescripcion().equals("")){out.print(detproy.getDescripcion());}%></textarea>
+      								
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputEquipo" class="col-sm-4 control-label">Equipo de trabajo*</label>
+    								<div class="col-sm-8">
 
-
-
-
-
-
-
-
-</script>
-
-<!-- American format mm/dd/yyyy -->
-<script language="JavaScript" src="calendar1.js" type="text/javascript"></script><!-- Date only with year scrolling -->
-
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
-
- <!-- validador -->
-<script language="JavaScript" src="../util/valid/gen_validatorv2.js" type="text/javascript"></script>
-
-
-
-</head>
-
-<body>
-<table width="750" border="0">
-  <tr>
-    <td><h3>Editar Iniciativa de Inversi&oacute;n</h3></td>
-  </tr>
-  <tr>
-    <td valign="top"> <form name="form_proy" method="post" action="proyectoAction.do">
-        <input type="hidden" name="hacia" value="actualizarIni">
-        <table width="600" border="1" align="left">
-          <input type="hidden" name="idIni" value="<%=detproy.getIdProy() %>"/>
-          <tr>
-            <td width="155" bgcolor="#ADD8E4"> <div align="right"><strong>Título
-                de la Iniciativa*:</strong></div></td>
-            <td width="395"> <input name="nom_proy" type="text" size="40" maxlength="40" value="<%=detproy.getNomProy() %>"></td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"> <div align="right" > <strong>Ejecutor *:</strong>
-              </div></td>
-            <td> <input type="hidden" name="idCli" value="<%= detproy.getIdCliente()%>"/>
-              <input type="text" name="nomCli" readonly="readonly" value="<%=detproy.getNomCliente()%>"/>
-              &nbsp; <a href="../documentacion/clienteAction.do?hacia=busCli_pop" target="_blank" onClick="popUp(this.href, this.target, 'width=600,height=400, scrollbars=1'); return false;">Buscar
-              Cliente</a> </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"> <div align="right"><strong>Fecha de Inicio*:</strong>
-              </div></td>
-            <td> <div align="left">
-                <input type="text" name="fechaini" size=8 readonly="readonly" value="<%=sdf.format(detproy.getFechaProy()) %>">
-                &nbsp;<a href="javascript:cal1.popup();"><img src="img/cal.gif" width="16" height="16" border="0" alt="Seleccionar fecha"></a>
-              </div></td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>Descripci&oacute;n:</strong></div></td>
-            <td><textarea name="descrip" cols="45" rows="5"><% if(detproy.getDescripcion()!=null && !detproy.getDescripcion().equals("")){out.print(detproy.getDescripcion());}%></textarea></td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"> <p align="right"><strong>Equipo de Trabajo*:</strong></p></td>
-            <td> <div align="center"> </div>
-              <div align="center"> </div>
-              <div align="left">
-                <table border="0">
-                  <tr>
-                    <td rowspan="2"><select multiple size="4" name="list2">
-                        <%
+<select multiple size="4" name="list2" id="grupoB">
+<%
                   Iterator liu= usus.iterator();
                   while (liu.hasNext()){
                     UsuarioVO usu=(UsuarioVO) liu.next();
@@ -270,10 +147,16 @@ function pasaCli(nomCli, idCli){
                     }
                   }
                   %>
-                      </select></td>
-                    <td><input type="button" value="Agregar&gt;&gt;"
-                  onClick="move(this.form.list2,this.form.list1)" name="B2"></td>
-                    <td rowspan="2"><select multiple size="4" name="list1">
+                  
+                   </select>    									
+    									    									
+    								</div>
+    								<div class="col-sm-8 col-sm-offset-4 mTop10 text-right">
+      								<a id="botoAdd" onclick="javascript:move();" class="botoGris botoMini addDoble"><span class="glyphicons glyphicons-chevron-down"></span> Agregar</a>
+      								<a id="botoRemove" href="javascript:move2();" class="botoGris botoMini noMarg quitaDoble"><span class="glyphicons glyphicons-chevron-up"></span> Quitar</a>
+    								</div>
+    								<div class="col-sm-8 col-sm-offset-4 mTop10">
+    									<select multiple size="4" id="grupoA" name="list1">
                         <%
                   Iterator liu2= usus_resp.iterator();
                   while (liu2.hasNext()){
@@ -286,18 +169,14 @@ function pasaCli(nomCli, idCli){
                   }
 
                   %>
-                      </select></td>
-                  </tr>
-                  <tr>
-                    <td><input type="button" value="&lt;&lt;Quitar"
-                    onClick="move2(this.form.list1,this.form.list2)" name="B1"></td>
-                  </tr>
-                </table>
-              </div></td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"> <p align="right"><strong>Encargado de la Iniciativa*:</strong></p></td>
-            <td><select name="id_encargado" >
+                      </select>
+    								</div>
+    							</div>
+  								<div class="form-group">
+    								<label for="selectEncargado" class="col-sm-4 control-label">Encargado*</label>
+    								<div class="col-sm-8">
+
+      								<select class="form-control" id="id_encargado" name="id_encargado" >
                 <%
                   Iterator liu3= usus_resp.iterator();
                   while (liu3.hasNext()){
@@ -312,54 +191,228 @@ function pasaCli(nomCli, idCli){
                 <%}
                       }
                   %>
-              </select></td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"> <p align="right"><strong>Fondos totales de
-                la Iniciativa:</strong></p></td>
-            <td><input type="text" name="ftotales" value="<%if (detproy.getFondosTotales().intValue()!=0){out.print(detproy.getFondosTotales());} %>"/></td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"> <p align="right"><strong>Fondos Anuales:</strong></p></td>
-            <td><textarea name="fanual" cols="60" rows="6"><%if(detproy.getFondosAnuales()!=null){out.print(detproy.getFondosAnuales());}%></textarea></td>
-          </tr>
-          <tr>
-            <td colspan="2"><div align="center">
-                <input type="submit" name="Submit" value="Actualizar los Datos" onClick="javascript:SelectAllList(document.form_proy.list1);">
-              </div></td>
-          </tr>
-        </table>
-      </form></td>
-  </tr>
-</table>
-  <script language="JavaScript" type="text/javascript">
-var frmvalidator  = new Validator("form_proy");
+              </select>
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputFondos" class="col-sm-4 control-label">Fondos totales</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control" id="ftotales" name="ftotales" value="<%if (detproy.getFondosTotales().intValue()!=0){out.print(detproy.getFondosTotales());} %>">
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="txtAnuales" class="col-sm-4 control-label">Fondos anuales</label>
+    								<div class="col-sm-8">
+    									<textarea class="form-control" name="fanual" id="fanual" rows="4" ><%if(detproy.getFondosAnuales()!=null){out.print(detproy.getFondosAnuales());}%></textarea>
+    								</div>
+    							</div>
+    							<div class="boxOpciones">
+    								<div class="form-group">
+    									<div class="col-sm-12">
+    									<input type="hidden" id="Submit" name="Submit" value="Submit">
+    										<button type="button" OnClick="submitThisForm1();" class="botoVerde"><span class="glyphicons glyphicons-disk-save" onClick="javascript:SelectAllList(document.form_proy.list1);"></span> Guardar</button>
+    										
+    										
+      								</div>
+  									</div>
+    							</div>
+    							
+    							
+    							
+    							<script type="text/javascript">
+								// Script para el traspaso de variables
+				
+								
+								
+								var sortitems = 1;
 
-frmvalidator.addValidation("nom_proy","req","Debe indicar un título para la Iniciativa");
-frmvalidator.addValidation("nom_proy","maxlen=100","El título de la Iniciativa no puede superar los 100 caracteres");
-frmvalidator.addValidation("nom_proy","alnumspace");
+							
+								function move() {
+									var form=document.getElementById("form_proy");
+									
+									var fbox=form.list2;
+									var tbox=form.list1;
+									for (var i = 0; i < fbox.options.length; i++) {
+										if (fbox.options[i].selected && fbox.options[i].value != "") {
+											var no = new Option();
+											no.value = fbox.options[i].value;
+											no.text = fbox.options[i].text;
+											tbox.options[tbox.options.length] = no;
+											agregaEncargado(fbox);
+											fbox.options[i].value = "";
+											fbox.options[i].text = "";
+										}
+									}
+									BumpUp(fbox);
+									if (sortitems)
+										SortD(tbox);
 
-frmvalidator.addValidation("idCli","req","Debe ingresar la persona externa a cargo de la ejecución del proyecto");
+								}
 
-frmvalidator.addValidation("fechaini","req","Debe ingresar la fecha de inicio del proyecto");
+								//--------------------------
 
-frmvalidator.addValidation("list1","req","Debe indicar el equipo de trabajo de la iniciativa");
+								function move2() {
+									var form=document.getElementById("form_proy");
+									
+									var fbox=form.list1;
+									var tbox=form.list2;
+									
+									for (var i = 0; i < fbox.options.length; i++) {
+										if (fbox.options[i].selected && fbox.options[i].value != "") {
+											var no = new Option();
+											no.value = fbox.options[i].value;
+											no.text = fbox.options[i].text;
+											tbox.options[tbox.options.length] = no;
+											quitarEncargado(fbox);
+											fbox.options[i].value = "";
+											fbox.options[i].text = "";
+										}
+									}
+									BumpUp(fbox);
+									BumpUp(this.form_proy.id_encargado);
+									if (sortitems)
+										SortD(tbox);
 
-frmvalidator.addValidation("id_encargado","req","Debe indicar el encargado de la iniciativa");
+								}
 
-frmvalidator.addValidation("descrip","maxlen=1000","La descripción de la iniciativa no puede superar los 100 caracteres");
+								//-------------------------------------------------
 
-frmvalidator.addValidation("ftotales","num");
+								function BumpUp(box) {
+									for (var i = 0; i < box.options.length; i++) {
+										if (box.options[i].value == "") {
+											for (var j = i; j < box.options.length - 1; j++) {
+												box.options[j].value = box.options[j + 1].value;
+												box.options[j].text = box.options[j + 1].text;
+											}
+											var ln = i;
+											break;
+										}
+									}
+									if (ln < box.options.length) {
+										box.options.length -= 1;
+										BumpUp(box);
+									}
+								}
 
-frmvalidator.addValidation("fanual","maxlen=500","Fondos anuales no puede superar los 500 caracteres");
-</script>
-  <script language="JavaScript" type="text/javascript">
-      var cal1 = new calendar1(document.forms['form_proy'].elements['fechaini']);
-      cal1.year_scroll = true;
-      cal1.time_comp = false;
-    </script>
-<hr>
-<div align="center"><img src="../util/img/volver.jpg" alt="Volver" onclick="history.back()"></div>  <div align="right"><a href="../ayuda/iniciativas.html" target="_blank">Ayuda</a>
-  </div>
-</body>
+								//-------------------------------------------
+
+								function SortD(box) {
+									var temp_opts = new Array();
+									var temp = new Object();
+									for (var i = 0; i < box.options.length; i++) {
+										temp_opts[i] = box.options[i];
+									}
+									for (var x = 0; x < temp_opts.length - 1; x++) {
+										for (var y = (x + 1); y < temp_opts.length; y++) {
+											if (temp_opts[x].text > temp_opts[y].text) {
+												temp = temp_opts[x].text;
+												temp_opts[x].text = temp_opts[y].text;
+												temp_opts[y].text = temp;
+												temp = temp_opts[x].value;
+												temp_opts[x].value = temp_opts[y].value;
+												temp_opts[y].value = temp;
+											}
+										}
+									}
+									for (var i = 0; i < box.options.length; i++) {
+										box.options[i].value = temp_opts[i].value;
+										box.options[i].text = temp_opts[i].text;
+									}
+								}
+
+								//-------------------------------------------
+
+								function agregaEncargado(nuevo) {
+									for (var i = 0; i < nuevo.options.length; i++) {
+										if (nuevo.options[i].selected && nuevo.options[i].value != "") {
+											var no = new Option();
+											no.value = nuevo.options[i].value;
+											no.text = nuevo.options[i].text;
+											this.form_proy.id_encargado.options[this.form_proy.id_encargado.options.length] = no;
+										}
+									}
+								}
+
+								//----------------------------------------
+
+								function quitarEncargado(box) {
+									for (var i = 0; i < box.options.length; i++) {
+										if (box.options[i].selected && box.options[i].value != "") {
+											for (var ii = 0; ii < this.form_proy.id_encargado.options.length; ii++) {
+												if (box.options[i].value == this.form_proy.id_encargado.options[ii].value) {
+													this.form_proy.id_encargado.options[ii].value = "";
+													this.form_proy.id_encargado.options[ii].text = "";
+												}
+											}
+										}
+									}
+								}
+
+								// Funcion para seleccionar  todos los encargados de la Lista
+
+								function SelectAllList(CONTROL) {
+									for (var i = 0; i < CONTROL.length; i++) {
+										CONTROL.options[i].selected = true;
+
+									}
+								}
+								
+								
+								
+								</script>
+    							
+    							<script type="text/javascript">
+											function submitThisForm1() {
+
+												SelectAllList(document.form_proy.list1);
+
+												var formulario = $('#form_proy');
+
+												var action = 'proyectos/proyectoAction.do'
+												SubmitFormulario(action,
+														formulario);
+
+											}
+										</script>
+    							
+    							
+    							
+  							</form>
+						</div>
+				 			
+				 	
+				 		
+					
+					</div>
+			
+					
+			
+				</div><!-- /row -->
+			
+      		
+      	</div><!-- /container -->
+		
+		</div><!-- /main -->
+	
+
+      <div class="container">
+			<footer>
+				<div class="row">
+					<div class="col-sm-12">
+						<p>Unidad Operativa de Control de Tránsito. <span id="pie"></span></p>
+					</div>
+				</div>
+        	</footer>
+		</div> <!-- /container -->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.es.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/truncate.js"></script>
+    <script src="js/fullcalendar.min.js"></script>
+    <script src="js/uoct.js"></script>
+  </body>
 </html>

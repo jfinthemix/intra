@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%@ page contentType="text/html; charset=iso-8859-1" language="java"%>
 <%@taglib prefix="display" uri="/displaytag_12"%>
 <%@ page import="proyecto_uoct.reservas.VO.*"%>
@@ -12,18 +13,32 @@ List reservas = (List) request.getAttribute("RESERVAS");
 SimpleDateFormat hora = new SimpleDateFormat("HH:mm");
 SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
 %>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="Unidad Operativa de Control de Tránsito">
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
+		<link href="css/fullcalendar.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
+	 <script type="text/javascript">
 
-<html>
-<head>
-  <title>Agenda de Recursos</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <script type="text/javascript" src="../util/calendario/calendar1.js"></script>
-  <script type="text/javascript">
-
-  function goBuscar() {
-    formulario.accion.value = "GENERAR_REPORTE";
-    formulario.submit();
-  }
 
 
   var reservar = null;
@@ -32,77 +47,100 @@ SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
     reservar.window.focus();
   }
 
+	function submitThisForm1() {
+		form1.accion.value = "GENERAR_REPORTE";
+		
+		var formulario = $('#form1');
+
+		var action = 'recursos/recursosAction.do';
+		SubmitFormulario(action,
+				formulario);
+
+	}
+  
 
   </script>
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
-<link href="../util/displaytag.properties" rel="stylesheet" type="text/css">
-</head>
+  
+  
+		
+		
+		<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+					
+				
+					<div class="col-sm-6 desarrollo">
+					
+						<h2>Reporte de reservas</h2>
+						
+						<div class="box boxpost">
+				 			<h4>Buscar reservas</h4>
+				 			<form class="form-horizontal" action="recursosAction.do" method="POST" name="form1" id="form1" >
+<input type="hidden" name="idReserva"/>
 
-<body>
+        <input type="hidden" name="accion" value="GENERAR_REPORTE"/>
 
-<table width="750" border="0">
-  <tr>
-    <td valign="top"> <form name="formulario" action="recursosAction.do" method="POST">
-        <h3>Reporte de reservas</h3>
-        <input type="hidden" name="idReserva"/>
-        <input type="hidden" name="accion"/>
-        <!--Campos usados para reservar-->
-        <input type="hidden" name="fecha"/>
-        <input type="hidden" name="horaInicio"/>
-        <input type="hidden" name="minutosInicio"/>
-        <input type="hidden" name="horaFin"/>
-        <input type="hidden" name="minutosFin"/>
-        <input type="hidden" name="motivo"/>
-        <table width="469" border="0" align="left">
-          <tr bgcolor="#ADD8E4">
-            <td colspan="3" valign="top"><strong>Buscar reservas hechas entre</strong></td>
-          </tr>
-          <tr>
-            <td width="182"> <input name="fechaDesde" type="text" size="10" readonly="readonly" >
-              &nbsp; <a href="javascript:cal1.popup();"><img src="../util/calendario/img/cal.gif" width="16" height="16" border="0" alt="Click Here to Pick up the date"></a>
-            </td>
-            <td width="183"> <input name="fechaHasta" type="text" size="10" readonly="readonly" >
-              &nbsp; <a href="javascript:cal2.popup();"><img src="../util/calendario/img/cal.gif" width="16" height="16" border="0" alt="Click Here to Pick up the date"></a>
-            </td>
-            <td width="90">&nbsp; </td>
-          </tr>
-          <tr>
+	
+        <input type="hidden" name="buscar" id="buscar" value="Buscar" />		 			
+				 			
+				 			
+				 				<div class="form-group input-daterange">
+    								<div class="col-sm-2">
+    									<label class="control-label">Entre el:</label>
+    								</div>
+    								<div class="col-sm-4">
+      								<input type="text" class="form-control inputFecha" name="fechaDesde" id="fechaDesde">
+    								</div>
+    								<div class="col-sm-2">
+      								<label class="control-label">Hasta el:</label>
+    								</div>
+    								<div class="col-sm-4">
+    									<input type="text" class="form-control inputFecha" name="fechaHasta" id="fechaHasta">
+    								</div>
+  								</div>
+    							<div class="boxOpciones">
+    								<div class="form-group">
+    									<div class="col-sm-12">
 
-            <td><input type="button" name="buscar" value="Buscar" onClick="javascript:goBuscar()" /></td>
-          </tr>
-        </table>
-		      </form>
-</td>
-  </tr>
-  <tr>
-    <%
+    										<a href="javascript:void(0)" onClick="javascript:submitThisForm1();" class="botoVerde busca"><span class="glyphicons glyphicons-search"></span> Buscar</a>
+      								</div>
+  									</div>
+    							</div>
+  							</form>
+						</div>
+						
+
+ <%
     if(reservas != null){
-    Iterator iRec= reservas.iterator();
-    int cont=0;
-    String nomRec= null;
-   while (iRec.hasNext()){
-   List resXrec=(List)iRec.next();
-   cont++;
-   Iterator iRes= resXrec.iterator();
-   if(iRes.hasNext()){   //obtenemos el nombre del recurso
-   ReservaVO res_tmp=(ReservaVO)iRes.next();
-   Iterator ir=recursos.iterator();
+    	Iterator iRec= reservas.iterator();
+    	int cont=0;
+    	String nomRec= null;
+   			while (iRec.hasNext()){
+   				List resXrec=(List)iRec.next();
+   				cont++;
+   				Iterator iRes= resXrec.iterator();
+   					if(iRes.hasNext()){   //obtenemos el nombre del recurso
+   						ReservaVO res_tmp=(ReservaVO)iRes.next();
+   						Iterator ir=recursos.iterator();
 
-   while(ir.hasNext()){
-     RecursoVO rec_tmp=(RecursoVO) ir.next();
-     if(res_tmp.getIdRecurso().intValue()== rec_tmp.getIdRecurso().intValue()){
-       nomRec=rec_tmp.getNombre();
-     }
-   }
- }
- String nom_lista="reservas"+Integer.toString(cont);
- request.setAttribute(nom_lista,iRes);
+   						while(ir.hasNext()){
+     						RecursoVO rec_tmp=(RecursoVO) ir.next();
+     							if(res_tmp.getIdRecurso().intValue()== rec_tmp.getIdRecurso().intValue()){
+       								nomRec=rec_tmp.getNombre();
+     							}
+   						}
+ 					}
+ 					String nom_lista="reservas"+Integer.toString(cont);
+ 					request.setAttribute(nom_lista,iRes);
 
- %>
- <td valign="top" align="left">
-   <h4 align="left">Reservas de <%=nomRec %></h4>
-
-   <display:table name="<%=nom_lista %>" id="res" requestURI="recursosAction.do" class="its" export="true">
+ %>						
+						
+						
+						
+				 		<div class="box">
+				 			<h4>Reservas de <%=nomRec %> <span class="pull-right"><small>Exportar:</small> <a href="javascript:void(0)" class="pull-right"><img src="img/ico_excel.png"></a> <a href="javascript:void(0)" class="pull-right"><img src="img/ico_pdf.png"></a></span></h4>
+				 			<display:table name="<%=nom_lista %>" id="res" requestURI="recursosAction.do" class="table table-striped table-bordered table-hover" export="true">
      <display:column title="Fecha"> <%= fecha.format(((ReservaVO)res).getFechaReserva())%> </display:column>
 
      <display:column title="Hora" class="hora"> <%= hora.format(((ReservaVO)res).getHoraDeInicio()) + " - " + hora.format(((ReservaVO)res).getHoraDeFin())%> </display:column>
@@ -112,8 +150,6 @@ SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
      <display:column title="Motivo/Destino">
        <%= ((ReservaVO)res).getMotivo()%>
      </display:column>
-
-
 
      <display:setProperty name="export.banner" value="<div class='exportlinks'>Exportar: {0}</div>"/>
      <display:setProperty name="paging.banner.placement" value="bottom"/>
@@ -135,26 +171,38 @@ SimpleDateFormat fecha = new SimpleDateFormat("dd/MM/yyyy");
 
              </display:table>
 
-<br />
-           </td>
-           <%}
-    }%>
 
-  </tr>
+				 		</div>
+				 		
+				 		
+			         <%}
+   						}%>	 		
+				 		
+				 		
+				 			
+				 		
+				 		
+					
+					</div>
+			
+					
+			
+				</div><!-- /row -->
+			
+      		
+      	</div><!-- /container -->
+		
+		</div><!-- /main -->
+	
 
-</table>
-
-  <script language="JavaScript" type="text/javascript">
-    var cal1 = new calendar1(document.forms['formulario'].elements['fechaDesde']);
-    cal1.year_scroll = true;
-    cal1.time_comp = false;
-    var cal2 = new calendar1(document.forms['formulario'].elements['fechaHasta']);
-    cal1.year_scroll = true;
-    cal1.time_comp = false;
-  </script>
-<hr>
-<div align="center"><img src="../util/img/volver.jpg" alt="Volver" onclick="history.back()"></div>  <div align="right"><a href="../ayuda/recursos.html" target="_blank">Ayuda</a>
-  </div>
-
-</body>
+      
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.es.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/truncate.js"></script>
+    <script src="js/fullcalendar.min.js"></script>
+	 <script src="js/uoct.js"></script>
+  </body>
 </html>

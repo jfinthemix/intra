@@ -9,13 +9,32 @@ listaSubsistema                              = (LinkedList) request.getAttribute
 Integer idPerfil                              = (Integer) request.getAttribute("idPerfil");
 Integer cero                                  = new Integer(0);
 %>
-<html>
-<head>
-<title>Mantenedor de Subsistemas</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<script language="JavaScript" src="../util/valid/gen_validatorv2.js" type="text/javascript"></script>
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
-<script language="JavaScript" type="text/javascript">
+
+
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="jfanasco" >
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		
+<script language="JavaScript" src="../util/valid/gen_validatorv2.js" type="text/javascript"></script>		
+		<script language="JavaScript" type="text/javascript">
 function valida_envia(){
   document.formMantenedorSubsistema.submit();
 }
@@ -24,34 +43,44 @@ function confirmaEliminacion(){
   return resp;
 }
 </script>
-<style type="text/css">
-.centrado{
-align="center";
-}</style>
-</head>
-
-<body bgcolor="#FFFFFF" text="#000000">
-  <form name="formMantenedorSubsistema" method="post" action="../mantenedorSubsistemas/subsistemaAction.do">
-    <table width="100%" border="0" align="left">
-      <tr>
-        <td colspan="2"><h3 align="left">Mantenedor de Subsistemas</h3></td>
-      </tr>
-      <tr>
-        <td colspan="2"><font color="red">
-        <%
+	</head>
+	
+	<body onload="valida_cambioInicial();">
+		<div class="preheader headerlog">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-3 col-xs-3">
+						<a href="index_logeado.html">
+							<h1>UOCT | <span>Intranet</span></h1>
+						</a>
+					</div>
+					
+				</div>	
+			</div>
+		</div>
+		
+		<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+					
+				
+					<div class="col-sm-6 desarrollo">
+					
+						<h2>Mantenedor de Subsistemas</h2>
+						
+       <%
         if (mensaje != null){
           out.print("<br>"+mensaje+"<br>");
         }
-        %></font>&nbsp;</td>
-      </tr>
-
-      <tr>
-        <td colspan="2">
-
-
-          <display:table  name="listaSubsistema" export="true" class="its" id="ls" pagesize="20" requestURI="subsistemaAction.do">
-          <display:column media="html excel pdf" class="centrado" title="nombre del subsistema"  sortable="false" sortProperty="nombre"><%=((SubsistemaVO)ls).getNombreSubsistema() %></display:column>
-          <display:column media="html excel pdf" class="centrado" title="sistema asociado"  sortable="false" sortProperty="nombre"><%=((SubsistemaVO)ls).getNombreSistema() %></display:column>
+        %>						
+						
+						<div class="box boxpost">
+				 			<h4>Subsistemas <span class="pull-right"><small>Exportar:</small> <a href="javascript:void(0)" class="pull-right"><img src="img/ico_excel.png"></a> <a href="javascript:void(0)" class="pull-right"><img src="img/ico_pdf.png"></a></span></h4>
+				 			<table class="table table-striped table-bordered table-hover">
+      						          <display:table  name="listaSubsistema" export="true" class="table table-striped table-bordered table-hover" id="ls" pagesize="20" requestURI="subsistemaAction.do">
+          <display:column media="html excel pdf" class="centrado" title="nombre"  sortable="true" sortProperty="nombre"><%=((SubsistemaVO)ls).getNombreSubsistema() %></display:column>
+          <display:column media="html excel pdf" class="centrado" title="sistema asociado"  sortable="true" sortProperty="nombre"><%=((SubsistemaVO)ls).getNombreSistema() %></display:column>
           <display:column media="html"           class="centrado" title="modificar "          sortable="false" sortProperty="modificar">
             <a href="subsistemaAction.do?hacia=modificar&&id_subsistema=<%out.print(((SubsistemaVO)ls).getIdSubsistema());%>&&nombre=<%out.print(((SubsistemaVO)ls).getNombreSubsistema());%>&&id_sistema=<%out.print(((SubsistemaVO)ls).getIdSistema());%>&&nombre_sistema=<%out.print(((SubsistemaVO)ls).getNombreSistema());%>" title="Modificar subsistema"><img src="imagenes/icono_detalle.png" width="17" height="17" alt="" border="0"></a>
           </display:column>
@@ -88,18 +117,44 @@ align="center";
         <display:setProperty name="export.amount" value="list"/>
         </display:table>
 
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">
-            <script language="JavaScript" type="text/javascript">
-            var frmvalidator  = new Validator("formMantenedorSubsistema");
-          </script>
-        </td>
-      </tr>
-    </table>
-  </form>
-      <br>
-  <hr><div align="right"><a href="../ayuda/mantSubsistemas.html" target="_blank">Ayuda</a></div>
-</body>
+				 			
+				 		<div class="verMas">
+							<a href="javascript:history.back()"><span class="glyphicons glyphicons-undo"></span> Volver</a>
+							<a href="javascript:void(0)" class="pull-right"><span class="glyphicons glyphicons-circle-exclamation-mark"></span> Ayuda</a>
+						</div>
+				 		
+					
+					</div>
+			
+
+			
+				</div><!-- /row -->
+			
+      		
+      	</div><!-- /container -->
+		
+		</div><!-- /main -->
+	
+
+      <div class="container">
+			<footer>
+				<div class="row">
+					<div class="col-sm-12">
+						<p>Unidad Operativa de Control de Tránsito, <span id="pie"></span></p>
+					</div>
+				</div>
+        	</footer>
+		</div> <!-- /container -->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.es.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/truncate.js"></script>
+    <script src="js/fullcalendar.min.js"></script>
+    <script src="js/uoct.js"></script>
+    <script src="js/uoct_falla1.js"></script>
+  </body>
 </html>

@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <%@ page contentType="text/html; charset=iso-8859-1" language="java"%>
 <%@taglib prefix="display" uri="/displaytag_12"%>
 
@@ -9,36 +11,71 @@ List recursos = (List) request.getAttribute("RECURSOS");
 
 %>
 
-<html>
-  <head>
-    <title>Recursos compartidos</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-    <script type="text/javascript">
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="Unidad Operativa de Control de Tránsito">
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
+		
+		 <script type="text/javascript">
 
     function goVerAgenda(id) {
       formulario.idRecurso.value = id;
       formulario.accion.value = "VER_AGENDA";
       formulario.submit();
     }
+    
+    
+	function Llamadalink(hacia, link) {
+		
+		link = link.replace('#', '');
+
+		link = 'recursos/recursosAction.do'+ '?accion=' + hacia + link ;
+		
+		LlamadaPagina(link);
+
+												//clienteAction.do?hacia=detalleEntExt
+	}
 
     </script>
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
-</head>
+		
+		
+		
+		<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+					
+				
+					<div class="col-sm-6 desarrollo">
+					
+						<h2>Recursos compartidos</h2>
+						
+						
+						
+				 		<div class="box">
 
-<body>
-<form action="recursosAction.do" method="POST" name="formulario">
-  <input type="hidden" name="accion" value="" />
-  <input type="hidden" name="idRecurso" value="" />
 
 
- <table width="750" border="0">
-<tr>
-  <td><div align="center"><h3><strong>Recursos compartidos de UOCT</strong> </h3></div></td>
-  </tr>
-  <tr>
-  <td><div align="left">
-
-  <display:table id="recurs" name="RECURSOS" class="its" requestURI="recursosAction.do">
+  <display:table id="recurs" name="RECURSOS" class="table table-striped table-bordered table-hover tablesorter" requestURI="recursosAction.do">
     <display:column title="Recurso" property="nombre" sortable="true" sortProperty="nombre">
     </display:column>
 
@@ -46,60 +83,45 @@ List recursos = (List) request.getAttribute("RECURSOS");
     </display:column>
 
     <display:column title="Agenda">
-    <a href="#" onClick="goVerAgenda(<%= ((RecursoVO)recurs).getIdRecurso()%>)"> Ver Agenda</a>
+    <a href="#" class="botoGris botoMini" onclick="javascript:Llamadalink('VER_AGENDA','&idRecurso=<%= ((RecursoVO)recurs).getIdRecurso()%>')" ><span class="glyphicons glyphicons-calendar"></span> Ver agenda </a>
     </display:column>
 
   </display:table>
-</div>
-</td>
-</tr>
-</table>
 
-</form>
 
-  <!--
 
-<table width="750" border="0">
-  <tr>
-    <td><h3>Recursos compartidos de UOCT </h3></td>
-  </tr>
-  <tr>
-    <td><form name="formulario" action="recursosAction.do" method="POST">
-        <input type="hidden" name="idRecurso"/>
-        <input type="hidden" name="accion"/>
-        <table width="558" border="1" align="left">
-          <tr bgcolor="#ADD8E4">
-            <td width="215">
-              <div align="center"><strong>Recurso</strong></div></td>
-            <td width="227">
-              <div align="center"><strong>Descripci&oacute;n</strong></div></td>
-            <td width="94">
-              <div align="center"><strong>Ver Agenda</strong></div></td>
-          </tr>
-          <%
-    Iterator i = recursos.iterator();
-    while(i.hasNext()) {
-      RecursoVO recurso = (RecursoVO) i.next();
-      %>
-          <tr>
-            <td><%= recurso.getNombre()%></td>
-            <td><%= recurso.getDescripcion()%></td>
-            <td><a href="#" onClick="goVerAgenda(<%= recurso.getIdRecurso()%>)">
-              Ver Agenda</a> </td>
-          </tr>
-          <%}%>
-        </table>
-      </form></td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-  </tr>
-</table>
--->
+        				</div>
+				 		
+				 		
+					
+					</div>
+			
+					
+				</div><!-- /row -->
+			
+      		
+      	</div><!-- /container -->
+		
+		</div><!-- /main -->
+	
 
-<hr>
-<div align="center"><img src="../util/img/volver.jpg" alt="Volver" onclick="history.back()"></div>  <div align="right"><a href="../ayuda/recursos.html" target="_blank">Ayuda</a>
-  </div>
-</body>
+      <div class="container">
+			<footer>
+				<div class="row">
+					<div class="col-sm-12">
+						<p>Unidad Operativa de Control de Tránsito. <span id="pie"></span></p>
+					</div>
+				</div>
+        	</footer>
+		</div> <!-- /container -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.es.min.js"></script>
+    <script src="js/jquery.tablesorter.js"></script> 
+    <script src="js/moment.js"></script>
+    <script src="js/truncate.js"></script>
+    <script src="js/uoct.js"></script>
+  </body>
 </html>
-

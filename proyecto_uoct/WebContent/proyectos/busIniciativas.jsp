@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.*,java.util.List,java.util.Iterator,proyecto_uoct.proyecto.VO.DetalleProyectoVO" errorPage="" %>
 <%@ page import="proyecto_uoct.usuario.VO.UsuarioVO,proyecto_uoct.proyecto.VO.ProyectodeListaVO " %>
 <%@ page import="java.text.SimpleDateFormat,java.util.Date" %>
@@ -16,27 +18,52 @@ SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy");
 Integer ano = Integer.valueOf(sdf2.format(hoy));
 
 %>
-<html>
-<head>
-<title>Búsqueda de Iniciativas</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
-</head>
 
-<body>
-<table width="750" border="0">
-  <tr>
-    <td><h3 align="left">Iniciativas de Inversión</h3></td>
-  </tr>
-  <tr>
-    <td><div align="left">Seleccione el a&ntilde;o de inicio del Proyecto </div></td>
-  </tr>
-  <form action="proyectoAction.do" method="POST">
-  <tr>
-    <td>
-        <div align="left">
-          <input type="hidden" name="hacia" value="buscarIni" />
-          <select name="ano" >
+
+
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="jfanasco" >
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
+		
+		
+		<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+					
+				
+					<div class="col-sm-6 desarrollo">
+					
+						<h2>Buscar iniciativas</h2>
+						
+				 		<div class="box boxpost">
+				 			<h4>Datos de Iniciativa</h4>
+				 			<form id="form1" name="form1" class="form-horizontal" action="proyectoAction.do" method="POST">
+				 			<input type="hidden" name="hacia" value="buscarIni" />
+				 				<div class="form-group">
+    								<label for="selectInicio" class="col-sm-4 control-label">Inicio del proyecto</label>
+    								<div class="col-sm-8">
+    								
+<select name="ano" >
             <option value="0">Todos</option>
             <option value="<%=ano.intValue()+1%>"><%=ano.intValue()+1%></option>
             <%   for (int ia=0;ia<=5;ia++){
@@ -50,34 +77,68 @@ Integer ano = Integer.valueOf(sdf2.format(hoy));
             <option value="<%=ano.intValue()-ia%>"><%=ano.intValue()-ia%></option>
            <%}} %>
           </select>
+    								
+    								</div>
+    							</div>
+  								<div class="form-group">
+    								<div class="col-sm-8 col-sm-offset-4">
+      								<input type="checkbox" id="soloActivos" name="soloActivos"/ > Buscar solamente activos
+    								</div>
+    							</div>
+    							<div class="boxOpciones">
+    								<div class="form-group">
+    									<div class="col-sm-12">
+    									<input type="hidden" name="buscarProyecto" value="Buscar" />
+    										<a OnClick="submitThisForm1();" href="javascript:void(0)"
+											class="botoVerde"> Buscar</a>
+    										
+										<script type="text/javascript">
+											function submitThisForm1() {
 
 
-        </div>
-      </td>
-      </tr>
-      <tr>
-      <td><input type="checkbox" name="soloActivos"/>Buscar solamente activos</td>
-        </tr>
-        <tr>
-          <td>
-        <input type="submit" name="buscarProyecto" value="Buscar" /></td>
-      </tr>
-  </form>
-  <tr>
-    <td><div align="left">
-        <%if (proyectosaCargo!=null){
+
+												var formulario = $('#form1');
+
+												var action = 'proyectos/proyectoAction.do'
+												SubmitFormulario(action,
+														formulario);
+
+											}
+											
+											function Llamadalink(hacia, link) {
+												link = link.replace('#', '');
+												link = 'proyectos/proyectoAction.do' + link + '&hacia=' + hacia;
+												//alert(link+' ' +param);
+												LlamadaPagina(link);
+
+												//clienteAction.do?hacia=detalleEntExt
+											}
+										</script>    										
+    										
+    										
+      								</div>
+  									</div>
+    							</div>
+  							</form>
+						</div>
+						
+						<div class="box boxpost">
+						
+						
+
+<%if (proyectosaCargo!=null){
 %>
-        <display:table name="proyectosaCargo" id="inis" pagesize="15" class="its" requestURI="proyectoAction.do" >
-          <display:caption> <font size="2" ><strong>Iniciativas a mi cargo </strong>   </font>     </display:caption>
-        <display:column title="Nombre de la Iniciativa" property="nomProy" href="proyectoAction.do?hacia=detalleIni" paramProperty="idProy" paramId="idProy">
+        <display:table name="proyectosaCargo" id="inis" pagesize="15" class="table table-striped table-bordered table-hover" requestURI="proyectoAction.do" >
+          <display:caption class="box"> <strong><h4>Iniciativas a mi cargo</h4></strong>  </display:caption>
+        <display:column title="Nombre de la Iniciativa" property="nomProy" href="javascript:Llamadalink('detalleIni','#')" paramProperty="idProy" paramId="idProy">
         </display:column>
 
-        <display:column title="Encargado" property="encargado"><% %>
+        <display:column title="Encargado" class="col-sm-4" property="encargado"><% %>
         </display:column>
 
-        <display:column title="Fecha de Inicio"><%=sdf.format(((ProyectodeListaVO)inis).getFechaProy()) %> </display:column>
+        <display:column title="Fecha de Inicio" class="col-sm-2"><%=sdf.format(((ProyectodeListaVO)inis).getFechaProy()) %> </display:column>
 
-        <display:column title="Estado">
+        <display:column title="Estado" class="col-sm-2">
         <%if(((ProyectodeListaVO)inis).getIsActivo()){out.print("Activo");}else{out.print("Inactivo");} %>
         </display:column>
 
@@ -107,28 +168,24 @@ Integer ano = Integer.valueOf(sdf2.format(hoy));
 
 		</display:table>
         <%} %>
-      </div></td>
-  </tr>
 
-  <tr>
-    <td height=20>&nbsp;</td>
-  </tr>
 
-   <tr>
-    <td><div align="left">
-        <%if (proyectosEnEquipo!=null){
+
+						
+		 <%if (proyectosEnEquipo!=null){
 %>
-        <display:table name="proyectosEnEquipo" id="inis" pagesize="15" class="its" requestURI="proyectoAction.do">
-          <display:caption><font size="2" ><strong>Iniciativas en que participo </strong></font></display:caption>
-        <display:column title="Nombre de la Iniciativa" property="nomProy" href="proyectoAction.do?hacia=detalleIni" paramProperty="idProy" paramId="idProy">
+<br>
+        <display:table name="proyectosEnEquipo" id="inis" pagesize="15" class="table table-striped table-bordered table-hover" requestURI="proyectoAction.do">
+          <display:caption class="box"><h4><strong>Iniciativas en que participo </strong></h4></display:caption>
+        <display:column title="Nombre de la Iniciativa" class="col-sm-4" property="nomProy" href="javascript:Llamadalink('detalleIni','#')"  paramProperty="idProy" paramId="idProy">
         </display:column>
 
-        <display:column title="Encargado" property="encargado">
+        <display:column title="Encargado"  class="col-sm-2" property="encargado">
         </display:column>
 
-        <display:column title="Fecha de Inicio"><%=sdf.format(((ProyectodeListaVO)inis).getFechaProy()) %> </display:column>
+        <display:column title="Fecha de Inicio" class="col-sm-2"><%=sdf.format(((ProyectodeListaVO)inis).getFechaProy()) %> </display:column>
 
-        <display:column title="Estado">
+        <display:column title="Estado" class="col-sm-2">
         <%if(((ProyectodeListaVO)inis).getIsActivo()){out.print("Activo");}else{out.print("Inactivo");} %>
         </display:column>
 
@@ -158,28 +215,21 @@ Integer ano = Integer.valueOf(sdf2.format(hoy));
 
 		</display:table>
         <%} %>
-      </div></td>
-  </tr>
-
-    <tr>
-    <td height=20>&nbsp;</td>
-  </tr>
-
-   <tr>
-    <td><div align="left">
-        <%if (otrosProyectos!=null){
+					
+    							
+				 			<%if (otrosProyectos!=null){
 %>
-        <display:table name="otrosProyectos" id="inis" pagesize="15" class="its" requestURI="proyectoAction.do">
-          <display:caption><font size="2" ><strong>Otros Proyectos </strong></font></display:caption>
-        <display:column title="Nombre de la Iniciativa" property="nomProy" href="proyectoAction.do?hacia=detalleIni" paramProperty="idProy" paramId="idProy">
+        <display:table name="otrosProyectos" id="inis" pagesize="15" class="table table-striped table-bordered table-hover" requestURI="proyectoAction.do">
+          <display:caption class="box"><strong><h4> Otros Proyectos</h4></strong></display:caption>
+        <display:column title="Nombre de la Iniciativa" class="col-sm-4" property="nomProy" href="javascript:Llamadalink('detalleIni','#')" paramProperty="idProy" paramId="idProy">
         </display:column>
 
-        <display:column title="Encargado" property="encargado">
+        <display:column title="Encargado" property="encargado" class="col-sm-2">
         </display:column>
 
-        <display:column title="Fecha de Inicio"><%=sdf.format(((ProyectodeListaVO)inis).getFechaProy()) %> </display:column>
+        <display:column title="Fecha de Inicio" class="col-sm-2"><%=sdf.format(((ProyectodeListaVO)inis).getFechaProy()) %> </display:column>
 
-        <display:column title="Estado">
+        <display:column title="Estado" class="col-sm-2">
         <%if(((ProyectodeListaVO)inis).getIsActivo()){out.print("Activo");}else{out.print("Inactivo");} %>
         </display:column>
 
@@ -209,12 +259,51 @@ Integer ano = Integer.valueOf(sdf2.format(hoy));
 
 		</display:table>
         <%} %>
-      </div></td>
-  </tr>
 
-</table>
-<hr>
-<div align="center"><img src="../util/img/volver.jpg" alt="Volver" onclick="history.back()"></div>  <div align="right"><a href="../ayuda/iniciativas.html" target="_blank">Ayuda</a>
-  </div>
-</body>
+
+
+
+
+    						
+						
+				 			
+				 	
+				 		
+					
+					</div>
+			
+					
+			
+				</div><!-- /row -->
+			
+      		
+      	</div><!-- /container -->
+		
+		</div><!-- /main -->
+		</div>
+
+
+      <div class="container">
+			<footer>
+				<div class="row">
+					<div class="col-sm-12">
+						<p>Unidad Operativa de Control de Tránsito, <span id="pie"></span></p>
+					</div>
+				</div>
+        	</footer>
+		</div> <!-- /container -->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="recuros/js/bootstrap.min.js"></script>
+    <script src="recuros/js/bootstrap-datepicker.min.js"></script>
+    <script src="recuros/js/bootstrap-datepicker.es.min.js"></script>
+    <script src="recuros/js/moment.js"></script>
+    <script src="recuros/js/truncate.js"></script>
+    <script src="recuros/js/fullcalendar.min.js"></script>
+    <script src="recuros/js/uoct.js"></script>
+    
+
+    
+  </body>
 </html>

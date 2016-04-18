@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <%@ page contentType="text/html; charset=iso-8859-1" language="java"%>
 <%@taglib prefix="display" uri="/displaytag_12"%>
 <%@ page import="proyecto_uoct.reservas.VO.*,proyecto_uoct.common.util.Fecha"%>
@@ -27,12 +29,34 @@ fecha_s= fecha.format(new Date());
 
 %>
 
-<html>
-<head>
-  <title>Agenda de Recursos</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-       <script type="text/javascript" src="../calendario/CalendarPopup.js"></script>
-  <script type="text/javascript">
+
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="jfanasco" >
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
+		<link href="css/timepicker.css" rel="stylesheet">
+		<link href="css/fullcalendar.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
+		
+		 <script type="text/javascript">
 
   function popUp(href, target, features) {
     reservar = window.open(href, target, features);
@@ -63,7 +87,7 @@ fecha_s= fecha.format(new Date());
   formulario.idRecurso.value= idrecurso;
   formulario.nombreRecurso.value= nombrerecurso;
   formulario.fecha.value=fecha_r;
-  reservar = window.open('reservarRecurso.jsp', '_blank', 'width=620,height=250');
+  reservar = window.open('recursos/reservarRecurso.jsp', '_blank', 'width=550,height=400');
   reservar.window.focus();
   return false;
   }
@@ -80,18 +104,39 @@ fecha_s= fecha.format(new Date());
     formulario.motivo.value = reservar.document.all["motivo"].value;
     reservar.window.close();
     formulario.accion.value = "RESERVARSALA";
-    formulario.submit();
+    var action = 'recursos/RecursosAction.do';
+    SubmitFormulario(action,formu);
+
   }
 
+  function submitThisReservar(formu) {
+		var action = 'recursos/RecursosAction.do';
+		
+		SubmitFormulario(action,formu);
+
+	}
+  
 
   </script>
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
-</head>
-
-<body>
-
-<form name="formulario" action="recursosAction.do" method="POST">
-  <input name="accion" type="hidden"/>
+		
+		
+		
+		<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+					
+				
+					<div class="col-sm-6 desarrollo">
+					
+						<h4>Reservas de Sala de Reuniones 1 (Proyector)</h4>
+						
+						<div class="box boxpost">
+				 			<h4>Buscar fecha</h4>
+				 			
+				 			
+<form name="formulario" id="formulario" action="recursos/recursosAction.do" method="POST" class="form-horizontal" >
+  <input type="hidden" name="accion" />
   <input type="hidden" name="idRecurso" />
   <input type="hidden" name="idReserva"/>
   <input type="hidden" name="horaInicio"/>
@@ -101,32 +146,27 @@ fecha_s= fecha.format(new Date());
   <input type="hidden" name="nombreRecurso"/>
   <input type="hidden" name="motivo"/>
    <input type="hidden" name="fecha"/>
-
-
-<table>
-  <tr>
-    <td><h2><strong> Reservas de Sala de Reuniones 1 (Proyector) </strong></h2></td>
-  </tr>
-  <tr>
-    <td>&nbsp; </td>
-  </tr>
-<tr>
-    <td><strong> Buscar en : <input name="fechaBusqueda" type="text" size="10" readonly="readonly" value="<%=fecha_s%>" >&nbsp; <a href="#"><img src="../calendario/images/calendar.gif" width="16" height="16" border="0" alt="Pinche aquí para escoger la fecha" id="cal1" onClick="calCenso(document.forms[0].fechaBusqueda, 'cal1')"></a></strong> &nbsp; <input type="button" name="buscar" value="Buscar" onclick="javascript:goBuscar()" /></td>
-  </tr>
-  <tr>
-    <td><strong> </strong></td>
-  </tr>
-
-</table>
-
-<br />
-
-
-
-
-</form>
-
-  <script language="JavaScript">
+				 			
+			 			
+				 				<div class="form-group">
+    								<label for="inputFecha" class="col-sm-4 control-label">Fecha</label>
+    								<div class="col-sm-8">
+      								<input type="text" name="fechaBusqueda" class="form-control inputFecha" id="inputFecha" value="<%=fecha_s%>">
+    								</div>
+    							</div>
+  								<div class="boxOpciones">
+    								<div class="form-group">
+    									<div class="col-sm-12">
+    										<a href="javascript:void(0)" onclick="javascript:submitThisForm1();" class="botoVerde"><span class="glyphicons glyphicons-search"></span> Buscar</a>
+      								</div>
+  									</div>
+    							</div>
+  							</form>
+						</div>
+						
+				 		<div class="box">
+				 		
+				 		 <script language="JavaScript">
 function setEvent(h1,m1,h2,m2)
 {
   alert("Reserva desde "+h1+":"+m1+" hasta "+h2+":"+m2);
@@ -210,7 +250,7 @@ if(recursos!=null && !recursos.isEmpty()){
       <tr>
         <td>
 
-          <o:outlook width="130" start="5" end="23">
+          <o:outlook width="100" start="5" end="23">
 
             <%
             Iterator ires = reservasDelRecurso.iterator();
@@ -258,7 +298,7 @@ if(recursos!=null && !recursos.isEmpty()){
                   }
 
                   if(reserva.getIdUsuario().intValue()== idusuario.intValue() && es_despues){ %>
-                  <a href="#" onclick="goEliminar(<%=reserva.getIdReserva() %>, '61')" title="<%=usuario %>---<%=motivo %>">Eliminar  </a> <br /><%} %>
+                  <a href="#" onclick="goEliminar(<%=reserva.getIdReserva() %>, '61')" title="<%=usuario %>---<%=motivo %>">Eliminar</a> <br /><%} %>
 
                   <a href="#" title="<%=horaI %> - <%=horaF %> - <%=usuario %> - <%=motivo %>">
                     <%=horaI %> - <%=horaF %> <br /> <%=usuario %> - <%=motivo %></a> </o:event>
@@ -285,10 +325,39 @@ else{ out.println("No hay recursos registrados en la Intranet.Comunicarse con el
   </tr>
 </table>
 
+					
+					</div>
+			
+					
+			
+      		
+      	</div><!-- /container -->
+		
+		</div><!-- /main -->
+	
 
-<hr>
-<div align="center"><img src="../util/img/volver.jpg" alt="Volver" onclick="history.back()"></div>  <div align="right"><a href="../ayuda/recursos.html" target="_blank">Ayuda</a>
-  </div>
 
-</body>
+<script type="text/javascript">
+function submitThisForm1() {
+												
+												var formulario = $('#formulario');
+
+												var action = 'recursos/recursosAction.do'
+												SubmitFormulario(action,
+														formulario);
+
+											}
+</script>
+		
+		
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.es.min.js"></script>
+    <script src="js/jquery.timepicker.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/truncate.js"></script>
+    <script src="js/fullcalendar.min.js"></script>
+	 <script src="js/uoct.js"></script>
+  </body>
 </html>

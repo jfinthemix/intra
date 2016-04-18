@@ -60,13 +60,37 @@ out.print("PROBLEMA:"+problemaXml);
 
 
 %>
-<html>
-<head>
-<title>Bit&aacute;cora de dispositivos</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
-<script language="JavaScript" src="../util/valid/gen_validatorv2.js" type="text/javascript">
-</script>
+
+
+
+
+
+
+
+
+
+
+<html lang="es"><head>
+
+	
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="jfanasco" >
+		<link rel="icon" href="img/favicon.ico"><title>Unidad Operativa de Control de Tránsito</title>
+		
+		
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet"><!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		
+		
 <script language="JavaScript" type="text/javascript">
 
 var supportsKeys = false
@@ -220,50 +244,39 @@ function valida_envia(){
 }
 
 </script>
-
-
-
-
+		
 
 
 
 
 </head>
-<body bgcolor="#FFFFFF" text="#000000" onload="valida_cambioInicial();">
-<form name="form_nueva_falla" method="post" action="fallasAction.do">
-  <table width="100%" border="0" align="left">
-    <tr>
-      <td colspan="2"><h3 align="left">Bitácora, eventos de dispositivos</h3></td>
-    </tr>
-    <tr>
-      <td colspan="2"><font color="red">
-        <%
+
+<body onload="valida_cambioInicial();"><br>
+<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+
+				
+					<div class="col-sm-6 desarrollo">
+					
+						<h2>Ingresar evento de dispositivo</h2>
+						
+						<%
       if (mensaje != null)
         out.print(mensaje);
         %>
-        </font>&nbsp;</td>
-    </tr>
-    <tr>
-      <td colspan="2"> <table width="100%" border="1" align="center" id="tabla">
-          <tr>
-            <td width="35%" bgcolor="#ADD8E4"> <div align="right"><strong>sistema</strong></div></td>
-            <td width="65%">
-              <%
-                Integer valorCero=new Integer(0);
-                boolean bandera = true;
-                %>
-
-                <%
-                if(sistemaDeBuscar!=null){
-                  out.println("<option value=\"" + sistemaDeBuscar + "\" selected>" + nomSistemaDeBuscar + "</option>");
-                }
-                else{
-                  %>
-
-
-                <select name="sistema" size="1" id="sistema" onChange="javascript:valida_cambio();carga_lista2(subsistema, dispositivo, M_Dispositivo);">
-                  <option value=0> - </option>
-                  <%
+						
+						<div class="box boxpost">
+				 			<h4>Datos del evento</h4>
+				 			<form id="form1" name="form_nueva_falla" method="post" class="form-horizontal" method="post" action="fallasAction.do">
+				 				<div class="form-group">
+    								<label for="sistema" class="col-sm-4 control-label">Sistema</label>
+    								<div class="col-sm-8">
+      								<select name="sistema" id="sistema" onchange="javascript:valida_cambio();carga_lista2(subsistema, dispositivo, M_Dispositivo);" class="form-control">
+      									
+      									<option value="0" selected="selected" disabled="disabled"> Seleccionar</option>
+    										 <%
                   Iterator i = lista_sistema.iterator();
                   String nombre_sistema = "";
                   while (i.hasNext()) {
@@ -277,23 +290,24 @@ function valida_envia(){
                     }
                   }
               %>
-              </select>
-
-             <%  }%>
-
-            </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"> <div align="right"><strong>subsistema</strong></div></td>
-            <td>
-              <%
+    									</select>  
+    									    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="subsistema" class="col-sm-4 control-label">Subsistema</label>
+    								
+ <%
                 if(subsistemaDeBuscar!=null){
                   out.println("<option value=\"" + subsistemaDeBuscar + "\" selected>" + nomSubsistemaDeBuscar + "</option>");
                 }
                 else{
-              %>
-              <select name="subsistema" size="1" id="subsistema" onChange="javascript:valida_cambio2();">
-                <%
+              %>    								
+    								
+    								<div class="col-sm-8">
+      								<select name="subsistema" id="subsistema" onchange="javascript:valida_cambio2();" class="form-control">
+      								
+      								
+   <%
                   Iterator ii = lista_sistemaSubsistema.iterator();
                   String nombre_subsistema = "";
                   while (ii.hasNext()) {
@@ -315,14 +329,15 @@ function valida_envia(){
               </select>
 
            <%  }%>
+      								
 
-            </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>dispositivo</strong></div></td>
-            <td>
 
-              <%
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="dispositivo" class="col-sm-4 control-label">Dispositivo</label>
+    								<div class="col-sm-8">
+   <%
               if(dispositivoDeBuscar!=null){
                   out.println("<option value=\"" + dispositivoDeBuscar + "\" selected>" + nomDispositivoDeBuscar + "</option>");
                   //System.out.println(dispositivoDeBuscar+ " y " + nomDispositivoDeBuscar);
@@ -334,7 +349,7 @@ function valida_envia(){
                 else{
                 %>
 
-                <select name="dispositivo" size="1" id="dispositivo" onChange="cambiarTitulo()">
+                <select name="dispositivo" size="1" id="dispositivo" onChange="cambiarTitulo()" class="form-control">
                   <%
 
                   Iterator iii = lista_sistemaSubsistemaDispositivo.iterator();
@@ -357,79 +372,171 @@ function valida_envia(){
                   }%>
                 </select>
 
-                <%  }%>
-
-              </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>hora ingreso</strong></div></td>
-            <td> <input name="hora" type="text" size="6" maxlength="5" onKeyUp = "this.value=formateahora(this.value);">
-              <font size="3">&nbsp;horas.(HH:MM)</div></font> <input name="fecha_actual" type="hidden" value="<% out.print(fecha_actual);%>">
-            </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>evento</strong></div></td>
-            <td> <select name="evento">
-                <option selected onclick="ocultarFila(5,true)" value="falla">Falla</option>
+                <%  }%>    								
+    								
+      								
+    								</div>
+    							</div>
+				 				<div class="form-group">
+    								<label for="inputHora" class="col-sm-4 control-label">Hora</label>
+    								<div class="col-sm-2">
+    									<input class="form-control" id="inputHora" name="hora" type="text" maxlength="5" onKeyUp = "this.value=formateahora(this.value);"> <input name="fecha_actual" type="hidden" value="<% out.print(fecha_actual);%>">
+    								</div>
+    								<div class="col-sm-6">
+    									<p class="form-control-static">horas (HH:MM)</p>
+    								</div>
+  								</div>
+  								<div class="form-group">
+    								<label for="selectEvento" class="col-sm-4 control-label">Evento</label>
+    								<div class="col-sm-8">
+      								<select class="form-control" id="selectEvento" name="evento">
+      							<option selected onclick="ocultarFila(5,true)" value="falla">Falla</option>
                 <option onClick="ocultarFila(5,false)" value="comentario">Comentario</option>
-              </select> </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4">
-              <div align="right"><strong>t&iacute;tulo del asunto</strong></div>
-              <br/> <br/>
-              <div align="right"><strong>enviar mail c/cc a</strong></div>
-                <br/>
-            </td>
-            <td> <font size="1">
-              <input type="text" name="titulo" size="50" value="<% if(dispositivoDeBuscar!=null) out.print("Falla "+nomDispositivoDeBuscar);%>">
-              <input type="hidden" name="nomDispositivo" size="50" value="">
-              <br>
-              <br>
-              <input type="text" name="enviar_a" size="50" value="<%//out.print("manter@auter.cl, faraya@auter.cl, gf@uoct.cl");%>">
-              </font>
-            <label> <br>enviar mail a empresa mantenedora y GF
-                   <input type="checkbox" name="enviaMail" value="si" checked>
-                 </label>
-               </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"> <div align="right"><strong>mensaje (problema)</strong></div></td>
-            <td>
-              <textarea name="problema" rows="2" cols="35" onKeyUp="textKey(this.form)"><% out.print(problemaXml);%></textarea>
-              <input value="700" size="3" name="msgCL" disabled>
-              <input TYPE="HIDDEN" name="lenSSig"   value="0">
-              <input TYPE="HIDDEN" name="lenLSig"   value="0">
-              <input TYPE="HIDDEN" name="lenSysSig" value="0">
+    									</select>
+    									
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="titulo" class="col-sm-4 control-label">Título del asunto</label> 
+    								
+    								<div class="col-sm-8">
+    									<input name="titulo" id="titulo" class="form-control" type="text" value="<% if(dispositivoDeBuscar!=null) {out.print("Falla "+nomDispositivoDeBuscar);}%>">
+    									<input name="nomDispositivo" type="hidden">
+    			
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputMail" class="col-sm-4 control-label">Enviar mail c/cc a</label>
+    								<div class="col-sm-8">
+      								<input class="form-control" id="inputMail" type="text" name="enviar_a" size="50" value="<%//out.print("manter@auter.cl, faraya@auter.cl, gf@uoct.cl");%>">
+    									<label class="checkbox-inline">
+  											<input id="checkMail" name="enviaMail" value="si" checked="checked" type="checkbox"> Enviar mail a empresa mantenedora y GF
+  											
+										</label>
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="problema" class="col-sm-4 control-label">Mensaje (Problema)</label>
+    								<div class="col-sm-8">
+      								<textarea name="problema" rows="4" onkeyup="textKey(this.form)" class="form-control" onKeyUp="textKey(this.form)"><!--   <% out.print(problemaXml); %> --> </textarea>
+      								<input name="lenSSig" value="0" type="hidden">
+              						<input name="lenLSig" value="0" type="hidden">
+              						<input name="lenSysSig" value="0" type="hidden">
+    									<p class="form-control-static">Máx. 700 caracteres. Disponibles: <input value="700" name="msgCL" disabled="disabled" size="4"></p>
+    								</div>
+    							</div>
+    							<div class="boxOpciones">
+    								<div class="form-group">
+    									<div class="col-sm-12">
+    										<a href="javascript:void(0)" class="botoVerde"><span class="glyphicons glyphicons-search"></span> Guardar</a>
+      								</div>
+  									</div>
+    							</div>
+  							</form>
+						</div>
+						
+						<!-- <div class="box boxpost encuentra">
+				 			<h4>Fallas <span class="pull-right"><small>Exportar:</small> <a href="javascript:void(0)" class="pull-right"><img src="img/ico_excel.png"></a> <a href="javascript:void(0)" class="pull-right"><img src="img/ico_pdf.png"></a></span></h4>
+				 			<table class="table table-striped table-bordered table-hover">
+      						<thead>
+        							<tr>
+          							<th>Ingreso<br>
+</th>
+          							<th>Evento<br>
+</th>
+          							<th>Plazo<br>
+</th>
+          							<th>Estado<br>
+</th>
+          							<th class="col-sm-3">Opciones<br>
+</th>
+          						</tr>
+      						</thead>
+      						<tbody>
+        							<tr>
+          							<td>04/11/2015 14:36<br>
+</td>
+          							<td>Falla 141 APOQUINDO - LAS CONDES<br>
+</td>
+          							<td>-<br>
+</td>
+          							<td>Iniciada<br>
+</td>
+          							<td>
+          								<a href="javascript:void(0)" class="botoGris botoMini margR0" title="Ver detalles" alt="Ver detalles"><span class="glyphicons glyphicons-eye-open margR0"></span></a>
+          								<a href="javascript:void(0)" class="botoRojo botoMini margR0" title="Eliminar" alt="Eliminar"><span class="glyphicons glyphicons-delete margR0"></span></a>	
+          							<br>
+</td>
+          						</tr>
+          						<tr>
+          							<td>06/11/2015 20:00<br>
+</td>
+          							<td>Falla 5 ALAMEDA - SANTA ROSA<br>
+</td>
+          							<td>-<br>
+</td>
+          							<td>Iniciada<br>
+</td>
+          							<td>
+          								<a href="javascript:void(0)" class="botoGris botoMini margR0" title="Ver detalles" alt="Ver detalles"><span class="glyphicons glyphicons-eye-open margR0"></span></a>
+          								<a href="javascript:void(0)" class="botoRojo botoMini margR0" title="Eliminar" alt="Eliminar"><span class="glyphicons glyphicons-delete margR0"></span></a>	
+          							<br>
+</td>
+          						</tr>
+        						</tbody>
+    						</table>
+    						<div class="boxOpciones">
+    							<div class="paginas clearfix">
+    								<div class="col-sm-7 text-left">
+    									<strong>2 items encontrados.</strong> Mostrando 1 a 15.
+    								</div>
+    								<div class="col-sm-5">
+    									<ul class="pagination">
+        									<li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a><br>
+</li>
+        							
+</li>
+        									<li><a href="#">2</a><br>
+</li>
+        									<li><a href="#">3</a><br>
+</li>
+        									<li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a><br>
+</li>
+      								</ul>
+    								</div>
+    							</div>
+    						</div>
+						</div>
+				 			
+				 		<div class="verMas">
+							<a href="javascript:history.back()"><span class="glyphicons glyphicons-undo"></span> Volver</a>
+							<a href="javascript:void(0)" class="pull-right"><span class="glyphicons glyphicons-circle-exclamation-mark"></span> Ayuda</a>
+						</div>
+				 		
+					
+					</div><br>
+</div> --> <!-- /row -->
+			
+      		
+      	</div><!-- /container -->
+		
+		</div><!-- /main -->
+	
 
+      <div class="container">
+			<footer>
+				</footer><div class="row">
+					<div class="col-sm-12">
+						<p>Unidad Operativa de Control de Tránsito. <span id="pie"></span></p>
+					</div>
+				</div>
+        	
+		</div> 
+		
+		
+		<!-- /container -->
 
-
-            </td>
-          </tr>
-        </table></td>
-    </tr>
-    <tr>
-      <td colspan="2"> <table width="60%" border="0" align="center" cellpadding="0" cellspacing="0">
-          <tr>
-            <td><font size="2">
-              <input type="submit" name="hacia" value="Grabar">
-              </font></td>
-            <td><div align="right"><font size="2">
-                <input type="reset" name="BotonCancelar" value="Cancelar">
-                </font></div></td>
-          </tr>
-        </table> <script language="JavaScript" type="text/javascript">
-      var frmvalidator  = new Validator("form_nueva_falla");
-      frmvalidator.addValidation("problema","req","Debe ingresar un problema");
-      frmvalidator.addValidation("hora","req","Debe ingresar la hora");
-      frmvalidator.addValidation("hora","maxlen=5","Ejemplo de hora: 19:55");
-      </script> </td>
-    </tr>
-  </table>
-  <br>
-  <hr><div align="right"><a href="../ayuda/bitacora.html" target="_blank">Ayuda</a></div>
-</form>
-<script type="text/javascript" language="JavaScript">
+<script>
 function IsNumeric(valor){
     var log=valor.length; var sw="S";
     for (x=0; x<log; x++){
@@ -499,5 +606,16 @@ function formateahora(hora){
 return (hora);
 }
 </script>
-</body>
-</html>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.es.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/truncate.js"></script>
+    <script src="js/fullcalendar.min.js"></script>
+    <script src="js/uoct.js"></script>
+    <script src="js/uoct_falla2.js"></script>
+  </body></html> 

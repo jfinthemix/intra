@@ -31,10 +31,33 @@ while(ienc.hasNext()){
 
 <html>
 <head>
-<title>Env&iacute;o de Email</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
-  <script language="Javascript" type="text/javascript">
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="Unidad Operativa de Control de Tránsito">
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+
+
+
+  
+
+  <!-- validador -->
+
+
+</head>
+
+<body>
+<script language="JavaScript" src="util/valid/gen_validatorv2.js" type="text/javascript"></script>
+
+<script language="Javascript" type="text/javascript">
     function popUp(href, target, features) {
     reservar = window.open(href, target, features);
     reservar.window.focus();
@@ -101,51 +124,58 @@ while(ienc.hasNext()){
       BumpUp(box);
     }
   }
+  
+  function submitThisForm1() {
+		var formulario = $('#form1');
+		var action = 'eiv/eivAction.do'
+		SubmitFormulario(action,formulario);
+
+	}
 
 
 
   </script>
 
-  <!-- validador -->
-<script language="JavaScript" src="../util/valid/gen_validatorv2.js" type="text/javascript"></script>
 
-</head>
+		<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+					
+				
+					<div class="col-sm-6 desarrollo">
+					<div class="box">
+					<h3>Env&iacute;o de Email de Aviso</h3>
 
-<body>
-<table width="750" border="0">
-  <tr>
-    <td><h3 align="center">Env&iacute;o de Email de Aviso</h3></td>
-  </tr>
-  <tr>
-    <td><h4 align="center">EISTU - <%=id_eiv %>: <%=nomEIV %>
+<h4>EISTU - <%=id_eiv %>: <%=nomEIV %></h4>
         <%if (mensaje != null){%>
-      </h4>
-      <div align="center"><%=mensaje %>
+      
+      <h4><div align="center"><%=mensaje %></div></h4>
         <%}%>
-      </div></td>
-  </tr>
-  <form action="eivAction.do" name="form1" method="POST" >
-    <tr>
-      <td> <div align="center">
-          <input type="hidden" name="hacia" value="enviarEmail" />
+ 
+<form action="eivAction.do" name="form1" id="form1" method="POST">
 
+          <input type="hidden" name="hacia" value="enviarEmail"/>
           <input type="hidden" name="id_eiv" value="<%= id_eiv%>" />
-          <table width="546" border="1" align="center">
-            <tr>
-              <td width="85" bgcolor="#ADD8E4"><strong>T&iacute;tulo del Email:</strong></td>
-              <td width="395">Aviso de Vencimiento de EISTU</td>
-            </tr>
+          
+          
+<div class="form-group">
+          <label for="inputTitulo" class="col-sm-4 control-label">T&iacute;tulo del Email:</label>
+          <label for="inputTitulo" class="col-sm-6 control-label">Aviso de Vencimiento de EISTU</label>
+</div>
 
-            <tr>
-              <td width="85" bgcolor="#ADD8E4"><strong>Remitente</strong></td>
-              <td width="395"><%=rmt %><input type="hidden" name="rmt" value="<%=rmt%>"/></td>
-            </tr>
+<div class="form-group">
 
-            <tr>
-              <td bgcolor="#ADD8E4"><strong>Contenido</strong></td>
-              <td><p>Se comunica que el siguiente EISTU permanece sin respuesta
-                  por parte de UOCT</p>
-                <table width="75%" border="1">
+<label for="inputTitulo" class="col-sm-4 control-label">Remitente:</label>
+<label for="inputTitulo" class="col-sm-6 control-label"><%=rmt %><input type="hidden" name="rmt" value="<%=rmt%>"/></label>
+            </div>
+<div class="form-group">            
+            <label for="inputTitulo" class="col-sm-4 control-label">Contenido:</label>
+            <label for="inputTitulo" class="col-sm-6 control-label">Se comunica que el siguiente EIV permanece sin respuesta por parte de la UOCT</label>
+</div>
+             
+                
+                <table width="75%" border="1" class="table table-striped table-bordered table-hover">
                   <tr>
                     <td width="46%">C&oacute;digo</td>
                     <td width="54%">EISTU - <%=eiv.getIdEIV()%></td>
@@ -179,13 +209,18 @@ while(ienc.hasNext()){
                     <td><%=sdf.format(eiv.getFechaVenc()) %></td>
                   </tr>
                 </table>
-                <p>Se solicita resolver a la brevedad</p></td>
-            </tr>
-            <tr>
-              <td bgcolor="#ADD8E4"><strong>Destinatarios del Email</strong></td>
-              <td> <table width="376" border="0">
+                <h4>Se solicita resolver a la brevedad</h4></td>
+            
+            
+            <div class="form-group">
+            <label for="inputTitulo" class="col-sm-4 control-label">Destinatarios del Email</label>
+            </div>
+             
+             <div class="form-group">
+             <table width="376" border="0" class="table table-striped table-bordered table-hover">
                   <tr>
-                    <td width="94" rowspan="2"> <select multiple="multiple" name="list2" size="4">
+                    <td width="94" rowspan="2"> 
+                		<select multiple="multiple" name="list2" size="4">
                         <%
                     while (liu.hasNext()) {
                       UsuarioVO usu = (UsuarioVO) liu.next();
@@ -198,22 +233,22 @@ while(ienc.hasNext()){
                       }
                     }
                       %>
-                      </select> </td>
+                      </select> 
+                      </td>
                     <td width="77"> <div align="center">
                         <input type="button" value="Agregar&gt;&gt;" name="B2" onclick="move(this.form.list2,this.form.emails)"/>
                       </div></td>
                     <td width="191" rowspan="2"> <input type="text" name="emails" size="20" />
                     </td>
                   </tr>
-                </table></td>
-            </tr>
-          </table>
-        </div></td>
-    </tr>
-    <tr>
-      <td> <div align="center">
-          <input name="subject" type="hidden"  value="Aviso de Vencimiento de EISTU">
-          <%
+                </table>
+                
+                </div>
+                
+
+          			<input name="subject" type="hidden"  value="Aviso de Vencimiento de EISTU">
+
+          			<%
 
                 String q="Se comunica que el siguiente EISTU permanece sin respuesta por parte de UOCT: \n\r"+
                 "Código: EISTU - "+eiv.getIdEIV()+"\r\n"+
@@ -231,25 +266,35 @@ while(ienc.hasNext()){
                 "Vencimiento:"+sdf.format(eiv.getFechaVenc())+"\r\n"+"\r\n"+
                 "Por favor Resolver a la brevedad";%>
           <input type="hidden" name="content" value="<%=q%>">
-          <input type="submit" name="enviar" value="Enviar">
+          <input type="hidden" name="enviar" value="Enviar">
+          <div class="form-group" align="center">
+          <div class="col-sm-8">
+          <input type="button" onclick="javascript:submitThisForm1();" name="enviar1" value="Enviar">
           &nbsp;&nbsp;
           <input name="reset" type="reset" value="Restaurar Valores" />
-        </div></td>
-    </tr>
+          </div>
+          </div>	
+        
+
 
   </form>
-<br>
-  Usted también recibirá una copia de este correo.
+
+  
+<div class="form-group">
+
+<label for="inputTitulo" class="col-sm-6 control-label">Usted también recibirá una copia de este correo.</label>
+</div>
+</div>
   <script language="JavaScript" type="text/javascript">
   var frmvalidator  = new Validator("form1");
   frmvalidator.addValidation("rmt","email","Su email no corresponde al formato de email, configurelo en 'Editar Datos Personales'");
   frmvalidator.addValidation("emails","req","Debe indicar al menos un destinatario del email");
 </script>
-</table>
+</div>
+</div>
+</div>
+</div>
 
-<hr>
- <div align="center"><img src="../util/img/volver.jpg" alt="Volver" onclick="history.back()"></div> <div align="right"><a href="../ayuda/eiv.html" target="_blank">Ayuda</a>
-  </div>
 
 </body>
 </html>

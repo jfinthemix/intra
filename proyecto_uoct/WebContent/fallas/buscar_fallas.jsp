@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <%@page contentType="text/html; charset=iso-8859-1" language="java" import="java.util.*,proyecto_uoct.fallas.VO.*,java.util.Iterator"  errorPage=""%>
 <%@ page import="java.text.SimpleDateFormat, java.util.Date, java.util.Calendar" %>
 <%@taglib uri="/WEB-INF/lib/struts-logic.tld" prefix="logic"%>
@@ -97,16 +99,47 @@ Calendar hoyG=Calendar.getInstance();
 java.util.Date hoyJ=new Date();
 
 %>
-<html>
-<head>
-<title>Bit&aacute;cora de dispositivos</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<script language="JavaScript" src="../util/valid/gen_validatorv2.js" type="text/javascript"></script>
-<script language="JavaScript" src="calendar2.js" type="text/javascript"></script>
-<script language="JavaScript" src="calendar1.js" type="text/javascript"></script>
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
 
 
+<html lang="es"><head>
+  
+  <meta charset="utf-8">
+ 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <meta name="description" content="Intranet de la UOCT">
+
+  
+  <meta name="author" content="jfanasco" >
+
+  
+  <link rel="icon" href="img/favicon.ico">
+  <title>Unidad Operativa de Control de Tránsito</title>
+
+  
+  
+  <link href="css/grid.css" rel="stylesheet">
+
+  
+  <link href="css/glyphs.css" rel="stylesheet">
+
+  
+  <link href="css/style.css" rel="stylesheet">
+
+  
+  <link href="css/datepicker.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		
+		<script language="JavaScript" src="../util/valid/gen_validatorv2.js" type="text/javascript"></script>
+		
 <script language="JavaScript" type="text/javascript">
 var tamD      = <%out.print(tamDispositivo);%>;
 var tamS      = <%out.print(tamSubsistema);%>;
@@ -261,26 +294,28 @@ function valida_envia(){
 }
 
 </script>
+		
+		
+		
+</head><body onload="valida_cambioInicial();">
+<br>
 
-</head>
-<body bgcolor="#FFFFFF" text="#000000" onload="valida_cambioInicial();">
-<form name="form_buscar" method="post" action="fallasAction.do">
-  <table width="100%" border="0" align="left">
-    <tr>
-      <td colspan="2"><h3 align="left">Bit&aacute;cora de dispositivos</h3></td>
-    </tr>
-    <tr>
-      <td colspan="2">&nbsp;</td>
-    </tr>
-    <tr>
-      <td colspan="2"> <table width="100%" border="1" align="left">
-          <tr>
-            <td width="30%" bgcolor="#ADD8E4"> <div align="right"><strong>sistema</strong></div></td>
-            <td width="70%">
-              <%
+<div class="main">
+<div class="container">
+<div class="row clearfix"><br>
+<div class="col-sm-6 desarrollo">
+<h2>Consultar Bitácora</h2>
+<div class="box boxpost">
+<h4>Datos de búsqueda</h4>
+<form name="form_buscar" method="post" class="form-horizontal" action="fallasAction.do">
+  <div class="form-group"> <label for="sistema" class="col-sm-4 control-label">Sistema</label>
+  <div class="col-sm-8">
+
+
+ <%
               Integer valorCero=new Integer(0);
               %>
-              <select name="sistema" size="1" id="sistema" onChange="javascript:valida_cambio();carga_lista2(subsistema, dispositivo, M_Dispositivo);">
+              <select name="sistema" class="form-control" size="1" id="sistema" onChange="javascript:valida_cambio();carga_lista2(subsistema, dispositivo, M_Dispositivo);">
                <%
                 Iterator i = lista_sistema.iterator();
                 String nombre_sistema = "";
@@ -296,12 +331,16 @@ function valida_envia(){
                   }
                 }
                 %>
-              </select> <input type="hidden" name="nombre_sistema" value="<%=nombre_sistema%>"/> </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"> <div align="right"><strong>subsistema</strong></div></td>
-            <td>
-              <select name="subsistema" size="1" id="subsistema" onChange="javascript:valida_cambio2();">
+              </select>
+
+ <input type="hidden" name="nombre_sistema" value="<%=nombre_sistema%>"/>
+
+ </div>
+  </div>
+  <div class="form-group"> <label for="subsistema" class="col-sm-4 control-label">Subsistema</label>
+  <div class="col-sm-8">
+  
+   <select name="subsistema" class="form-control" size="1" id="subsistema" onChange="javascript:valida_cambio2();">
                 <%
                 Iterator ii = lista_sistemaSubsistema.iterator();
                 String nombre_subsistema = "";
@@ -319,12 +358,14 @@ function valida_envia(){
                   }
                 }
                 %>
-              </select> <input type="hidden" name="nombre_subsistema" value="<%=nombre_subsistema%>"/> </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>dispositivo</strong></div></td>
-            <td>
-              <select name="dispositivo" size="1" id="dispositivo">
+           
+  </select>
+   <input type="hidden" name="nombre_subsistema" value="<%=nombre_subsistema%>"/> </div>
+  </div>
+  <div class="form-group"> <label for="dispositivo" class="col-sm-4 control-label">Dispositivo</label>
+  <div class="col-sm-8">
+  
+  <select name="dispositivo" size="1" id="dispositivo" class="form-control">
                 <%
                 Iterator iii = lista_sistemaSubsistemaDispositivo.iterator();
                 String nombre_dispositivo="";
@@ -343,21 +384,20 @@ function valida_envia(){
                   }
                 }
                 %>
-              </select> <input type="hidden" name="nombre_dispositivo" value="<%=nombre_dispositivo%>"/>  </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>fecha ingreso</strong></div></td>
-            <td>
-              <input name="fecha_ini" type="Text" value="<% out.println(fecha_inicial);%>" size="10" maxlength="20" readonly>
-              <a href="javascript:cal1.popup();"><img src="img/cal.gif" width="16" height="16" border="0" alt="Seleccionar Fecha"></a>&nbsp;-&nbsp;
-              <input name="fecha_fin" type="Text" value="<% out.println(fecha_actual);%>" size="10" maxlength="20" readonly>
-              <a href="javascript:cal2.popup();"><img src="img/cal.gif" width="16" height="16" border="0" alt="Seleccionar Fecha"></a>
-            </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>estado de la falla</strong></div></td>
-            <td> <select name="estado" size="1" id="estado">
-                <%
+              </select> <input type="hidden" name="nombre_dispositivo" value="<%=nombre_dispositivo%>"/>  </div>
+  </div>
+  <div class="form-group input-daterange"> <label for="inputFecha" class="col-sm-4 control-label">Fecha de ingreso</label>
+  <div class="col-sm-2"> <label class="control-label">Entre el:</label>
+  </div>
+  <div class="col-sm-2 noPadL"> <input class="form-control inputFecha pad2" id="inputDesde" name="fecha_ini" type="Text" value="<% out.println(fecha_inicial);%>"> </div>
+  <div class="col-sm-2"> <label class="control-label">Hasta el:</label>
+  </div>
+  <div class="col-sm-2 noPadL"> <input class="form-control inputFecha pad2" id="inputHasta" type="text value="<% out.println(fecha_actual);%>"> </div>
+  </div>
+  <div class="form-group"> <label for="selectEstado" class="col-sm-4 control-label">Estado de la falla</label>
+  <div class="col-sm-8">
+  <select class="form-control" id="selectEstado" name="estado" size="1" id="estado">
+ <%
               if("Todas".equals(estadoString)){
                 out.println("<option selected value=\"0\">Todas</option>");
                 out.println("<option value=\"1\">Iniciada</option>");
@@ -394,25 +434,26 @@ function valida_envia(){
                   }
                 }
               }
-              %>
-              </select> &nbsp;&nbsp; <font size="1"> <b>Nota</b>: Incluye todo tipo de evento</font> </td>
-          </tr>
-        </table>
-        <script language="JavaScript" type="text/javascript">
-          var cal1 = new calendar1(document.forms['form_buscar'].elements['fecha_ini']);
-          cal1.year_scroll = true;
-          cal1.time_comp = false;
-          var cal2 = new calendar1(document.forms['form_buscar'].elements['fecha_fin']);
-          cal2.year_scroll = true;
-          cal2.time_comp = false;
-        </script> </td>
-    </tr>
-    <tr>
-      <td colspan="2"><div align="center">
-          <table width="100%" border="0" cellspacing="0" cellpadding="0">
-            <tr>
-              <td> <font size="2">
-                <%
+              %> </select>
+  <span id="helpBlock" class="help-block">Nota: Incluye todo tipo de evento.</span> </div>
+  </div>
+  <div class="boxOpciones">
+  <div class="form-group">
+  <div class="col-sm-12"> <a href="javascript:void(0)" class="botoVerde busca" value="Buscar fallas" onclick="valida_envia()" ><span class="glyphicons glyphicons-search"></span>Buscar</a>
+  </div>
+  </div>
+  </div>
+  
+  
+  <input name="var_sistema"     type="hidden" value="">
+                  <input name="var_subsistema"  type="hidden" value="">
+                  <input name="var_dispositivo" type="hidden" value="">
+                  <input name="hacia" type="hidden" value="Buscar">
+                  
+</form>
+</div>
+
+ <%
                 //System.out.println("buscar_fallas:" + sistemaParaIngresar + " - " + subsistemaParaIngresar + " - " + dispositivoParaIngresar + " -/- " + nombre_sistema + " - " + nombre_subsistema + " - " + nombre_dispositivo);
                 Integer ceroInteger = new Integer(0);
 
@@ -424,26 +465,13 @@ function valida_envia(){
                   <a href="fallasAction.do?hacia=ingresar_falla&sistema=<%=sistemaParaIngresar%>&nomSistema=<%=nombre_sistema%>&subsistema=<%=subsistemaParaIngresar%>&nomSubsistema=<%=nombre_subsistema%>&dispositivo=<%=dispositivoParaIngresar%>&nomDispositivo=<%=nombre_dispositivo%>&vieneDe=ingresar_fallas">Ingresar evento a este dispositivo</a></font>
                 <%
                 }%>
-              </td>
-              <td><div align="right"><font size="2">
-                  <input name="var_sistema"     type="hidden" value="">
-                  <input name="var_subsistema"  type="hidden" value="">
-                  <input name="var_dispositivo" type="hidden" value="">
-                  <input name="hacia" type="hidden" value="Buscar">
-                  <input name="boton" type="button" value="Buscar fallas" onclick="valida_envia()">
 
-                  </font></div></td>
-            </tr>
-          </table>
-        </div></td>
-    </tr>
-    <tr>
-      <td colspan="2">&nbsp;</td>
-    </tr>
-    <tr>
-      <td colspan="2">
 
-        <display:table  name="listafallas" export="true" class="its" id="lf" pagesize="20" requestURI="fallasAction.do">
+
+<div class="box boxpost encuentra">
+<h4>Fallas <span class="pull-right"><small>Exportar:</small> <a href="javascript:void(0)" class="pull-right"><img src="img/ico_excel.png"></a> <a href="javascript:void(0)" class="pull-right"><img src="img/ico_pdf.png"></a></span></h4>
+
+ <display:table  name="listafallas" export="true" class="table table-striped table-bordered table-hover" id="lf" pagesize="20" requestURI="fallasAction.do">
           <display:column media="html excel pdf" title="fecha ingreso" sortable="false" sortProperty="fecha_ingreso2"><%=((FallaVO)lf).get_fecha_ingreso2() %></display:column>
           <display:column  media="html excel pdf" title="evento" sortable="false" sortProperty="titulo"><%=((FallaVO)lf).get_titulo() %></display:column>
 
@@ -555,13 +583,61 @@ function valida_envia(){
         <display:setProperty name="export.excel.label" value="<img src='../util/img/excel.gif' width='10' height='10' border='0'>"/>
         <display:setProperty name="export.amount" value="list"/>
         </display:table>
+        
+        
 
-      </td>
-    </tr>
-  </table>
-
+<div class="col-sm-5">
+<ul class="pagination">
+  <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a><br>
+    <br>
+  <br>
+</li>
+  <li class="active"><a href="#">1</a><br>
+    <br>
+  <br>
+</li>
+  <li><a href="#">2</a><br>
+    <br>
+  <br>
+</li>
+  <li><a href="#">3</a><br>
+    <br>
+  <br>
+</li>
+  <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a><br>
+    <br>
+  <br>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="verMas"> <a href="javascript:history.back()"><span class="glyphicons glyphicons-undo"></span> Volver</a> <a href="javascript:void(0)" class="pull-right"><span class="glyphicons glyphicons-circle-exclamation-mark"></span> Ayuda</a>
+</div>
+</div>
 <br>
-  <hr><div align="right"><a href="../ayuda/bitacora.html" target="_blank">Ayuda</a></div>
-</form>
-</body>
-</html>
+</div>
+<!-- /row --> </div>
+<!-- /container --> </div>
+
+<!-- /main -->
+<div class="container"> <footer> </footer>
+<div class="row">
+<div class="col-sm-12">
+<p>Unidad Operativa de Control de Tránsito, <span id="pie"></span></p>
+</div>
+</div>
+</div>
+
+<!-- /container -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-datepicker.min.js"></script>
+<script src="js/bootstrap-datepicker.es.min.js"></script>
+<script src="js/moment.js"></script>
+<script src="js/truncate.js"></script>
+<script src="js/fullcalendar.min.js"></script>
+<script src="js/uoct.js"></script>
+<script src="js/uoct_falla1.js"></script>
+</body></html>

@@ -1,3 +1,4 @@
+
 <%@page contentType="text/html; charset=iso-8859-1" language="java" import="java.util.*,proyecto_uoct.mantenedorDispositivos.VO.*,java.util.Iterator"  errorPage=""%>
 <%@ page import="java.text.SimpleDateFormat, java.util.Date, java.util.Calendar" %>
 <%@taglib prefix="display" uri="/displaytag_12"%>
@@ -22,49 +23,71 @@ String tipo_dispositivo         = (String)  request.getAttribute("tipo_dispositi
 
 
 %>
-<html>
+
+
+
+<html lang="es">
 <head>
-<title>Mantenedor de Dispositivos</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Intranet de la UOCT">
+<meta name="author" content="jfanasco" >
+<link rel="icon" href="img/favicon.ico">
+<title>Unidad Operativa de Control de Tránsito</title>
+<link href="css/grid.css" rel="stylesheet">
+<link href="css/glyphs.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="css/datepicker.css" rel="stylesheet">
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+
 <script language="JavaScript" src="../util/valid/gen_validatorv2.js" type="text/javascript"></script>
 <script language="JavaScript" type="text/javascript">
 function valida_envia(){
   document.formMantenedorDispositivo.submit();
 }
 </script>
-</head>
 
-<body bgcolor="#FFFFFF" text="#000000">
-  <form name="formMantenedorDispositivo" method="post" action="../mantenedorDispositivos/dispositivoAction.do">
-    <table width="100%" border="0" align="left">
-      <tr>
-        <td colspan="2"><h3 align="left">Mantenedor de Dispositivos</h3></td>
-      </tr>
-      <tr>
-        <td colspan="2"><font color="red">
-        <%
+
+
+</head>
+<body onload="valida_cambioInicial();">
+<br>
+<div class="main">
+<div class="container">
+<div class="row clearfix">
+<div class="col-sm-3 menuLateral">
+<div class="panel-group" id="accordion" role="tablist"  aria-multiselectable="true"><br>
+</div>
+</div>
+<div class="col-sm-6 desarrollo">
+<h2>Editar Dispositivo</h2>
+<div class="box boxpost">
+
+  <%
         if (mensaje != null){
           out.print("<br>"+mensaje+"<br>");
         }
-        %></font>&nbsp;</td>
-      </tr>
-      <tr>
-        <td colspan="2">
+        %>
 
-          <table width="80%" border="1" align="left" id="tabla">
-          <tr>
-            <td width="30%" bgcolor="#ADD8E4"> <div align="right"><strong>nombre</strong></div></td>
-            <td width="70%"> <input name="nombre" type="text" value="<% out.print(nombre); %>" size="50" maxlength="50"></td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"> <div align="right"><strong>descripci&oacute;n</strong></div></td>
-            <td> <input name="descripcion" type="text" value="<% out.print(descripcion); %>" size="50" maxlength="50"></td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"> <div align="right"><strong>subsistema</strong></div></td>
-            <td>
-              <select name="subsistema">
+<h4>Datos del Dispositivo</h4>
+<form class="form-horizontal" name="formMantenedorDispositivo" method="post" action="../mantenedorDispositivos/dispositivoAction.do">
+<div class="form-group"> <label for="inputNombre"
+class="col-sm-4 control-label">Nombre</label>
+<div class="col-sm-8"> <input class="form-control" id="inputNombre"  name="nombre" type="text" value="<% out.print(nombre); %>" size="50" maxlength="50"> </div>
+</div>
+<div class="form-group"> <label for="inputDescripcion"
+class="col-sm-4 control-label">Descripcion</label>
+<div class="col-sm-8"> <input class="form-control" id="inputDescripcion" name="descripcion" type="text" value="<% out.print(descripcion); %>" size="50" maxlength="50"> </div>
+</div>
+<div class="form-group"> <label for="selectSubsistema"
+class="col-sm-4 control-label">Subsistema</label>
+<div class="col-sm-8">
+<select class="form-control" id="selectSubsistema" name="subsistema">
                <%
                 Iterator i = listaSubsistema.iterator();
                 while (i.hasNext()) {
@@ -77,13 +100,14 @@ function valida_envia(){
                   }
                 }
                 %>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"> <div align="right"><strong>empresa mantenedora</strong></div></td>
-            <td>
-              <select name="empresaMantenedora">
+           
+</select>
+</div>
+</div>
+<div class="form-group"> <label for="selectEmpresa"
+class="col-sm-4 control-label">Empresa mantenedora</label>
+<div class="col-sm-8">
+<select class="form-control" id="selectEmpresa" name="empresaMantenedora">
                 <%
                 Iterator ii = listaEmpresa.iterator();
                 while (ii.hasNext()) {
@@ -96,13 +120,14 @@ function valida_envia(){
                   }
                 }
                 %>
-            </select>
-            </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>tipo dispositivo</strong></div></td>
-            <td>
-              <select name="tipoDispositivo">
+</select>
+</div>
+</div>
+<div class="form-group"> <label for="selectTipo"
+class="col-sm-4 control-label">Tipo dispositivo</label>
+<div class="col-sm-8">
+<select class="form-control" id="selectTipo" name="tipoDispositivo">
+               
                 <%
                 Iterator iii = listaTipoDispositivo.iterator();
                 while (iii.hasNext()) {
@@ -115,31 +140,51 @@ function valida_envia(){
                   }
                 }
                 %>
-            </select>
-          </tr>
-         </table>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">
-
-          <table width="80%" border="0" align="left" cellpadding="0" cellspacing="0">
-            <tr>
-              <td><div align="left"><input type="submit" name="hacia" value="Grabar"></div></td>
-                <input type="hidden" name="id_dispositivo" value="<% out.print(id_dispositivo);%>">
+</select>
+</div>
+</div>
+<div class="boxOpciones">
+<div class="form-group">
+<div class="col-sm-12"> <button type="reset" class="botoGris"><span
+class="glyphicons glyphicons-undo"></span> Reestablecer valores</button>
+<button type="submit" class="botoVerde" name="hacia" value="Grabar">
+<span class="glyphicons glyphicons-disk-save"></span> Guardar</button> 
+</div>
+<input type="hidden" name="id_dispositivo" value="<% out.print(id_dispositivo);%>">
                 <input type="hidden" name="accion" value="-1">
-              <td><div align="right"><input type="reset" name="BotonCancelar" value="Cancelar"></div></td>
-              </tr>
-            </table>
-            <script language="JavaScript" type="text/javascript">
-            var frmvalidator  = new Validator("formMantenedorDispositivo");
-            frmvalidator.addValidation("nombre","req","Debe ingresar el nombre del Dispositivo");
-          </script>
-        </td>
-      </tr>
-    </table>
+</div>
+</div>
+</form>
+</div>
+<div class="verMas"> <a href="javascript:history.back()"><span
+class="glyphicons glyphicons-undo"></span> Volver</a> <a
+href="javascript:void(0)" class="pull-right"><span
+class="glyphicons glyphicons-circle-exclamation-mark"></span> Ayuda</a>
+</div>
+</div>
 <br>
-  <hr><div align="right"><a href="../ayuda/mantDispositivos.html" target="_blank">Ayuda</a></div>
-  </form>
+</div>
+<!-- /row --> </div>
+<!-- /container --> </div>
+<!-- /main -->
+<div class="container"> <footer> </footer>
+<div class="row">
+<div class="col-sm-12">
+<p>Unidad Operativa de Control de Tránsito, <span id="pie"></span></p>
+</div>
+</div>
+</div>
+<!-- /container -->
+<script
+src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-datepicker.min.js"></script>
+<script src="js/bootstrap-datepicker.es.min.js"></script>
+<script src="js/moment.js"></script>
+<script src="js/truncate.js"></script>
+<script src="js/fullcalendar.min.js"></script>
+<script src="js/uoct.js"></script>
+<script src="js/uoct_falla1.js"></script>
 </body>
 </html>
+

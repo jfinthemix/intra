@@ -9,15 +9,12 @@ $(document).ready(function(){
 	// Fecha actual
 	var hoy = moment().locale('es').format('dddd D [de] MMMM [de] YYYY');
 	var muestraHoy = document.getElementById('hoy'); 
-	if(muestraHoy!=null)
-	{muestraHoy.innerHTML = hoy;}
+	muestraHoy.innerHTML = hoy;
 	
 	// Fecha footer
 	var pie = moment().locale('es').format('YYYY');
-	var muestraPie = document.getElementById('pie');
-	if(muestraPie!=null){
+	var muestraPie = document.getElementById('pie'); 
 	muestraPie.innerHTML = pie;
-	}
 	
 	// Truncate de previsualizacion de Noticias
 	$('.resNoticia').truncate({

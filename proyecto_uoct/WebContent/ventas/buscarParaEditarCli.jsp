@@ -5,47 +5,95 @@
 <%
 List clientes=(List) request.getAttribute("clientes");
 %>
-<html>
-<head>
-<title>Buscar Cliente de Venta</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
-</head>
 
-<body>
-<table width="750" border="0">
-  <tr> 
-    <td><h3 align="left">Buscar Clientes para Editar</h3></td>
-  </tr>
-  <tr> 
-    <td> <div align="left"> 
-        <table width="301" border="1" align="left">
-          <tr> 
-            <td width="238" bgcolor="#FFFF99"> <div align="center"> <strong> Por 
-                palabra clave(*): </strong></div></td>
-          </tr>
-          <tr> 
-            <td bgcolor="#FFFF99"> <div align="center"> 
-                <form action="ventasAction.do" method="POST">
-                  <input type="hidden" name="accion" value="buscarparaEditarCli"/>
-                  <input type="text" name="palClave">
-                  <br>
-                  <input type="submit" name="PorPalabra" value="Buscar">
-                </form>
-              </div></td>
-          </tr>
-        </table>
-      </div></td>
-  </tr>
-  <tr> 
-    <td><div align="left"><strong>(*)nombre,direcci&oacute;n,giro,contactos o 
-        comentario.</strong></div></td>
-  </tr>
-  <tr> 
-    <td> <div align="left"> 
-        <%if(clientes!=null){
-%>
-        <display:table name="clientes" class="its" pagesize="15" requestURI="ventasAction.do" id="clis"> 
+
+<!DOCTYPE html>
+
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="Unidad Operativa de Control de Tránsito">
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
+
+		
+		<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+					
+				
+					<div class="col-sm-6 desarrollo">
+					
+						<h2>Buscar Clientes para editar</h2>
+						
+						<div class="box clearfix">
+				 			<div class="col-sm-12 searchtab tabMini mTop10">
+				 				<form action="ventasAction.do" method="POST" id="form1" name="form1">
+				 				   <input type="hidden" id="accion" name="accion" value="buscarparaEditarCli"/>
+				 				 <input type="hidden" name="PorPalabra" value="Buscar">
+  									<div class="form-group">
+  										<label for="inputBusca1">
+  											<span class="glyphicons glyphicons-search"></span><br>
+  											Por palabra clave*<br>
+  										</label>
+    									<input type="text" class="form-control" id="palClave" name="palClave">
+  									</div>
+
+
+    										
+      										<a OnClick="submitThisForm1();" href="javascript:void(0)"
+											class="botoVerde"> 
+											Buscar
+										</a>
+										
+										<script  type="text/javascript" >
+		function submitThisForm1() {
+
+			var formulario = $('#form1');
+			
+			var action = 'ventas/ventasAction.do'
+			SubmitFormulario(action, formulario);
+			
+
+		}
+
+
+	</script>
+										
+										
+
+								</form>
+				 			</div>
+				 			<div class="col-sm-12">
+				 				<p>*Nombre, dirección, giro, contactos o comentario.</p>
+				 			</div>
+						</div>
+						
+						<div class="box boxpost encuentra">
+				 		
+				 			
+				 			
+				 			<%if(clientes!=null){
+%>	<h4>Clientes encontrados</h4>
+        <display:table name="clientes" class="able table-striped table-bordered table-hover tablesorter" pagesize="15" requestURI="ventasAction.do" id="clis"> 
         <display:caption>Clientes Encontrados </display:caption> <display:column title="Nombre" media="html" property="nomCli" sortProperty="nomCli" sortable="true" href="ventasAction.do?accion=editarCli" paramId="idCli" paramProperty="idCliente" > 
         </display:column> <display:column title="Estado" media="html" sortable="true" > 
         <%if(((CliVtaVO)clis).getIsActivo()){ out.print("Activado");}else{out.print("Desactivado");} %>
@@ -68,12 +116,48 @@ List clientes=(List) request.getAttribute("clientes");
         <display:setProperty name="export.excel.label" value="<img src='../util/img/excel.gif' width='10' height='10'>"/> 
         <display:setProperty name="export.amount" value="list"/> </display:table> 
         <%}%>
-      </div></td>
-  </tr>
-</table>
-<hr>
-  <div align="right"><a href="../ayuda/ventas.html" target="_blank">Ayuda</a> 
-  </div>
-</body>
-</html>
 
+
+							
+						</div>
+						
+						<div class="verMas">
+							<a href="javascript:history.back()"><span class="glyphicons glyphicons-undo"></span> Volver</a>
+							<a href="javascript:void(0)" class="pull-right"><span class="glyphicons glyphicons-circle-exclamation-mark"></span> Ayuda</a>
+						</div>
+				 		
+					
+					</div>
+			
+					
+			
+				</div><!-- /row -->
+			
+      		
+      	</div><!-- /container -->
+		
+		</div> <!-- /main -->
+	
+
+      <div class="container">
+			<footer>
+				<div class="row">
+					<div class="col-sm-12">
+						<p>Unidad Operativa de Control de Tránsito. <span id="pie"></span></p>
+					</div>
+				</div>
+        	</footer>
+		</div> <!-- /container -->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.es.min.js"></script>
+    <script src="js/jquery.tablesorter.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/truncate.js"></script>
+    <script src="js/fullcalendar.min.js"></script>
+    <script src="js/uoct.js"></script>
+  </body>
+</html>

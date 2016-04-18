@@ -5,65 +5,104 @@
 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 List flujos= (List) request.getAttribute("listaFlujos");
 %>
-<html>
-<head>
-<title>Busqueda de Flujos</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
-  <!-- calendario popup-->
-<script language="JavaScript" src="calendar1.js" type="text/javascript"></script><!-- Date only with year scrolling -->
 
-</head>
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="jfanasco" >
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
+		
+	<script type="text/javascript">
+	
+	function submitThisForm1() {
+		var formulario = $('#form1');
+		var action = 'eiv/flujoAction.do';
 
-<body>
-<table width="750" border="0">
-  <tr>
-    <td><h3 align="center">Buscar flujos vehiculares</h3></td>
-  </tr>
-  <form name="form1" method="post" action="flujoAction.do">
-    <input type="hidden" name="hacia" value="buscarFlujos">
-    <tr>
-      <td><div align="center">
-          <table width="437" border="1" align="center">
-            <tr>
-              <td width="156" bgcolor="#ADD8E4"><strong>Por estudio(EISTU No.):</strong></td>
-              <td width="265"> <input name="ideiv" type="text" size="10"> </td>
-            </tr>
-            <tr>
-              <td bgcolor="#ADD8E4"><strong>Por fecha:</strong></td>
-              <td><input type="text" name="fecha" size=8 readonly="readonly">
-                <a href="javascript:cal1.popup();"><img src="img/cal.gif" width="16" height="16" border="0" alt="Seleccionar fecha"></a></td>
-            </tr>
-            <tr>
-              <td bgcolor="#ADD8E4"><strong>Por calle involucrada: </strong></td>
-              <td><input type="text" name="calle"></td>
-            </tr>
-            <tr>
-              <td colspan="2"><div align="center">
-                  <input type="submit" name="Submit" value="Buscar">
-                </div></td>
-            </tr>
-          </table>
-        </div></td>
-    </tr>
-  </form>
-  <tr>
-    <td><div align="center">
-        <script language="JavaScript" type="text/javascript">
-				var cal1 = new calendar1(document.forms['form1'].elements['fecha']);
-				cal1.year_scroll = true;
-				cal1.time_comp = false;
+		SubmitFormulario(action,formulario);
+		}
+	
+	</script>		
+		
+		
+		
+		<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+				
+				
+					<div class="col-sm-6 desarrollo">
+					
+						<h2>Buscar Flujos</h2>
+						
+				 		<div class="box boxpost">
+				 			<h4>Datos de EISTU</h4>
+				 			<form class="form-horizontal" name="form1" id="form1" method="post" action="eiv/flujoAction.do">
+				 			 <input type="hidden" name="hacia" id="hacia" value="buscarFlujos">
+				 			 <input type="hidden" name="Submit" id="Submit" value="buscarFlujos">
+				 				<div class="form-group">
+    								<label for="inputCodigo" class="col-sm-4 control-label">Por estudio</label>
+    								<div class="col-sm-2 guionpost">
+      								<p class="form-control-static">EISTU</p>
+    								</div>
+    								<div class="col-sm-6">
+      								<input type="text" name="ideiv" class="form-control" id="inputCodigo" placeholder="Ingresa un número">
+    								</div>
+    							</div>
+  								<div class="form-group">
+    								<label for="inputFecha" class="col-sm-4 control-label">Por fecha</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control inputFecha" id="inputFecha" name="fecha">
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputCalle" class="col-sm-4 control-label">Por calle involucrada</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control" id="inputCalle" name="calle">
+    								</div>
+    							</div>
+  								<div class="boxOpciones">
+    								<div class="form-group">
+    									<div class="col-sm-12">
+    										<a href="javascript:void(0)" onclick="javascript:submitThisForm1();" class="botoVerde busca"><span class="glyphicons glyphicons-search"></span> Buscar</a>
+      								</div>
+  									</div>
+    							</div>
+  							</form>
+						</div>
+						
+						
 
-       </script>
-        <br/>
-        <%if(flujos!=null){
+        					
+    							
+ <%if(flujos!=null){
    Iterator iflu=flujos.iterator();
   request.setAttribute("iflu",iflu);
   %>
-        <display:table  pagesize="15" name="iflu" requestURI="flujoAction.do" class="its" id="flus" >
+ 		<div class="box boxpost">
+        <display:table  pagesize="15" name="iflu" requestURI="flujoAction.do" class="table table-striped table-bordered table-hover" id="flus" >
 
         <display:column sortable="true" title="EISTU" sortProperty="idEIV">
-          <a href="eivAction.do?hacia=detalleEIV&id_eiv=<%=((FlujoVO)flus).getIdEIV()%>">EISTU-<%=((FlujoVO)flus).getIdEIV()%></a>
+          <a href="javascript:LlamadaPagina('eiv/eivAction.do?hacia=detalleEIV&id_eiv=<%=((FlujoVO)flus).getIdEIV()%>')">EISTU-<%=((FlujoVO)flus).getIdEIV()%></a>
         </display:column>
         <display:column  title="Fecha de la Medición"><%=sdf.format(((FlujoVO)flus).getFecha())%> </display:column>
         <display:column  title="Intersección" ><%=((FlujoVO)flus).getInterseccion() %> </display:column>
@@ -95,12 +134,31 @@ List flujos= (List) request.getAttribute("listaFlujos");
         <display:setProperty name="export.amount" value="list"/>
 
       </display:table>
-        <% }%>
-      </div></td>
-  </tr>
-</table>
-<hr>
- <div align="center"><img src="../util/img/volver.jpg" alt="Volver" onclick="history.back()"></div> <div align="right"><a href="../ayuda/eiv.html" target="_blank">Ayuda</a>
-  </div>
-</body>
+      </div>
+  
+        <% }%>    							
+    							
+ 					</div>
+			
+					
+			
+				</div><!-- /row -->
+			
+      		
+      	</div><!-- /container -->
+		
+		</div><!-- /main -->
+	
+
+      
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.es.min.js"></script>
+    <script src="js/jquery.tablesorter.js"></script> 
+    <script src="js/moment.js"></script>
+    <script src="js/truncate.js"></script>
+    <script src="js/uoct.js"></script>
+  </body>
 </html>

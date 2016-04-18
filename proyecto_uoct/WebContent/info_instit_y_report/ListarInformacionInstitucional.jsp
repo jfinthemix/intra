@@ -5,22 +5,50 @@
 <%
 List lista = (List) request.getAttribute("lista");
 %>
-<html>
-<head>
-<title>Informaci&oacute;n institucional</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
-</head>
 
-<body>
-<table width="590" border="0">
-  <tr>
-    <td> <div align="left">
-        <%if (lista!=null){
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="Unidad Operativa de Control de Tránsito">
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body onload="valida_cambioInicial();">
+		
+		
+		
+		<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+					
+					<div class="col-sm-6 desarrollo">
+					
+
+						
+						<div class="box">
+				 			<h4>Archivos de Información Institucional</h4>
+				 			 <%if (lista!=null){
   Iterator lis=lista.iterator();
   request.setAttribute("lista",lis);%>
-  <h4>Archivos de Informaci&oacute;n Institucional</h4>
-        <display:table id="archivos" name="lista" class="its" requestURI="infoinstitAction.do">
+
+        <display:table id="archivos" name="lista" class="able table-striped table-bordered table-hover tablesorter" requestURI="infoinstitAction.do">
 
         <display:column title="Descripción"> <%=((ArchivoInfoVO)archivos).getDescripcion() %> </display:column>
         <display:column title="Descargar" href="infoinstitAction.do?hacia=descargarArchivo" paramId="idFile" paramProperty="idFile" >
@@ -44,11 +72,44 @@ List lista = (List) request.getAttribute("lista");
         <display:setProperty name="export.excel.label" value="<img src='../util/img/excel.gif' width='10' height='10'>"/>
         <display:setProperty name="export.amount" value="list"/> </display:table>
         <%} %>
-      </div></td>
-  </tr>
-</table>
-<hr>
-<div align="center"><img src="../util/img/volver.jpg" alt="Volver" onclick="history.back()"></div>  <div align="right"><a href="../ayuda/infoinstit.html" target="_blank">Ayuda</a>
-  </div>
-</body>
+    					</div>
+				 			
+				 		<div class="verMas">
+							<a href="javascript:history.back()"><span class="glyphicons glyphicons-undo"></span> Volver</a>
+							<a href="javascript:void(0)" class="pull-right"><span class="glyphicons glyphicons-circle-exclamation-mark"></span> Ayuda</a>
+						</div>
+				 		
+					
+					</div>
+			
+							
+				</div><!-- /row -->
+			
+      		
+      	</div><!-- /container -->
+		
+		</div><!-- /main -->
+	
+
+      <div class="container">
+			<footer>
+				<div class="row">
+					<div class="col-sm-12">
+						<p>Unidad Operativa de Control de Tránsito. <span id="pie"></span></p>
+					</div>
+				</div>
+        	</footer>
+		</div> <!-- /container -->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.es.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/truncate.js"></script>
+    <script src="js/fullcalendar.min.js"></script>
+    <script src="js/uoct.js"></script>
+    <script src="js/uoct_falla1.js"></script>
+  </body>
 </html>

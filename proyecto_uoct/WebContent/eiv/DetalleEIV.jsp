@@ -57,78 +57,136 @@ regBit_b=false;
 
 
 
-<html>
-<head>
-<title><%= eiv.getNomEiv() %></title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
-</head>
-<body>
-   <div align="center"><font size="4" color="red"><%if(mensaje!=null){out.println(mensaje);} %></font>
-<table width="750" border="0">
-  <tr>
-    <td colspan="2"><h1 align="center">EISTU <%=eiv.getIdEIV() %> : <%= eiv.getNomEiv()%></h1></td>
-  </tr>
-  <tr>
-    <td width="578"><div align="center">
-        <table width="431" border="1" align="left">
-          <tr>
-            <td width="148" bgcolor="#ADD8E4"><div align="right"><strong>EISTU
-                No.:</strong></div></td>
-            <td colspan="2"> <h4>EISTU - <%=eiv.getIdEIV() %> </h4></td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>T&igrave;tulo:</strong></div></td>
-            <td colspan="2"><%=eiv.getNomEiv() %></td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>Tipo de Estudio:</strong></div></td>
-            <td colspan="2"><%=eiv.getTipoEstudio() %> </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>Fecha Presentación:</strong></div></td>
-            <td colspan="2"><%= sdf.format(eiv.getFechaPresent()) %> </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>Envío desde SEREMITT:</strong></div></td>
-            <td colspan="2"><%= sdf.format(eiv.getFechaEnvioSeremitt()) %> </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>Fecha Ingreso:</strong></div></td>
-            <td colspan="2"><%= sdf.format(eiv.getFechaIng()) %> </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>Fecha de Vencimiento:</strong></div></td>
-            <td colspan="2"><%= sdf.format(eiv.getFechaVenc()) %> </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>Estado del EISTU
-                en UOCT:</strong></div></td>
-            <td colspan="2"><%= eiv.getEstado() %> </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>Estado del EISTU
-                en SEREMITT:</strong></div></td>
-            <td colspan="2"><%if (eiv.getEstadoSeremitt().intValue()==1){
+
+
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="jfanasco" >
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
+		
+		
+		<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+					
+				
+					<div class="col-sm-6 desarrollo">
+					
+			 		<div class="box boxpost">
+				 		<%if(mensaje!=null){out.println(mensaje);} %>
+				 			<h4>Datos de EISTU-<%=eiv.getIdEIV() %> : <%= eiv.getNomEiv()%></h4>
+				 			<form class="form-horizontal">
+				 				<div class="form-group">
+    								<label for="inputCodigo" class="col-sm-4 control-label">Código de EISTU</label>
+    								
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control" readonly="readonly" readonly="readonly" id="inputCodigo" value="EISTU - <%=eiv.getIdEIV() %> ">
+    								</div>
+    							</div>
+    							
+    							<div class="form-group">
+    								<label for="inputPalabra" class="col-sm-4 control-label">Título</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control" readonly="readonly" id="inputPalabra" value="<%=eiv.getNomEiv() %>" >
+    								</div>
+    							</div>
+				
+    							
+  								<div class="form-group">
+    								<label for="inputPalabra" class="col-sm-4 control-label">Tipo de Estudio</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control" readonly="readonly" id="inputPalabra" value="<%=eiv.getTipoEstudio() %>">
+    								</div>
+    							</div>
+  								<div class="form-group ">
+    								<label for="inputFecha" class="col-sm-4 control-label">Fecha Presentación:</label>
+    								<div class="col-sm-8">
+    									<input type="text" class="form-control inputFecha pad2" readonly="readonly" id="inputDesde" value="<%= sdf.format(eiv.getFechaPresent()) %> ">
+    								</div>
+  								</div>
+  								
+  								<div class="form-group ">
+    								<label for="inputFecha" class="col-sm-4 control-label">Envío desde SEREMITT:</label>
+    								<div class="col-sm-8">
+    									<input type="text" class="form-control inputFecha pad2" readonly="readonly" id="inputDesde" value="<%= sdf.format(eiv.getFechaEnvioSeremitt()) %>">
+    								</div>
+  								</div>
+  								
+  								  								<div class="form-group ">
+    								<label for="inputFecha" class="col-sm-4 control-label">Fecha Ingreso:</label>
+    								<div class="col-sm-8">
+    									<input type="text" class="form-control inputFecha pad2" readonly="readonly" id="inputDesde" value="<%= sdf.format(eiv.getFechaIng()) %> ">
+    								</div>
+  								</div>
+  								
+  								  								<div class="form-group ">
+    								<label for="inputFecha" class="col-sm-4 control-label">Fecha de Vencimiento:</label>
+    								<div class="col-sm-8">
+    									<input type="text" class="form-control inputFecha pad2" readonly="readonly" id="inputDesde" value="<%= sdf.format(eiv.getFechaVenc()) %>  ">
+    								</div>
+  								</div>
+  								
+  								  								<div class="form-group ">
+    								<label for="inputFecha" class="col-sm-4 control-label">Estado del EISTU en UOCT:</label>
+    								<div class="col-sm-8">
+    									<input type="text" class="form-control inputFecha pad2" readonly="readonly" id="inputDesde" value="<%= eiv.getEstado() %>  ">
+    								</div>
+  								</div>  								
+  								
+  								
+  															<div class="form-group ">
+    								<label for="inputFecha" class="col-sm-4 control-label">Estado del EISTU en SEREMITT:</label>
+    								<div class="col-sm-8">
+    									<input type="text" class="form-control inputFecha pad2" readonly="readonly" id="inputDesde" value="<%if (eiv.getEstadoSeremitt().intValue()==1){
              out.print("Aprobado por SEREMITT");}
             if (eiv.getEstadoSeremitt().intValue()==2){
              out.print("Rechazado por SEREMITT");}
              else{
              out.print("--");
            }
-             %> </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>Comuna:</strong></div></td>
-            <td colspan="2"><%= eiv.getComuna() %> </td>
-          </tr>
-          <tr>
-            <td width="180" bgcolor="#ADD8E4"><div align="right"><strong>Direcci&oacute;n:</strong></div></td>
-            <td colspan="2"><%=eiv.getDir() %> </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>Redes Involucradas:</strong></div></td>
-            <td width="267"> <%
+             %> ">
+    								</div>
+  								</div>  	
+  								
+  															<div class="form-group ">
+    								<label for="inputFecha" class="col-sm-4 control-label">Comuna:</label>
+    								<div class="col-sm-8">
+    									<input type="text" class="form-control inputFecha pad2" readonly="readonly" id="inputDesde" value="<%= eiv.getComuna() %> ">
+    								</div>
+  								</div>  	
+  								
+  															<div class="form-group ">
+    								<label for="inputFecha" class="col-sm-4 control-label">Dirección:</label>
+    								<div class="col-sm-8">
+    									<input type="text" class="form-control inputFecha pad2" readonly="readonly" id="inputDesde" value="<%=eiv.getDir() %> ">
+    								</div>
+  								</div>  	
+  								
+<div class="form-group ">
+    								<label for="inputFecha" class="col-sm-4 control-label">Redes Involucradas:</label>
+    								<div class="col-sm-8">
+    									<input type="text" class="form-control inputFecha pad2" readonly="readonly" id="inputDesde" value="<%
       List redes = eiv.getRedes();
       if (redes != null) {
         Iterator ir = redes.iterator();
@@ -137,66 +195,96 @@ regBit_b=false;
           out.println(red + " - ");
         }
       }
-    %> </td>
-          </tr>
-          <tr>
-            <td width="148" bgcolor="#ADD8E4"><div align="right"><strong>Nº de
-                estacionamientos:</strong></div></td>
-            <td colspan="2"><%= eiv.getEstacionamientos() %> </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>Consultor:</strong></div></td>
-            <td colspan="2"><%= eiv.getNomCons() %></td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>Empresa Consultora:</strong></div></td>
-            <td colspan="2"> <%if(eiv.getEmpCons()!=null){out.print(eiv.getEmpCons());}else{out.print("&nbsp;");} %> </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>Encargado del EISTU:</strong></div></td>
-            <td colspan="2"> <%
+    %>">
+    								</div>
+  								</div>  	
+  								
+  								<div class="form-group ">
+    								<label for="inputFecha" class="col-sm-4 control-label">Nº de estacionamientos:</label>
+    								<div class="col-sm-8">
+    									<input type="text" class="form-control inputFecha pad2" readonly="readonly" id="inputDesde" value="<%= eiv.getEstacionamientos() %>">
+    								</div>
+  								</div>  	
+  								
+  								<div class="form-group ">
+    								<label for="inputFecha" class="col-sm-4 control-label">Consultor:</label>
+    								<div class="col-sm-8">
+    									<input type="text" class="form-control inputFecha pad2" readonly="readonly" id="inputDesde" value="<%= eiv.getNomCons() %>">
+    								</div>
+  								</div>  	
+  								
+  								<div class="form-group ">
+    								<label for="inputFecha" class="col-sm-4 control-label">Empresa Consultora:</label>
+    								<div class="col-sm-8">
+    									<input type="text" class="form-control inputFecha pad2" readonly="readonly" id="inputDesde" value="<%if(eiv.getEmpCons()!=null){out.print(eiv.getEmpCons());}else{out.print("&nbsp;");} %>">
+    								</div>
+  								</div>  	  								
+  								
+  									<div class="form-group ">
+    								<label for="inputFecha" class="col-sm-4 control-label">Encargado del EISTU:</label>
+    								<div class="col-sm-8">
+    									<input type="text" class="form-control inputFecha pad2" readonly="readonly" id="inputDesde" value="<%
          if(eiv.getNom2Encarg()!=null){
            out.print(eiv.getNomEncarg()+ " "+ eiv.getNom2Encarg()+" "+ eiv.getApeEncarg());
          }else{
            out.print(eiv.getNomEncarg()+ " "+ eiv.getApeEncarg());
          }
-         %> </td>
-          </tr>
-          <tr>
-            <td  bgcolor="#ADD8E4"><div align="right"><strong>Oficio del EISTU:</strong></div></td>
-            <td><a href="../documentacion/documentoAction.do?hacia=detalleDoc&id_doc=<%=eiv.getIdOficio()%>"><%=eiv.getNomDocumento() %></a></td>
-          </tr>
-        </table>
-      </div></td>
-    <td width="162"><p align="center"><a href="eivAction.do?hacia=detEIVyle&id_eiv=<%=eiv.getIdEIV()%>" target="_blank">Detalle
-        del EISTU+Lista de bit&aacute;coras</a></p>
-      <p align="center"> <a href="eivAction.do?hacia=detEIVydetEventos&id_eiv=<%=eiv.getIdEIV()%>" target="_blank">Detalle
-        del EISTU+bit&aacute;coras</a> </p>
-      <p align="center"><a href="eivAction.do?hacia=detEIVydetEventyflujos&id_eiv=<%=eiv.getIdEIV()%>" target="_blank">Detalle
-        del EISTU+bit&aacute;coras+Flujos</a></p>
-      <div align="center">
-        <%if (editar){ %>
-      </div>
-      <p align="center"><a href="eivAction.do?hacia=editarEIV&id_eiv=<%=eiv.getIdEIV()%>&nomEIV=<%=eiv.getNomEiv()%>" >Editar
-        Datos del EISTU</a></p>
-      <div align="center">
-        <%} %>
-        <%if(email && (eiv.getIdEstado().intValue()==1 || eiv.getIdEstado().intValue()==2)&& eiv.getFechaVenc().compareTo(new Date())<=0){  %>
-      </div>
-      <p align="center"><a href="eivAction.do?hacia=aEnvioEmail&id_eiv=<%=eiv.getIdEIV() %>&nomEIV=<%=eiv.getNomEiv()%>" >Enviar
-        Email de Vencimiento</a></p>
-      <div align="center">
-        <%}%>
-      </div></td>
-  </tr>
-  <tr>
-    <td colspan="2"><h4 align="center">Flujos Vehiculares registrados para este
-        EISTU</h4></td>
-  </tr>
-  <tr>
-    <td colspan="2" align="left"> <%
+         %>">
+    								</div>
+  								</div>
+  								
+								<div class="form-group">
+    								<label for="inputFecha" class="col-sm-4 control-label">Oficio del EISTU:</label>
+    								<div class="col-sm-8">
+    									<label for="inputFecha" class="col-sm-10 control-label"><a href="javascript:LlamadaPagina('documentacion/documentoAction.do?hacia=detalleDoc&id_doc=<%=eiv.getIdOficio()%>')"><%=eiv.getNomDocumento() %></label>
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputFecha" class="col-sm-4 control-label"></label>
+    								<div class="col-sm-8">
+    									<label for="inputFecha" class="col-sm-2 control-label"><a href="eiv/eivAction.do?hacia=detEIVyle&id_eiv=<%=eiv.getIdEIV()%>" target="_blank">Detalle del EISTU+Lista de bitácoras</a></label>
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputFecha" class="col-sm-4 control-label"></label>
+    								<div class="col-sm-8">
+    									<label for="inputFecha" class="col-sm-10 control-label"><a href="eiv/eivAction.do?hacia=detEIVydetEventos&id_eiv=<%=eiv.getIdEIV()%>" target="_blank">Detalle del EISTU+bitácoras</a></label>
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputFecha" class="col-sm-4 control-label"></label>
+    								<div class="col-sm-8">
+    									<label for="inputFecha" class="col-sm-10 control-label"><a href="eiv/eivAction.do?hacia=detEIVydetEventyflujos&id_eiv=<%=eiv.getIdEIV()%>" target="_blank">Detalle del EISTU+bitácoras+Flujos</a></label>
+    								</div>
+    							</div>
+    							
+    								 <%if (editar){ %>
+    							<div class="form-group">
+    								 <label for="inputFecha" class="col-sm-4 control-label"></label>
+    								 <div class="col-sm-8">
+    									<a href="javascript:LlamadaPagina('eiv/eivAction.do?hacia=editarEIV&id_eiv=<%=eiv.getIdEIV()%>&nomEIV=<%=eiv.getNomEiv()%>')" >Editar Datos del EISTU</a></label>
+     								</div>
+     							</div>
+     								<%} %>
+         							
+    								<%if(email && (eiv.getIdEstado().intValue()==1 || eiv.getIdEstado().intValue()==2)&& eiv.getFechaVenc().compareTo(new Date())<=0){  %>
+								<div class="form-group">
+									<label for="inputFecha" class="col-sm-4 control-label"></label>
+									<div class="col-sm-8">
+    								
+     									 <a href="javascript:LlamadaPagina('eiv/eivAction.do?hacia=aEnvioEmail&id_eiv=<%=eiv.getIdEIV() %>&nomEIV=<%=eiv.getNomEiv()%>')" >Enviar Email de Vencimiento</a>
+									
+    								</div>
+    							</div>
+        							<%}%>
+  								</div> 
+  								
+ <div class="box boxpost"> 								
+<h4 align="center">Flujos Vehiculares registrados para este EISTU</h4>
+   <%
   List flujos = eiv.getFlujos();
-  request.setAttribute("flujos",flujos);%> <display:table name="flujos" id="flu" requestURI="eivAction.do" class="its">
+  request.setAttribute("flujos",flujos);%>
+      <display:table name="flujos" id="flu" requestURI="eivAction.do" class="table table-striped table-bordered table-hover">
       <display:column title="Fecha" sortable="true" sortProperty="fecha"> <%= sdf.format(((FlujoVO)flu).getFecha())%> </display:column> <display:column title="Tipo de Día" property="tipoDia" sortable="true">
       </display:column> <display:column title="Intersección" property="interseccion" sortable="true">
       </display:column> <display:column title="Intervalo horario" property="horasMed" >
@@ -217,23 +305,21 @@ regBit_b=false;
       <display:setProperty name="export.csv.filename" value="registroDocumentacion"/>
       <display:setProperty name="export.pdf.label" value="<img src='../util/img/pdf.gif' width='10' height='10'>"/>
       <display:setProperty name="export.excel.label" value="<img src='../util/img/excel.gif' width='10' height='10'>"/>
-      <display:setProperty name="export.amount" value="list"/> </display:table>
-      <div align="right">
-        <% if ((boolean)regFlujos){ %>
-        <a href="flujoAction.do?hacia=cargarRegFlujo&id_eiv=<%=eiv.getIdEIV() %>&nomEIV=<%=eiv.getNomEiv()%>">Admin. flujos </a>
+      <display:setProperty name="export.amount" value="list"/>
+      </display:table>  								
+      
+       <% if ((boolean)regFlujos){ %>
+        <a href="javascript:LlamadaPagina('eiv/flujoAction.do?hacia=cargarRegFlujo&id_eiv=<%=eiv.getIdEIV() %>&nomEIV=<%=eiv.getNomEiv()%>')">Admin. flujos </a>
         <%} %>
-      </div></div>
-      </td>
-  </tr>
-  <tr>
-    <td colspan="2"><h4 align="center">Bit&aacute;cora del EISTU</h4></td>
-  </tr>
-  <tr>
-    <td align="left">
-      <display:table name="eventos" requestURI="eivAction.do" class="its" id="ev">
+  								
+  		
+  		
+  		<h4 align="center">Bitácora del EISTU</h4></td>
+  
+      <display:table name="eventos" requestURI="eivAction.do" class="table table-striped table-bordered table-hover" id="ev">
       <display:column title="Fecha" sortable="true" sortProperty="fechaEv"> <%=sdf.format(((EventoVO)ev).getFechaEv()) %> </display:column>
       <display:column title="Título" class="texto">
-      <a href="eivAction.do?hacia=detEvento&id_evento=<%=((EventoVO)ev).getIdEvento() %>&id_eiv=<%=eiv.getIdEIV() %>&nomEIV=<%=eiv.getNomEiv()%>"><%=((EventoVO)ev).getTitulo()%></a></display:column>
+      <a href="javascript:LlamadaPagina('eiv/eivAction.do?hacia=detEvento&id_evento=<%=((EventoVO)ev).getIdEvento() %>&id_eiv=<%=eiv.getIdEIV() %>&nomEIV=<%=eiv.getNomEiv()%>')"><%=((EventoVO)ev).getTitulo()%></a></display:column>
 
       <display:setProperty name="basic.msg.empty_list" value="No se encontraron elementos para mostrar"/>
 
@@ -258,24 +344,44 @@ regBit_b=false;
       <display:setProperty name="export.excel.label" value="<img src='../util/img/excel.gif' width='10' height='10'>"/>
       <display:setProperty name="export.amount" value="list"/>
 
-    </display:table>
-    </td>
-    <td align="left"><p align="center">
-        <%if (editarBit){ %>
-        <a href="eivAction.do?hacia=editarBitacora&id_eiv=<%= eiv.getIdEIV() %>&nomEIV=<%=eiv.getNomEiv()%>&id_estado=<%=eiv.getIdEstado() %>">Admin.
-        Bit&aacute;cora</a>
+    </display:table>		
+    
+    
+    <%if (editarBit){ %>
+        <a href="javascript:LlamadaPagina('eiv/eivAction.do?hacia=editarBitacora&id_eiv=<%= eiv.getIdEIV() %>&nomEIV=<%=eiv.getNomEiv()%>&id_estado=<%=eiv.getIdEstado() %>')">Admin. Bitácora</a>
         <% }else{ %>
         &nbsp;
         <% }%>
       </p>
-      <% if (regBit_b){ %><p align="center"><a href="eivAction.do?hacia=aAgregarBit&id_eiv=<%=eiv.getIdEIV() %>&nomEIV=<%=eiv.getNomEiv()%>" >Agregar Bitácora</a> </p>
-        <%} %>
-      </td>
-  </tr>
-</table>
-<hr>
-<div align="center"><img src="../util/img/volver.jpg" alt="Volver" onclick="history.back()"></div>  <div align="right"><a href="../ayuda/eiv.html" target="_blank">Ayuda</a>
-  </div>
+      <% if (regBit_b){ %><a href="javascript:LlamadaPagina('eiv/eivAction.do?hacia=aAgregarBit&id_eiv=<%=eiv.getIdEIV() %>&nomEIV=<%=eiv.getNomEiv()%>')" >Agregar Bitácora</a>
+        <%} %>			
+  								
+  								
+  </div>						
+				 			
+				 	
+				 		
+					
+					</div>
+					</div>
+			
+					
+			
+				</div><!-- /row -->
+			
+      		
+      	</div><!-- /container -->
+		
+		</div><!-- /main -->
+	
 
-</body>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.es.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/truncate.js"></script>
+    <script src="js/uoct.js"></script>
+  </body>
 </html>

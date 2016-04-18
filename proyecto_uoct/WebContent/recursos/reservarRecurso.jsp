@@ -1,11 +1,34 @@
 <%@ page contentType="text/html; charset=iso-8859-1" language="java" import="java.sql.*" errorPage="" %>
 
-<html>
-  <head>
-    <title>Reservar Recurso</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-    <script type="text/javascript" src="../util/calendario/calendar1.js"></script>
-    <script type="text/javascript">
+
+
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="Unidad Operativa de Control de Tránsito">
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+
+
+  <body>
+  
+      <script type="text/javascript">
 
     var nav4 = window.Event ? true : false;
     function acceptNum(evt){
@@ -92,11 +115,8 @@
     }
 
     </script>
-
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
-</head>
-
-  <body>
+  
+  
 <h3 align="left">Reservar</h3>
 
  <form name="formulario" action="">
@@ -106,12 +126,13 @@
    <input type="hidden" name="horaFin"/>
    <input type="hidden" name="minutosFin"/>
 
+<div class="box boxpost">
    <table width="590" border="1" cellpadding="0" cellspacing="0">
-     <tr bgcolor="#ADD8E4">
-       <td width="232" align="center"><strong>Recurso</strong></td>
-       <td width="274" align="center"><strong>Fecha:</strong></td>
-       <td width="151" align="center"><strong>Hora inicio<br />(ej:07:30)</strong></td>
-       <td width="115" align="center"><strong>Hora fin <br />(ej:10:30)</strong></td>
+     <tr bgcolor="#E6E6E6">
+       <td width="232" align="center"><label class="col-sm-4 control-label">Recurso</label></td>
+       <td width="274" align="center"><label class="col-sm-4 control-label">Fecha:</label></td>
+       <td width="151" align="center"><label class="col-sm-4 control-label">Hora inicio<br />(ej:07:30)</label></td>
+       <td width="115" align="center"><label class="col-sm-4 control-label">Hora fin <br />(ej:10:30)</label></td>
      </tr>
      <tr>
        <td> <input name="nombreRecurso" type="text" readonly="readonly" > &nbsp;
@@ -140,6 +161,7 @@
         </div></td>
     </tr>
   </table>
+  </div>
  <br/>
     </form>
 

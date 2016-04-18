@@ -59,90 +59,130 @@ editar=false;
 
 
 %>
-<html>
-<head>
-<title>Buscar EIV</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
 
-  <!-- validador -->
-<script language="JavaScript" src="../util/valid/gen_validatorv2.js" type="text/javascript"></script>
-  <!-- calendario popup-->
-<script language="JavaScript" src="calendar1.js" type="text/javascript"></script><!-- Date only with year scrolling -->
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="jfanasco" >
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
 
-</head>
+<script type="text/javascript">
 
-<body>
-<table width="750" border="0">
-  <tr>
-    <td><h3 align="center">Editar EISTU</h3></td>
-  </tr>
-  <form action="eivAction.do" name="formBusEIV" method="POST">
-    <input type="hidden" name="hacia" value="busParaEditarEIV" />
-    <tr>
-      <td> <div align="center">
-          <table width="500" border="1" align="left">
-            <tr>
-              <td width="149" bgcolor="#ADD8E4">
-<div align="right"><strong>Codigo del EISTU</strong></div></td>
-              <td width="335">EISTU -
-                <input type="text" name="ideiv" size="5" maxlength="5"></td>
-            </tr>
-            <tr>
-              <td bgcolor="#ADD8E4">
-<div align="right"><strong>Palabra Clave</strong></div></td>
-              <td><input name="palClave" type="text" id="palClave" maxlength="50"></td>
-            </tr>
-            <tr>
-              <td bgcolor="#ADD8E4">
-<div align="right"><strong> Fecha de Vencimiento</strong></div></td>
-              <td><table width="148" border="0">
-                  <tr>
-                    <td width="59" bgcolor="#F7FBC4">Entre el</td>
-                    <td width="79"><input type="text" name="fechaVencimiento" size=8 readonly="readonly">
-                      <a href="javascript:cal1.popup();"><img src="img/cal.gif" width="16" height="16" border="0" alt="Seleccionar fecha"></a></td>
-                  </tr>
-                  <tr>
-                    <td bgcolor="#F7FBC4">y el</td>
-                    <td><input type="text" name="fechaVencimiento_b" size=8 readonly="readonly">
-                      <a href="javascript:cal2.popup();"><img src="img/cal.gif" width="16" height="16" border="0" alt="Seleccionar fecha"></a></td>
-                  </tr>
-                </table></td>
-            </tr>
-            <tr>
-              <td width="149" bgcolor="#ADD8E4">
-<div align="right"><strong> Estado</strong></div></td>
-              <td><select name="estado">
-                  <option value="">&nbsp;</option>
-                  <%
-        Iterator i =listaestados.iterator();
-         while ( i.hasNext()){
-           IdStrVO estado= (IdStrVO) i.next();
-           out.println("<option value=\""+estado.getId()+"\">"+ estado.getStr()+"</option>" );
-         }
-         %>
-                </select></td>
-            </tr>
+function submitThisForm1() {
+	var formulario = $('#formBusEIV');
+	var action = 'eiv/eivAction.do';
+	SubmitFormulario(action,formulario);
 
-                        <tr>
-              <td bgcolor="#ADD8E4">
-<div align="right"><strong>Por Estado en SEREMITT</strong></div></td>
-              <td>
-                <select name="estadoSeremitt">
-                <option value="0"></option>
-                <option value="1">Aprobado</option>
-                <option value="2">Rechazado</option>
+}
+function Llamadalink(hacia, link) {
+	link = link.replace('#', '');
+	link = 'eiv/eivAction.do'+ '?hacia=' + hacia + link ;
+	alert(link);
+	LlamadaPagina(link);
 
-                </select>
-              </td>
-            </tr>
+}
 
+</script>
 
-            <tr>
-              <td bgcolor="#ADD8E4">
-<div align="right"><strong> Ingeniero encargado</strong></div></td>
-              <td><select name="idIngeniero">
-                  <option value="">&nbsp;</option>
+		
+		
+		<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+					
+				
+					<div class="col-sm-6 desarrollo">
+					
+						<h2>Editar EISTU</h2>
+						
+				 		<div class="box boxpost">
+				 			<h4>Datos de EISTU</h4>
+				 			
+				 			 <form class="form-horizontal" action="eiv/eivAction.do" name="formBusEIV" id="formBusEIV" method="POST">
+				 			 <input type="hidden" name="hacia" value="busParaEditarEIV" />
+				 				<div class="form-group">
+    								<label for="inputCodigo" class="col-sm-4 control-label">Código de EISTU</label>
+    								<div class="col-sm-2 guionpost">
+      								<p class="form-control-static">EISTU</p>
+    								</div>
+    								<div class="col-sm-6">
+      								<input type="text" name="ideiv" size="5" maxlength="5" class="form-control" id="ideiv">
+    								</div>
+    							</div>
+  								<div class="form-group">
+    								<label for="inputPalabra" class="col-sm-4 control-label">Palabra clave</label>
+    								<div class="col-sm-8">
+      								<input name="palClave" maxlength="50" type="text" class="form-control" id="palClave">
+    								</div>
+    							</div>
+  								<div class="form-group input-daterange">
+    								<label for="inputFecha" class="col-sm-4 control-label">Fecha de vencimiento</label>
+    								<div class="col-sm-2">
+    									<label class="control-label">Entre el:</label>
+    								</div>
+    								<div class="col-sm-2 noPadL">
+      								<input type="text" name="fechaVencimiento" size=8 class="form-control inputFecha pad2" id="fechaVencimiento">
+    								</div>
+    								<div class="col-sm-2">
+      								<label class="control-label">Hasta el:</label>
+    								</div>
+    								<div class="col-sm-2 noPadL">
+    									<input type="text" name="fechaVencimiento_b" class="form-control inputFecha pad2" id="fechaVencimiento_b">
+    								</div>
+  								</div>
+  								<div class="form-group">
+    								<label for="selectEstado" class="col-sm-4 control-label">Estado</label>
+    								<div class="col-sm-8">
+      								<select name="estado" class="form-control" id="estado">
+      									
+                  						<option value="">&nbsp;</option>
+                  							<%
+        											Iterator i =listaestados.iterator();
+         											while ( i.hasNext()){
+           											IdStrVO estado= (IdStrVO) i.next();
+           											out.println("<option value=\""+estado.getId()+"\">"+ estado.getStr()+"</option>" );
+         											}
+         											%>
+                					</select>
+      							
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="selectEstadoS" class="col-sm-4 control-label">Estado en SEREMITT</label>
+    								<div class="col-sm-8">
+      								<select class="form-control" id="selectEstadoS" name="estadoSeremitt">
+      									 <option value="0" selected disabled>Seleccionar</option>
+      									 <option value="1">Aprobado</option>
+                						 <option value="2">Rechazado</option>
+               					</select>
+      								
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="selectIng" class="col-sm-4 control-label">Ingeniero encargado</label>
+    								<div class="col-sm-8">
+      								<select class="form-control" id="selectIng" name="idIngeniero">
+      									<option value="">&nbsp;</option>
                   <%
 
         Iterator ii =listaingenieros.iterator();
@@ -158,13 +198,14 @@ editar=false;
 
 
          %>
-                </select></td>
-            </tr>
-            <tr>
-              <td bgcolor="#ADD8E4">
-<div align="right"><strong> Comuna</strong></div></td>
-              <td><select name="idComuna">
-                  <option value="">&nbsp;</option>
+      								</select>
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="selectComuna" class="col-sm-4 control-label">Comuna</label>
+    								<div class="col-sm-8">
+      								<select class="form-control" id="selectComuna" name="idComuna">
+      									 <option value="">&nbsp;</option>
                   <% if(comunas!=null){
             Iterator ic=comunas.iterator();
             while(ic.hasNext()){
@@ -175,54 +216,39 @@ editar=false;
            }
          }
          %>
-                </select></td>
-            </tr>
-            <tr>
-              <td bgcolor="#ADD8E4">
-<div align="right"><strong> Red Involucrada</strong></div></td>
-              <td><input type="text" name="red" maxlength="3" size="5" /></td>
-            </tr>
-            <tr>
-              <td bgcolor="#ADD8E4">
-<div align="right"><strong> Consultor</strong></div></td>
-              <td><input type="text" name="consultor" maxlength="50" size="30" /></td>
-            </tr>
-          </table>
-        </div></td>
-    </tr>
-    <tr>
-      <td> <div align="center">
-          <input type="submit" name="Submit" value="Buscar">
-        </div></td>
-    </tr>
-  </form>
-    <script language="JavaScript" type="text/javascript">
-                var frmvalidator  = new Validator("formBusEIV");
-                frmvalidator.addValidation("ideiv","maxlen=10","Codigo del EIV no puede superar los 10 caracteres");
-                frmvalidator.addValidation("ideiv","numeric");
+      								</select>
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputRedes" class="col-sm-4 control-label">Red involucrada</label>
+    								<div class="col-sm-8">
+    									<input type="text" id="inputRedes" class="form-control" name="red" maxlength="3">
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputConsultor" class="col-sm-4 control-label">Consultor</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control" id="inputConsultor" name="consultor" maxlength="50" size="30">
+    								</div>
+    							</div>
+    							<div class="boxOpciones">
+    								<div class="form-group">
+    									<div class="col-sm-12">
+    										<a href="javascript:void(0)" class="botoVerde busca" onclick="javascript:submitThisForm1();"><span class="glyphicons glyphicons-search"></span> Buscar</a>
+      								</div>
+  									</div>
+    							</div>
+  							</form>
+						</div>
 
-                </script>
-  <script language="JavaScript" type="text/javascript">
-			<!-- // create calendar object(s) just after form tag closed
-				 // specify form element as the only parameter (document.forms['formname'].elements['inputname']);
-				 // note: you can have as many calendar objects as you need for your application
-				var cal1 = new calendar1(document.forms['formBusEIV'].elements['fechaVencimiento']);
-				cal1.year_scroll = true;
-				cal1.time_comp = false;
-	var cal2 = new calendar1(document.forms['formBusEIV'].elements['fechaVencimiento_b']);
-				cal2.year_scroll = true;
-				cal2.time_comp = false;
-                                //-->
-                              </script>
-  <tr>
-    <td><h4 align="center">Lista de EISTU</h4></td>
-  </tr>
+<%
 
-  <tr>
-    <td>
-	<div align="left">
+if (listaeiv != null){
 
-   <display:table name="listaEIV" id="le" class="its" requestURI="eivAction.do" pagesize="15">
+%>
+						<div class="box boxpost">
+				 			<h4>Lista de EISTU</h4>
+				 			<display:table name="listaEIV" id="le" class="table table-striped table-bordered table-hover col-sm-8" requestURI="eivAction.do" pagesize="15">
 
 
      <display:column  title="EISTU" sortable="true" sortProperty="idEIV" >
@@ -237,14 +263,14 @@ editar=false;
 
      <display:column  title="Editar EISTU" >
        <% if (editar ){
-         out.println("<a href=\"eivAction.do?hacia=editarEIV&id_eiv="+((EIVdeListaVO)le).getIdEIV()+"\">Editar</a>");
+         out.println("<a onclick=\"javascript:LlamadaPagina('eiv/eivAction.do?hacia=editarEIV&id_eiv="+((EIVdeListaVO)le).getIdEIV()+"\');\" href=\"javascript:void(0);\">Editar</a>");
        }else{out.print("No permitido");}
          %>
      </display:column>
 
      <display:column title="Admin. Flujos">
      <%if (regFlujos){
-        out.println("<a href=\"flujoAction.do?hacia=cargarRegFlujo&id_eiv="+((EIVdeListaVO)le).getIdEIV()+"&nomEIV="+((EIVdeListaVO)le).getNomEiv()+"\">Admin. Flujos</a>");
+        out.println("<a href=\"javascript:void(0);\" onclick=\"javascript:LlamadaPagina('eiv/flujoAction.do?hacia=cargarRegFlujo&id_eiv="+((EIVdeListaVO)le).getIdEIV()+"&nomEIV="+((EIVdeListaVO)le).getNomEiv()+"');\">Admin. Flujos</a>");
         }else{out.print("No permitido</div>");}
         %>
      </display:column>
@@ -252,7 +278,7 @@ editar=false;
      <display:column title="Admin. Bitácora">
        <%
       if (editarBit){
-        out.println("<a href=\"eivAction.do?hacia=editarBitacora&id_eiv="+((EIVdeListaVO)le).getIdEIV()+"&nomEIV="+((EIVdeListaVO)le).getNomEiv()+"\">Admin Bitácora</a>");
+        out.println("<a href=\"javascript:void(0);\" onclick=\"javascript:LlamadaPagina('eiv/eivAction.do?hacia=editarBitacora&id_eiv="+((EIVdeListaVO)le).getIdEIV()+"&nomEIV="+((EIVdeListaVO)le).getNomEiv()+"')\">Admin Bitácora</a>");
         }else{out.print("No permitido");}
 
        %>
@@ -260,7 +286,7 @@ editar=false;
 
      <display:column title="Agregar Bitácora">
        <%         if (regBit_b){
-         out.println("<a href=\"eivAction.do?hacia=aAgregarBit&id_eiv="+((EIVdeListaVO)le).getIdEIV()+"&nomEIV="+((EIVdeListaVO)le).getNomEiv()+"\">Agregar Bitácora</a>");
+         out.println("<a  href=\"javascript:void(0);\" onclick=\"javascript:LlamadaPagina('eiv/eivAction.do?hacia=aAgregarBit&id_eiv="+((EIVdeListaVO)le).getIdEIV()+"&nomEIV="+((EIVdeListaVO)le).getNomEiv()+"')\">Agregar Bitácora</a>");
        }else{out.print("No permitido");}
        %>
 
@@ -269,7 +295,7 @@ editar=false;
    <display:column title="Email de Vencimiento">
      <%
      if(email && (((EIVdeListaVO)le).getIdEstado().intValue()==1 || ((EIVdeListaVO)le).getIdEstado().intValue()==2)&&((EIVdeListaVO)le).getFechaVenc().compareTo(new Date())<=0){
-       out.println("<a href=\"eivAction.do?hacia=aEnvioEmail&id_eiv="+((EIVdeListaVO)le).getIdEIV()+"&nomEIV="+((EIVdeListaVO)le).getNomEiv()+"\">Enviar Email</a>");
+       out.println("<a  href=\"javascript:void(0);\" onclick=\"javascript:LlamadaPagina('eiv/eivAction.do?hacia=aEnvioEmail&id_eiv="+((EIVdeListaVO)le).getIdEIV()+"&nomEIV="+((EIVdeListaVO)le).getNomEiv()+"')\">Enviar Email</a>");
      }else{out.print("No permitido");}
 
      %>
@@ -304,14 +330,32 @@ editar=false;
 
 
    </display:table>
+        					
+  						</div>
+  						<%} %>
+				
+				 		
+					
+					</div>
+			
+					
+			
+				</div><!-- /row -->
+			
+      		
+      	</div><!-- /container -->
+		
+		</div><!-- /main -->
+	
 
+ <!-- /container -->
 
- </div>
-</td>
-</tr>
-</table>
-<hr>
- <div align="center"><img src="../util/img/volver.jpg" alt="Volver" onclick="history.back()"></div> <div align="right"><a href="../ayuda/eiv.html" target="_blank">Ayuda</a>
-  </div>
-</body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.es.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/truncate.js"></script>
+    <script src="js/uoct.js"></script>
+  </body>
 </html>

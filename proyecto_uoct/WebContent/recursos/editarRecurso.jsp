@@ -1,73 +1,142 @@
+<!DOCTYPE html>
 <%@page import="proyecto_uoct.reservas.VO.RecursoVO" %>
 <%
 RecursoVO rec=(RecursoVO) request.getAttribute("RECURSO");
 %>
-<html>
-<head>
-<title>Edición de Recursos</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
-<script language="JavaScript" src="../util/valid/gen_validatorv2.js" type="text/javascript"></script>
-</head>
-
-<body>
-<table width="750" border="0">
-  <tr>
-    <td><h3>Editar Recurso</h3></td>
-  </tr>
-  <tr>
-    <td><form action="recursosAction.do" name="actuRecForm" method="POST">
-        <input type="hidden" name="accion" value="ACTUALIZAR_RECURSO" />
-        <input type="hidden" name="idRec" value="<%=rec.getIdRecurso() %>" />
-        <table width="417" border="1" align="left">
-          <tr>
-            <td width="83" bgcolor="#ADD8E4">
-              <div align="right"><strong>Nombre</strong></div></td>
-            <td width="318">
-<input name="nombre" type="text" value="<%=rec.getNombre() %>"></td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4">
-			<div align="right"><strong>Descripci&oacute;n</strong></div></td>
-            <td> <textarea name="desc" cols="40"><%= rec.getDescripcion()%></textarea></td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4">
-			<div align="right"><strong>Estado</strong></div></td>
-            <td><select name="idEstado" size="1">
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="jfanasco" >
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
+		
+		
+		
+		
+		<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+					
+				
+					<div class="col-sm-6 desarrollo">
+					
+						<h2>Editar Recurso:<br />
+						<h2><small><%=rec.getNombre() %></small></h2>
+						
+				 		<div class="box boxpost">
+				 			
+				 			<form class="form-horizontal" action="recursosAction.do" name="form1" id="form1" method="POST" >
+				 			 <input type="hidden" name="accion" value="ACTUALIZAR_RECURSO" />
+       					 <input type="hidden" name="idRec" value="<%=rec.getIdRecurso() %>" />
+				 				<div class="form-group">
+    								<div class="col-sm-4">
+    									<label class="control-label">Nombre del recurso</label>
+    								</div>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control inputFecha" id="nombre" name="nombre" value="<%=rec.getNombre() %>">
+    								</div>
+    								</div>
+    								<div class="form-group">
+    					
+    								<div class="col-sm-4">
+      								<label class="control-label">Descripción:</label>
+    								</div>
+    								<div class="col-sm-8">
+    									<textarea type="text" class="form-control inputFecha" id="desc" name="desc"><%= rec.getDescripcion()%></textarea>
+    								</div>
+    								</div>
+    								
+<div class="form-group">
+    								<div class="col-sm-4">
+      								<label class="control-label">Estado:</label>
+    								</div>
+    								<div class="col-sm-8">
+    									<select name="idEstado" size="1">
                 <%%>
                 <option value="1" <%if (rec.getIsActivo()){out.print(" selected=\"selected\"");}%>>Activo</option>
                 <option value="0" <%if (!rec.getIsActivo()){out.print(" selected=\"selected\"");}%>>Inactivo</option>
-              </select> </td>
-          </tr>
-          <tr>
-            <td colspan="2"><div align="center">
-                <input name="Input" type="submit" value="Guardar los Cambios">
-                &nbsp;
-                <input name="reset" type="reset" value="Restablecer el Formulario" />
-              </div>
-              <div align="center"> </div></td>
-          </tr>
-        </table>
-      </form></td>
-  </tr>
+              </select>
+    								</div>
 
-</table>
 
-<script language="JavaScript" type="text/javascript">
-var frmvalidator  = new Validator("actuRecForm");
-frmvalidator.addValidation("nombre","req","Debe ingresar el nombre del recurso");
-frmvalidator.addValidation("nombre","alnumspace");
-frmvalidator.addValidation("nombre","maxlen=35","Nombre no puede superar los 35 caracteres");
+    								
+  								</div>
+    							<div class="boxOpciones">
+    								<div class="form-group">
+    									<div class="col-sm-12">
+    										<a href="javascript:void(0)" onclick="javascript:submitThisForm1()" class="botoVerde busca">Guardar Cambios</a>
+    										
+      								</div>
+  									</div>
+    							</div>
+  							</form>
+						</div>
+						
+						
+        				
 
-frmvalidator.addValidation("desc","req","Debe indicar la descripción del recurso");
-frmvalidator.addValidation("desc","maxlen=100","Descripción no puede superar los 100 caracteres");
+					
+					</div>
+			
+					
+			
+				</div><!-- /row -->
+			
+      		
+      	</div><!-- /container -->
+		
+		</div><!-- /main -->
+	
 
-</script>
+      <div class="container">
+			<footer>
+				<div class="row">
+					<div class="col-sm-12">
+						<p>Unidad Operativa de Control de Tránsito. <span id="pie"></span></p>
+					</div>
+				</div>
+        	</footer>
+		</div> <!-- /container -->
+		
+		
+		<script type="text/javascript">
+		
+function submitThisForm1() {
+												
+												var formulario = $('#form1');
 
-<hr>
-<div align="center"><img src="../util/img/volver.jpg" alt="Volver" onclick="history.back()"></div>  <div align="right"><a href="../ayuda/recursos.html" target="_blank">Ayuda</a>
-  </div>
-</body>
+												var action = 'recursos/recursosAction.do'
+												SubmitFormulario(action,
+														formulario);
+
+											}		
+		
+		</script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.es.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/truncate.js"></script>
+    <script src="js/uoct.js"></script>
+  </body>
 </html>
-

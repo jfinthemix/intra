@@ -1,106 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="Unidad Operativa de Control de Tránsito">
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
 
-<html>
-<head>
-<title>Registrar Clientes</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
+		
+		<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+					
+				
+					<div class="col-sm-6 desarrollo">
+					
+						<h2>Registrar Cliente de Ventas</h2>
+						
+						<div class="box boxpost">
 
-<script language="JavaScript" src="../util/valid/gen_validatorv2.js" type="text/javascript"></script>
+				 			<form class="form-horizontal" action="ventasAction.do" method="POST" name="cliForm" id="cliForm">
+ <input type="hidden" name="accion" value="RegClienteVta" />
+				 				<div class="form-group">
+    								<label for="inputNombre" class="col-sm-4 control-label">Nombre*</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control" name="nom_cli" id="nom_cli" >
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputRut" class="col-sm-4 control-label">Rut</label>
+    								<div class="col-sm-6 guionpost">
+      								<input class="form-control" name="rut" type="text" size="8" maxlength="8" id="rut2" >
+    								</div>
+    								<div class="col-sm-2">
+      								<input class="form-control" type="text" size="1" name="codRut" id="codRut" maxlength="1" >
+    								</div>
+    							</div>
+				 				<div class="form-group">
+    								<label for="inputTelefono" class="col-sm-4 control-label">Teléfono</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control"   name="fono_cli"  id="fono_cli" >
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputEmail" class="col-sm-4 control-label">Email</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control" id="email_cli" name="email_cli">
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputGiro" class="col-sm-4 control-label">Giro</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control" id="giro" name="giro" >
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputDireccion" class="col-sm-4 control-label">Dirección</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control" id="dir_cli"  name="dir_cli">
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputContacto" class="col-sm-4 control-label">Persona de contacto</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control" id="contactos" name="contactos" cols="40" id="contactos" >
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="txtComentario" class="col-sm-4 control-label">Comentario</label>
+    								<div class="col-sm-8">
+      								<textarea class="form-control" id="comentario" name="comentario" cols="40" rows="4"></textarea>
+    								</div>
+    							</div>
+    							<div class="boxOpciones">
+    								<div class="form-group">
+    									<div class="col-sm-12">
+											<input type="hidden" name="Submit" value="Guardar">
+    									<div class="boxOpciones">
+    								<div class="form-group">
+    									<div class="col-sm-12">
 
+    										
+      										<a OnClick="submitThisForm1();" href="javascript:void(0)"
+											class="botoVerde"> 
+											Guardar
+										</a>
+										
+										<script  type="text/javascript" >
+		function submitThisForm1() {
 
-</head>
+			var formulario = $('#cliForm');
+			
+			var action = 'ventas/ventasAction.do'
+			SubmitFormulario(action, formulario);
+			
 
-<body>
-  <form action="ventasAction.do" method="POST" name="cliForm">
-  <table width="750" border="0">
-    <tr>
-      <td><h3>Registrar Cliente de Ventas
-          <input type="hidden" name="accion" value="RegClienteVta" />
-        </h3></td>
-    </tr>
-    <tr>
-      <td><table width="419" border="1" align="left">
-          <tr>
-            <td width="97" bgcolor="#ADD8E4">
-<div align="right"><strong>Nombre*:</strong></div></td>
-            <td width="306">
-              <input type="text" name="nom_cli"> </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>RUT:</strong></div></td>
-            <td><input name="rut" type="text" size="8" maxlength="8" id="rut2">
-              -
-              <input type="text" size="1" name="codRut" maxlength="1" /> </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>Telefono:</strong></div></td>
-            <td> <input type="text" name="fono_cli"> </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>Email:</strong></div></td>
-            <td> <input type="text" name="email_cli"> </td>
-          </tr>
-          <tr>
-            <td height="45" bgcolor="#ADD8E4"><div align="right"><strong>Giro:</strong></div></td>
-            <td><input type="text" name="giro"></td>
-          </tr>
-          <tr>
-            <td height="45" bgcolor="#ADD8E4"><div align="right"><strong>Direcci&oacute;n:</strong></div></td>
-            <td> <input type="text" name="dir_cli"> </td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>Personas de contacto:</strong></div></td>
-            <td>
-              <textarea name="contactos" cols="40" id="contactos"></textarea></td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4"><div align="right"><strong>Comentario:</strong></div></td>
-            <td><textarea name="comentario" cols="40"></textarea></td>
-          </tr>
-        </table></td>
-    </tr>
-    <tr>
-      <td><input type="submit" name="Submit" value="Guardar"></td>
-    </tr>
-  </table>
-
-</form>
- <script language="JavaScript" type="text/javascript">
-var frmvalidator  = new Validator("cliForm");
-frmvalidator.addValidation("nom_cli","req","Debe indicar el  Nombre del Cliente");
-frmvalidator.addValidation("nom_cli","maxlen=35","Nombre no puede superar los 35 caracteres");
-
-
-frmvalidator.addValidation("rut","num");
-frmvalidator.addValidation("rut","maxlen=8");
-
-frmvalidator.addValidation("codRut","alnum");
-frmvalidator.addValidation("codRut","maxlen=1","Sólo 1 caracter en el codigo del rut");
-
-frmvalidator.addValidation("dir_cli","alnumspace");
-frmvalidator.addValidation("dir_cli","maxlen=100", "Hasta 100 caracteres en la Dirección" );
-
-frmvalidator.addValidation("fono_cli","alnumspace");
-frmvalidator.addValidation("fono_cli","maxlen=15","Hasta 15 caracteres en el télefono" );
-
-frmvalidator.addValidation("email_cli","email");
-frmvalidator.addValidation("email_cli","maxlen=40","Hasta 40 caracteres en el email" );
-
-frmvalidator.addValidation("giro","alnumspace");
-frmvalidator.addValidation("giro","maxlen=50","Hasta 50 caracteres en el giro");
-
-frmvalidator.addValidation("contactos","alnumspace");
-frmvalidator.addValidation("contactos","maxlen=100","Hasta 100 caracteres en campo Contactos" );
-
-frmvalidator.addValidation("comentario","alnumspace");
-frmvalidator.addValidation("comentario","maxlen=200","Hasta 200 caracteres en el comentario" );
-
-</script>
+		}
 
 
-<hr>
-  <div align="right"><a href="../ayuda/ventas.html" target="_blank">Ayuda</a>
-  </div>
+	</script>
+										
+										
+      								</div>
+  									</div>
+    							</div>
+      								</div>
+  									</div>
+    							</div>
+  							</form>
+						</div>
+						
+						<div class="verMas">
+							<a href="javascript:history.back()"><span class="glyphicons glyphicons-undo"></span> Volver</a>
+							<a href="javascript:void(0)" class="pull-right"><span class="glyphicons glyphicons-circle-exclamation-mark"></span> Ayuda</a>
+						</div>
+				 		
+					
+					</div>
+			
+					
+			
+				</div><!-- /row -->
+			
+      		
+      	</div><!-- /container -->
+		
+		</div><!-- /main -->
+	
 
-</body>
+      <div class="container">
+			<footer>
+				<div class="row">
+					<div class="col-sm-12">
+						<p>Unidad Operativa de Control de Tránsito. <span id="pie"></span></p>
+					</div>
+				</div>
+        	</footer>
+		</div> <!-- /container -->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.es.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/truncate.js"></script>
+    <script src="js/fullcalendar.min.js"></script>
+    <script src="js/uoct.js"></script>
+  </body>
 </html>

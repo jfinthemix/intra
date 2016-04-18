@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%@page import="java.util.List,java.util.Iterator,proyecto_uoct.reservas.VO.RecursoVO" %>
 <%@taglib prefix="display" uri="/displaytag_12"%>
 <%
@@ -9,73 +10,101 @@ request.setAttribute("ir",ir);
 String estado="";
 %>
 
-<html>
-<head>
-<title>Administrar Recursos</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
-<script language="JavaScript" src="../util/valid/gen_validatorv2.js" type="text/javascript"></script>
-</head>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="Unidad Operativa de Control de Tránsito">
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
 
-<body>
-<table width="750" border="0">
-  <tr>
-    <td><h3>Administrar Recursos compartidos</h3></td>
-  </tr>
-  <tr>
-    <td><h4>Nuevo Recurso:</h4></td>
-  </tr>
-  <tr>
-    <td>
-	      <%if(mensaje!=null){out.print(mensaje);} %>
-	<form action="recursosAction.do" name="formulario1" method="POST">
-        <input type="hidden" name="accion" value="REGISTRAR_RECURSO" />
-        <table width="439" border="1" align="left">
-          <tr>
-            <td width="111" bgcolor="#ADD8E4">
-              <div align="right"><strong>Nombre:</strong></div></td>
-            <td width="312">
-<input name="nombre" type="text" size="30" maxlength="20"></td>
-          </tr>
-          <tr>
-            <td bgcolor="#ADD8E4">
-<div align="right"><strong>Descripci&oacute;n:</strong></div></td>
-            <td><textarea name="desc" cols="40"></textarea></td>
-          </tr>
-          <tr>
-            <td height="31" colspan="2">
-<div align="center">
-                <input type="submit" name="Submit" value="Ingresar">
-              </div></td>
-          </tr>
-        </table>
-      </form></td>
-  </tr>
+	<script>
+	function Llamadalink(hacia, link) {
+												
+		link = link.replace('#', '');
 
+		link = 'recursos/recursosAction.do'+ hacia + link ;
+		
+		LlamadaPagina(link);
 
+												//clienteAction.do?hacia=detalleEntExt
+	}
+	
+	function submitThisForm1() {
+												
+												var formulario = $('#form1');
 
+												var action = 'recursos/recursosAction.do';
+												
+												
+												
+												SubmitFormulario(action,
+														formulario);
 
-<script language="JavaScript" type="text/javascript">
-var frmvalidator  = new Validator("formulario1");
-frmvalidator.addValidation("nombre","req","Debe ingresar el nombre del recurso");
-frmvalidator.addValidation("nombre","alnumspace");
-frmvalidator.addValidation("nombre","maxlen=35","Nombre no puede superar los 35 caracteres");
+											}
+	
+	</script>	
+		
+		
+		
+		<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+					
+				
+					<div class="col-sm-6 desarrollo">
+					
+						<h2>Administrar recursos</h2>
+						
+				 		<div class="box boxpost">
+				 			<h4>Ingresar recurso:</h4>
+				 			  <%if(mensaje!=null){out.print(mensaje);} %>
+				 			<form class="form-horizontal" action="recursosAction.do" name="form1" id="form1" method="POST">
+				 			        <input type="hidden" name="accion" value="REGISTRAR_RECURSO" />
 
-frmvalidator.addValidation("desc","req","Debe indicar la descripción del recurso");
-frmvalidator.addValidation("desc","maxlen=100","Descripción no puede superar los 100 caracteres");
-
-</script>
-
-
-
-
-  <tr>
-    <td><h4>Lista de Recursos</h4></td>
-  </tr>
-  <tr>
-    <td>
-
-      <display:table name="ir" class="its" requestURI="recursosAction.do" id="idRecList" >
+				 				<div class="form-group">
+    								<label for="inputNombre" class="col-sm-4 control-label">Nombre</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control" name="nombre" id="nombre">
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputDescripcion" class="col-sm-4 control-label">Descripción</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control" id="desc" name="desc">
+    								</div>
+    							</div>
+  								<div class="boxOpciones">
+    								<div class="form-group">
+    									<div class="col-sm-12">
+    									<input type="hidden" id="Submit" name="Submit" value="Ingresar">
+    										<a href="javascript:void(0)" onclick="javascript:submitThisForm1();" class="botoVerde">Ingresar</a>
+      								</div>
+  									</div>
+    							</div>
+  							</form>
+						</div>
+						
+						<div class="box boxpost">
+						
+			 <display:table name="ir" class="able table-striped table-bordered table-hover tablesorter" requestURI="recursosAction.do" id="idRecList" >
 
       <display:column title="Nombre Recurso"> <%=((RecursoVO)idRecList).getNombre() %>
       </display:column>
@@ -87,7 +116,7 @@ frmvalidator.addValidation("desc","maxlen=100","Descripción no puede superar los
    else{estado="Inactivo";}
     %>
       <%=estado %> </display:column>
-	  <display:column title="Editar" href="recursosAction.do?accion=EDITAR_RECURSO" paramId="idRecurso" paramProperty="idRecurso">
+	  <display:column title="Editar" href="javascript:Llamadalink('?accion=EDITAR_RECURSO','#')" paramId="idRecurso" paramProperty="idRecurso">
       <%="Editar" %> </display:column>
 
 
@@ -115,12 +144,40 @@ frmvalidator.addValidation("desc","maxlen=100","Descripción no puede superar los
         <display:setProperty name="export.amount" value="list"/>
 
 
-	  </display:table></td>
-  </tr>
-</table>
-<hr>
-<div align="center"><img src="../util/img/volver.jpg" alt="Volver" onclick="history.back()"></div>  <div align="right"><a href="../ayuda/recursos.html" target="_blank">Ayuda</a>
-  </div>
-</body>
-</html>
+	  </display:table>
+        				</div>
+				 			
+				 	
+				 		
+					
+					</div>
+			
+					
+			
+				</div><!-- /row -->
+			
+      		
+      	</div><!-- /container -->
+		
+		</div><!-- /main -->
+	
 
+      <div class="container">
+			<footer>
+				<div class="row">
+					<div class="col-sm-12">
+						<p>Unidad Operativa de Control de Tránsito. <span id="pie"></span></p>
+					</div>
+				</div>
+        	</footer>
+		</div> <!-- /container -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.es.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/truncate.js"></script>
+    <script src="js/uoct.js"></script>
+  </body>
+</html>

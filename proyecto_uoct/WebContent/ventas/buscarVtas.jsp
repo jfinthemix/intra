@@ -8,15 +8,37 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
 List estados=(List)request.getAttribute("estados");
 List ventas=(List)request.getAttribute("ventas");%>
-<html>
-<head>
-<title>Busqueda de Ventas</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
-<!--calendario-->
-<script language="JavaScript" src="calendar1.js" type="text/javascript"></script>
 
-<!--   Para el traspaso de variables entre Ventanas -->
+
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="Unidad Operativa de Control de Tránsito">
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		
+		
+		
+		
+	</head>
+	
+	<body>
+	
 <script type="text/javascript">
 var otra=null;
 function popUp(href, target, features) {
@@ -30,53 +52,72 @@ function pasaCli(nomCli, idCli){
     form1.idCli.value = idCli;
     otra.window.close();
   }
-</script>
-</head>
+  
+function submitThisForm1() {
+	var formulario = $('#form1');
+	var action = 'ventas/ventasAction.do';
+	SubmitFormulario(action,	formulario);
 
-<body>
-<table width="750" border="0">
-  <tr>
-    <td><h3 align="left">Buscar Ventas</h3></td>
-  </tr>
-  <form method="post" action="ventasAction.do" name="form1">
-    <tr>
-      <td> <div align="left">
-          <input type="hidden" name="accion" value="buscarVta" />
-          <table width="455" border="1" align="left">
-            <tr>
-              <td width="146" bgcolor="#ADD8E4">
-                <div align="right"><strong>Fecha
-                  Inicio:</strong></div></td>
-              <td width="278"> <table width="246" border="0">
-                  <tr>
-                    <td width="77" bgcolor="#F7FBC4">
-                      <div align="right">Entre
-                        el:</div></td>
-                    <td width="159"><input type="text" name="fechaPresentacion" size=8 readonly="readonly">
-                      &nbsp;<a href="javascript:cal1.popup();"> <img src="img/cal.gif" width="16" height="16" border="0" alt="Seleccionar Fecha">
-                      </a></td>
-                  </tr>
-                  <tr>
-                    <td bgcolor="#F7FBC4">
-                      <div align="right">y el:</div></td>
-                    <td><input type="text" name="fechaPresentacion2" size=8 readonly="readonly">
-                      &nbsp;<a href="javascript:cal2.popup();"> <img src="img/cal.gif" width="16" height="16" border="0" alt="Seleccionar Fecha">
-                      </a></td>
-                  </tr>
-                </table></td>
-            </tr>
-            <tr>
-              <td bgcolor="#ADD8E4"> <div align="right"><strong>Cliente:</strong></div></td>
-              <td> <input type="hidden" name="idCli" value="0"/> <input type="text" name="nomCli" readonly="readonly"/>
-                &nbsp; <a href="ventasAction.do?accion=busCliVta_pop" target="_blank" onClick="popUp(this.href, this.target, 'width=350,height=500, scrollbars=1'); return false;">Buscar
-                Cliente</a> </td>
-            </tr>
-            <tr>
-              <td height="26" bgcolor="#ADD8E4">
-                <div align="right"><strong>Estado
-                  de la Venta :</strong></div></td>
-              <td><select name="idEstado" size="1">
-                  <option value="0" selected></option>
+}
+
+
+function Llamadalink(hacia, link) {
+	link = link.replace('#', '');
+	link = 'ventas/VentasAction.do'+ '?accion=' + hacia + link ;
+	LlamadaPagina(link);
+
+}
+
+  
+</script>	
+	
+				
+		<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+					
+				
+					<div class="col-sm-6 desarrollo">
+					
+						<h2>Buscar Ventas</h2>
+						
+						<div class="box boxpost">
+				 			<h4>Datos de búsqueda</h4>
+				 			<form class="form-horizontal" action="ventas/ventasAction.do" name="form1" id="form1">
+				 			<input type="hidden" name="accion" value="buscarVta" />
+				 			<input type="hidden" name="Submit" value="Submit" />
+				 				<div class="form-group input-daterange">
+    								<label for="inputFecha" class="col-sm-4 control-label">Fecha de inicio</label>
+    								<div class="col-sm-2">
+    									<label class="control-label">Entre el:</label>
+    								</div>
+    								<div class="col-sm-2 noPadL">
+      								<input type="text" class="form-control inputFecha pad2" id="inputDesde" name="fechaPresentacion" size=8>
+    								</div>
+    								<div class="col-sm-2">
+      								<label class="control-label">Hasta el:</label>
+    								</div>
+    								<div class="col-sm-2 noPadL">
+    									<input type="text" class="form-control inputFecha pad2" id="inputHasta" name="fechaPresentacion2" size=8>
+    								</div>
+  								</div>
+  								<div class="form-group">
+    								<label for="inputCliente" class="col-sm-4 control-label">Cliente</label>
+    								<div class="col-sm-5">
+    								<input type="hidden" name="idCli" value="0"/>
+      								<input type="text" class="form-control" id="inputCliente" name="nomCli">
+    								</div>
+    								<div class="col-sm-3">
+      								<a href="ventas/ventasAction.do?accion=busCliVta_pop" target="_blank" onClick="popUp(this.href, this.target, 'width=350,height=500, scrollbars=1'); return false;" class="botoGris botoMini noMarg"><span class="glyphicons glyphicons-search"></span> Buscar</a>
+    								</div>
+  								</div>
+  								<div class="form-group">
+    								<label for="selectEstado" class="col-sm-4 control-label">Estado</label>
+    								<div class="col-sm-8">
+      								<select class="form-control" id="selectEstado" name="idEstado">
+
+<option value="0" selected></option>
                   <% if(estados!=null){
   Iterator ie=estados.iterator();
   while(ie.hasNext()){
@@ -87,43 +128,40 @@ function pasaCli(nomCli, idCli){
 }
 }
 %>
-                </select></td>
-            </tr>
+                </select>
 
-             <tr>
-              <td height="26" bgcolor="#ADD8E4">
-                <div align="right"><strong>Palabra Clave (detalle de venta):</strong></div></td>
-              <td> <input type="text" name="palClave" maxlength="30"/>  </td>
-            </tr>
-          </table>
-        </div></td>
-    </tr>
-    <tr>
-      <td> <div align="left">
-          <input type="submit" name="Submit" value="Buscar">
-        </div></td>
-    </tr>
-  </form>
-  <tr>
-    <td><div align="left">
-        <script language="JavaScript" type="text/javascript">
-				var cal1 = new calendar1(document.forms['form1'].elements['fechaPresentacion']);
-				cal1.year_scroll = true;
-				cal1.time_comp = false;
+    							</div>
+    							<div class="form-group">
+    								<label for="inputPalabra" class="col-sm-4 control-label">Palabra clave</label>
+    								<div class="col-sm-8">
+      								<input type="text" name="palClave" maxlength="30" class="form-control" id="inputPalabra">
+      								<span id="helpBlock" class="help-block">Detalle de la venta.</span>
+      							</div>
+    							</div>
+  								<div class="boxOpciones">
+    								<div class="form-group">
+    									<div class="col-sm-12">
+    										<a href="javascript:void(0)" onclick="submitThisForm1();" class="botoVerde busca"><span class="glyphicons glyphicons-search"></span> Buscar</a>
+      								</div>
+  									</div>
+    							</div>
+  							</form>
+						</div>	
+						
+						
+						
+						
+						
+<%if(ventas!=null){%>
 
-				var cal2 = new calendar1(document.forms['form1'].elements['fechaPresentacion2']);
-				cal2.year_scroll = true;
-				cal2.time_comp = false;
+<div class="boxpost">
 
-
-//-->
-</script>
-        <%if(ventas!=null){%>
-        <display:table class="its" name="ventas" id="vs" requestURI="ventasAction.do">
-        <display:caption>Ventas Encontradas</display:caption>
+        <display:table class="table table-striped table-bordered table-hover tablesorter" name="ventas" id="vs" requestURI="ventasAction.do">
+        <display:caption><h4>Ventas Encontradas</h4></display:caption>
 
 
-        <display:column title="Cod. de Venta" property="codVenta" sortable="true" sortProperty="codVenta" href="ventasAction.do?accion=detalleVenta" paramId="idVenta" paramProperty="idVenta" maxLength="40">
+        <display:column title="Cod. de Venta" href="ventas/VentasAction.do?accion=detalleVenta" sortable="true" sortProperty="codVenta"  maxLength="40">
+        <a onclick="javascript:LlamadaPagina('ventas/ventasAction.do?accion=detalleVenta&idVenta=<%=((VtaVO)vs).getIdVenta()%>');"  href="javascript:void(0);" > <%=((VtaVO)vs).getCodVenta()%> </a>
         </display:column>
 
         <display:column title="Fecha de Inicio"><%=sdf.format(((VtaVO)vs).getFechaRecepcion()) %> </display:column>
@@ -151,13 +189,52 @@ function pasaCli(nomCli, idCli){
         <display:setProperty name="export.pdf.label" value="<img src='../util/img/pdf.gif' width='10' height='10'>"/>
         <display:setProperty name="export.excel.label" value="<img src='../util/img/excel.gif' width='10' height='10'>"/>
         <display:setProperty name="export.amount" value="list"/> </display:table>
-        <%} %>
-      </div></td>
-  </tr>
-</table>
+        
+        
+        </div>
+        <%} %>						
+						
 
-<hr>
-  <div align="right"><a href="../ayuda/ventas.html" target="_blank">Ayuda</a>
-  </div>
-</body>
+
+
+
+
+
+
+
+
+
+
+					
+				 		
+					
+					
+			
+					
+			
+				</div><!-- /row -->
+			
+      		
+      	</div><!-- /container -->
+		
+		</div><!-- /main -->
+	</div>
+
+      
+
+
+		
+		
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.es.min.js"></script>
+    <script src="js/jquery.tablesorter.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/truncate.js"></script>
+    <script src="js/fullcalendar.min.js"></script>
+    <script src="js/uoct.js"></script>
+  </body>
 </html>

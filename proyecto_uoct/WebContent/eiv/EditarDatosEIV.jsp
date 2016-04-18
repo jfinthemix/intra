@@ -39,78 +39,113 @@ if (eiv.getRedes()!=null && redes!=null){
 SimpleDateFormat sdf= new SimpleDateFormat("dd-MM-yyyy");
 
 %>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="jfanasco" >
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito -<%= eiv.getNomEiv() %></title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body>
+	
+	
+	<script type="text/javascript">
+								// Script para el traspaso de variables
+				
+								
+								
+	var sortitems = 1;
+				
 
-<html>
-<head>
-<title><%= eiv.getNomEiv() %></title>
+							
+	function mover(){
+		var fbox=formActualizarEIV.red;
+		var tbox=formActualizarEIV.listaRel;
+			var red= fbox.value;
+			if(validaRed(red) && validaRepeticion(red,tbox)) {
+				var no = new Option();
+				no.value = fbox.value;
+				no.text = fbox.value;
+				tbox.options[tbox.options.length] = no;
+				fbox.value="";
+				if (sortitems) SortD(tbox);
+			}
 
-<script LANGUAGE="JavaScript" type="text/javascript">
-
-<!--
-sortitems = 1;
-
-
-//-----------------valida y agrega a la lista de redes relacionadas-----//
-function mover(fbox,tbox){
-	var red= fbox.value;
-	if(validaRed(red) && validaRepeticion(red,tbox)) {
-		var no = new Option();
-		no.value = fbox.value;
-		no.text = fbox.value;
-		tbox.options[tbox.options.length] = no;
-		fbox.value="";
-		if (sortitems) SortD(tbox);
 	}
+	
+	function validaRed(red){
+		var malo=red.search("[^0-9]");
+		if(malo!=-1){
+			alert("La red solamente se puede indicar con un número");
+			return false;
 
-}
-
-function validaRed(red){
-	var malo=red.search("[^0-9]");
-	if(malo!=-1){
-		alert("La red solamente se puede indicar con un número");
+		}
+		if(red==""){
+		alert("la red no puede ser nula");
 		return false;
-
+		}
+		var noRed=parseInt(red);
+		if(noRed>9999 || noRed<=0){
+		alert("La red debe estar entre 1 y 9999");
+		return false;
+		}
+		else return true;
 	}
-	if(red==""){
-	alert("la red no puede ser nula");
-	return false;
+
+	function validaRepeticion(red,tbox){
+	for (var i=0;i<tbox.options.length;i++){
+		if(red==tbox.options[i].value){
+		alert("la red " +red+" ya está en la lista");
+		return false;
+		}
 	}
-	var noRed=parseInt(red);
-	if(noRed>999 || noRed<=0){
-	alert("La red debe estar entre 1 y 999");
-	return false;
+	return true;
 	}
-	else return true;
-}
+								
+			
 
-function validaRepeticion(red,tbox){
-for (var i=0;i<tbox.options.length;i++){
-	if(red==tbox.options[i].value){
-	alert("la red " +red+" ya está en la lista");
-	return false;
-	}
-}
-return true;
-}
+								//--------------------------
 
-//------------------
+								function move2() {
+									var form=document.getElementById("formActualizarEIV");
+									
+									var fbox=form.list1;
+									var tbox=form.list2;
+									
+									for (var i = 0; i < fbox.options.length; i++) {
+										if (fbox.options[i].selected && fbox.options[i].value != "") {
+											var no = new Option();
+											no.value = fbox.options[i].value;
+											no.text = fbox.options[i].text;
+											tbox.options[tbox.options.length] = no;
+											quitarEncargado(fbox);
+											fbox.options[i].value = "";
+											fbox.options[i].text = "";
+										}
+									}
+									BumpUp(fbox);
+									BumpUp(this.form_proy.id_encargado);
+									if (sortitems)
+										SortD(tbox);
 
+								}
 
+								//-------------------------------------------------
 
-function move(fbox,tbox) {
-for(var i=0; i<fbox.options.length; i++) {
-if(fbox.options[i].selected && fbox.options[i].value != "") {
-var no = new Option();
-no.value = fbox.options[i].value;
-no.text = fbox.options[i].text;
-tbox.options[tbox.options.length] = no;
-fbox.options[i].value = "";
-fbox.options[i].text = "";
-   }
-}
-BumpUp(fbox);
-if (sortitems) SortD(tbox);
-}
 function BumpUp(box)  {
 for(var i=0; i<box.options.length; i++) {
 if(box.options[i].value == "")  {
@@ -127,86 +162,162 @@ box.options.length -= 1;
 BumpUp(box);
    }
 }
+								//-------------------------------------------
 
-function SortD(box)  {
-var temp_opts = new Array();
-var temp = new Object();
-for(var i=0; i<box.options.length; i++)  {
-temp_opts[i] = box.options[i];
+								function SortD(box) {
+									var temp_opts = new Array();
+									var temp = new Object();
+									for (var i = 0; i < box.options.length; i++) {
+										temp_opts[i] = box.options[i];
+									}
+									for (var x = 0; x < temp_opts.length - 1; x++) {
+										for (var y = (x + 1); y < temp_opts.length; y++) {
+											if (temp_opts[x].text > temp_opts[y].text) {
+												temp = temp_opts[x].text;
+												temp_opts[x].text = temp_opts[y].text;
+												temp_opts[y].text = temp;
+												temp = temp_opts[x].value;
+												temp_opts[x].value = temp_opts[y].value;
+												temp_opts[y].value = temp;
+											}
+										}
+									}
+									for (var i = 0; i < box.options.length; i++) {
+										box.options[i].value = temp_opts[i].value;
+										box.options[i].text = temp_opts[i].text;
+									}
+								}
+
+								//-------------------------------------------
+
+								function agregaEncargado(nuevo) {
+									for (var i = 0; i < nuevo.options.length; i++) {
+										if (nuevo.options[i].selected && nuevo.options[i].value != "") {
+											var no = new Option();
+											no.value = nuevo.options[i].value;
+											no.text = nuevo.options[i].text;
+											this.form_proy.id_encargado.options[this.form_proy.id_encargado.options.length] = no;
+										}
+									}
+								}
+
+								//----------------------------------------
+
+								function quitarEncargado(box) {
+									for (var i = 0; i < box.options.length; i++) {
+										if (box.options[i].selected && box.options[i].value != "") {
+											for (var ii = 0; ii < this.form_proy.id_encargado.options.length; ii++) {
+												if (box.options[i].value == this.form_proy.id_encargado.options[ii].value) {
+													this.form_proy.id_encargado.options[ii].value = "";
+													this.form_proy.id_encargado.options[ii].text = "";
+												}
+											}
+										}
+									}
+								}
+
+								// Funcion para seleccionar  todos los encargados de la Lista
+
+								function SelectAllList(CONTROL) {
+									for (var i = 0; i < CONTROL.length; i++) {
+										CONTROL.options[i].selected = true;
+
+									}
+								}
+								
+								
+function borrar(){
+	var CONTROL=formActualizarEIV.listaRel;
+					for (var i =0;i<CONTROL.length;i++){
+						if (CONTROL.options[i].selected ==true){
+							CONTROL.options[i]=null;
+						}
+					}
+				}
+				
+				
+				
+function submitThisForm1() {
+	var formulario = $('#busOTform');
+	var action = 'proyectos/proyectoAction.do'
+	SubmitFormulario(action,	formulario);
+
 }
-for(var x=0; x<temp_opts.length-1; x++)  {
-for(var y=(x+1); y<temp_opts.length; y++)  {
-if(temp_opts[x].text > temp_opts[y].text)  {
-temp = temp_opts[x].text;
-temp_opts[x].text = temp_opts[y].text;
-temp_opts[y].text = temp;
-temp = temp_opts[x].value;
-temp_opts[x].value = temp_opts[y].value;
-temp_opts[y].value = temp;
-      }
-   }
-}
-for(var i=0; i<box.options.length; i++)  {
-box.options[i].value = temp_opts[i].value;
-box.options[i].text = temp_opts[i].text;
-   }
+
+//Para registrar sin correo
+function submitThisForm2() {
+	var formulario = $('#formActualizarEIV');
+	//SelectAllList(formulario.listaRel);
+	var action = 'eiv/eivAction.do';
+	SubmitFormulario(action,formulario);
+
 }
 
+//Para registrar enviando correo
 
-// -->
-</script>
-  <!-- calendario popup-->
-<script language="JavaScript" src="calendar1.js" type="text/javascript"></script><!-- Date only with year scrolling -->
-</script>
+function submitThisForm3() {
+	var formulario = $('#busOTform');
+	var action = 'proyectos/proyectoAction.do'
+	SubmitFormulario(action,	formulario);
 
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+}
 
-<link href="../util/styla.css" rel="stylesheet" type="text/css">
+function SelectAllList(CONTROL){
+	for(var i = 0;i < CONTROL.length;i++){
+	CONTROL.options[i].selected = true;
+	}
+	}
+				
+				
+				
+function pasaDoc(idDoc,codDoc,tipoDoc){
+	  formActualizarEIV.idDocOficio.value = idDoc;
+	  formActualizarEIV.codOficio.value = codDoc;
 
-<!-- validador -->
-<script language="JavaScript" src="../util/valid/gen_validatorv2.js" type="text/javascript"></script>
+	  otra.window.close();
+	  }
 
-</head>
+				
+				
+								
+								
+	</script>
+	
+	
+		
+		
+		
+		<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+					
+				
+					<div class="col-sm-6 desarrollo">
+					
+						<h2>Registrar EIV</h2>
+						
+				 		<div class="box boxpost">
+				 			<h4>Editar  EISTU-<%=eiv.getIdEIV() %></h4>
+				 			<form class="form-horizontal" action="eiv/eivAction.do" name="formActualizarEIV" id="formActualizarEIV" method="post">
+				 			<input type="hidden" name="hacia" value="actualizarEIV" />
+				 			<input type="hidden" name="id_eiv" value="<%=eiv.getIdEIV()%>" />
+				 			<input type="hidden" name="submit" value="Submit" />
+				 			<input type="hidden" name="noEmail" value="Registrar SIN enviar email" />
+				 				<div class="form-group">
+    								<label for="inputTitulo" class="col-sm-4 control-label">Título*</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control" id="inputTitulo" name="titulo_eiv" value="<%= eiv.getNomEiv() %>" size="40" maxlength="90">
+    								</div>
+    							</div>
+  								
 
 
-
-
-<body>
-<table width="750" border="0">
-  <tr>
-    <td><div align="center">
-        <h3 align="center">Editar datos de<br>
-          <strong>EISTU-<%=eiv.getIdEIV() %></strong> </h3>
-      </div></td>
-  </tr>
-  <form action="eivAction.do" name="formActualizarEIV" >
-    <tr>
-      <td> <div align="center">
-          <input type="hidden" name="hacia" value="actualizarEIV" />
-          <input type="hidden" name="id_eiv" value="<%=eiv.getIdEIV()%>" />
-          <table width="588" border="1" align="center">
-            <tr>
-              <td width="198" bgcolor="#ADD8E4"> <div align="right"><strong>T&iacute;tulo:</strong></div></td>
-              <td colspan="2"><%= eiv.getNomEiv() %></td>
-            </tr>
-            <tr>
-              <td width="198" bgcolor="#ADD8E4"> <div align="right"><strong>Tipo
-                  de Estudio:</strong></div></td>
-              <td><select name="id_tipoestudio">
-                  <% if(tiposEIV!=null){
-        Iterator itipos=tiposEIV.iterator();
-        while (itipos.hasNext()){
-          IdStrVO ti=(IdStrVO) itipos.next();
-          %>
-                  <option value="<%=ti.getId()%>" <%if (ti.getId().intValue()==eiv.getIdTipoEstudio().intValue()){out.print("selected");} %>><%=ti.getStr()%></option>
-                  <%}
-          } %>
-                </select></td>
-            </tr>
-            <tr>
-              <td width="198" bgcolor="#ADD8E4"> <div align="right"><strong>Estado
-                  del EISTU:</strong></div></td>
-              <td colspan="2"><select name="id_estado">
+								<div class="form-group">
+  								<input type="hidden" name="idDocOficio"/>
+    								<label for="selectTipoEstudio" class="col-sm-4 control-label">Estado del EIV*</label>
+    								<div class="col-sm-8">
+      								<select name="id_estado">
                   <% if(estados!=null){
         Iterator iest=estados.iterator();
         while (iest.hasNext()){
@@ -215,41 +326,57 @@ box.options[i].text = temp_opts[i].text;
                   <option value="<%=es.getId()%>"<%if (eiv.getIdEstado().intValue()==es.getId().intValue()){out.print("selected");}%> ><%=es.getStr()%></option>
                   <%}
         } %>
-                </select> </td>
-            </tr>
-            <tr>
-              <td width="198" bgcolor="#ADD8E4"> <div align="right"><strong>Fecha
-                  Presentacion*:</strong></div></td>
-              <td colspan="2"> <input type="text" name="fechaPresentacion" value="<%=sdf.format(eiv.getFechaPresent())%>" size=8 readonly="readonly">
-                &nbsp; <a href="javascript:cal1.popup();"><img src="img/cal.gif" width="16" height="16" border="0" alt="Seleccionar fecha"></a>
-              </td>
-            </tr>
-            <tr>
-              <td width="198" bgcolor="#ADD8E4"> <div align="right"><strong>Env&iacute;o
-                  SEREMITT*:</strong></div></td>
-              <td colspan="2"> <input type="text" name="fechaEnvioSeremitt" value="<%=sdf.format(eiv.getFechaEnvioSeremitt())%>" size=8 readonly="readonly">
-                &nbsp; <a href="javascript:cal2.popup();"><img src="img/cal.gif" width="16" height="16" border="0" alt="Seleccionar fecha"></a>
-              </td>
-            </tr>
-            <tr>
-              <td width="198" bgcolor="#ADD8E4"> <div align="right"><strong>Fecha
-                  de Ingreso UOCT*:</strong></div></td>
-              <td colspan="2"> <input type="text" name="fechaIngreso" value="<%=sdf.format(eiv.getFechaIng())%>" size=8 readonly="readonly">
-                &nbsp; <a href="javascript:cal3.popup();"><img src="img/cal.gif" width="16" height="16" border="0" alt="Seleccionar fecha"></a>
-              </td>
-            </tr>
-            <tr>
-              <td width="198" bgcolor="#ADD8E4"> <div align="right"><strong>Fecha
-                  de Vencimiento*:</strong></div></td>
-              <td colspan="2"> <input type="text" name="fechaVencimiento" value="<%=sdf.format(eiv.getFechaVenc())%>" size=8 readonly="readonly">
-                &nbsp; <a href="javascript:cal4.popup();"><img src="img/cal.gif" width="16" height="16" border="0" alt="Seleccionar fecha"></a>
-              </td>
-            </tr>
-            <tr>
-              <td width="198" bgcolor="#ADD8E4"> <div align="right"><strong>Comuna:
-                  </strong></div></td>
-              <td colspan="2"><select name="idComuna">
-                  <%
+                </select>
+    								</div>
+    							</div>
+
+
+
+  								<div class="form-group">
+  								<input type="hidden" name="idDocOficio"/>
+    								<label for="selectTipoEstudio" class="col-sm-4 control-label">Tipo de estudio*</label>
+    								<div class="col-sm-8">
+      								<select name="id_tipoestudio" id="id_tipoestudio">
+                  <% if(tiposEIV!=null){
+        Iterator itipos=tiposEIV.iterator();
+        while (itipos.hasNext()){
+          IdStrVO ti=(IdStrVO) itipos.next();
+          %>
+                  <option value="<%=ti.getId()%>" <%if (ti.getId().intValue()==eiv.getIdTipoEstudio().intValue()){out.print("selected");} %>><%=ti.getStr()%></option>
+                  <%}
+          } %>
+                </select>
+    								</div>
+    							</div>
+  								<div class="form-group">
+    								<label for="inputPres" class="col-sm-4 control-label">Fecha de presentación*</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control inputFecha" id="inputPres" name="fechaPresentacion" value="<%=sdf.format(eiv.getFechaPresent())%>" readonly="readonly" size=8>
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputEnv" class="col-sm-4 control-label">Envío SEREMITT*</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control inputFecha" id="inputEnv" name="fechaEnvioSeremitt" value="<%=sdf.format(eiv.getFechaEnvioSeremitt())%>" size=8 readonly="readonly">
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputIngreso" class="col-sm-4 control-label">Fecha de ingreso UOCT*</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control inputFecha" id="inputIngreso" name="fechaIngreso" value="<%=sdf.format(eiv.getFechaIng())%>" size=8 readonly="readonly">
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputVto" class="col-sm-4 control-label">Fecha de vencimiento*</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control inputFecha" id="inputVto" name="fechaVencimiento" value="<%=sdf.format(eiv.getFechaVenc())%>" size=8 readonly="readonly" >
+    								</div>
+    							</div>
+  								<div class="form-group">
+    								<label for="selectComuna" class="col-sm-4 control-label">Comuna*</label>
+    								<div class="col-sm-8">
+      								<select class="form-control" id="idComuna" name="idComuna">
+      									   <%
      if (comunas!= null){
 
        Iterator ic= comunas.iterator();
@@ -267,25 +394,27 @@ box.options[i].text = temp_opts[i].text;
      }
 
       %>
-                </select></td>
-            </tr>
-            <tr>
-              <td width="198" bgcolor="#ADD8E4"> <div align="right"><strong>Direcci&oacute;n:</strong></div></td>
-              <td colspan="2"><input type="text" size="40" name="direccion" value="<%= eiv.getDir() %>" maxlength="200" ></td>
-            </tr>
-            <tr>
-              <td width="198" height="64" bgcolor="#ADD8E4">
-                <div align="right"><strong>Redes
-                  Involucradas:</strong></div></td>
-              <td width="374"> <table width="376" border="0">
-                  <tr>
-                    <td width="55" rowspan="2"> <input type="text" name="red" size="6">
-                    </td>
-                    <td width="89"> <div align="center">
-                        <input type="button" value="Agregar&gt;&gt;" name="Input" onClick="mover(this.form.red,this.form.listaRel)"/>
-                      </div></td>
-                    <td width="218" rowspan="2"> <select multiple size="3" name="listaRel">
-                        <%
+      								</select>
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputDire" class="col-sm-4 control-label">Dirección*</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control" id="inputDire" name="direccion" size="40" value="<%= eiv.getDir() %>" maxlength="200">
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputRedes" class="col-sm-4 control-label">Redes involucradas*</label>
+    								<div class="col-sm-8">
+    									<input type="text" id="red" class="form-control" name="red">
+    								</div>
+    								<div class="col-sm-8 col-sm-offset-4 mTop10 text-right">
+      								<a id="botoAgregar" href="javascript:void(0);" onclick="javascript:mover();" class="botoGris botoMini"><span class="glyphicons glyphicons-chevron-down"></span> Agregar</a>
+      								<a id="botoBorrar" onClick="javascript:borrar()" href="javascript:void(0);" class="botoRojo botoMini noMarg"><span class="glyphicons glyphicons-delete"></span> Borrar</a>
+    								</div>
+    								<div class="col-sm-8 col-sm-offset-4 mTop10">
+    									<select multiple id="listaRel" class="form-control" size="4" name="listaRel">
+    									<%
               if (redRel!=null){
                 Iterator ir= redRel.iterator();
                 while (ir.hasNext()){
@@ -296,37 +425,32 @@ box.options[i].text = temp_opts[i].text;
                 }
               }
               %>
-                      </select></td>
-                  </tr>
-                  <tr>
-                    <td> <div align="center">
-                        <input type="button" value="Borrar" name="Submit2" onClick="move(this.form.listaRel,this.form.red)"/>
-                      </div></td>
-                  </tr>
-                </table></td>
-            </tr>
-            <tr>
-              <td width="198" height="26" bgcolor="#ADD8E4">
-                <div align="right"><strong>N&ordm;
-                  de estacionamientos:</strong></div></td>
-              <td colspan="2"><input type="text" name="estacionamientos" value="<%= eiv.getEstacionamientos()%>"></td>
-            </tr>
-            <tr>
-              <td width="198" bgcolor="#ADD8E4"> <div align="right"><strong>Consultor:</strong></div></td>
-              <td colspan="2"><input type="text" name="consultor" value="<%= eiv.getNomCons()%>"  />
-              </td>
-            </tr>
-            <tr>
-              <td width="198" bgcolor="#ADD8E4"> <div align="right"><strong>Empresa
-                  Consultora:</strong></div></td>
-              <td colspan="2"><input type="text" name="empconsultora" value="<%if(eiv.getEmpCons()!=null){out.print(eiv.getEmpCons());}else{out.print("");}%>" />
-              </td>
-            </tr>
-            <tr>
-              <td width="198" bgcolor="#ADD8E4"> <div align="right"><strong>Encargado
-                  del EISTU:</strong></div></td>
-              <td colspan="2"><select name="id_ingeniero">
-                  <%
+    									</select>
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputParking" class="col-sm-4 control-label">N° de estacionamientos*</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control" id="inputParking" name="estacionamientos" maxlength="5" value="<%= eiv.getEstacionamientos()%>" >
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputConsultor" class="col-sm-4 control-label">Consultor*</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control" id="inputConsultor" name="consultor" maxlength="100" value="<%= eiv.getNomCons()%>" >
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputEmp" class="col-sm-4 control-label">Empresa del consultor</label>
+    								<div class="col-sm-8">
+      								<input type="text" class="form-control" id="inputEmp" name="empconsultora" maxlength="100" value="<%if(eiv.getEmpCons()!=null){out.print(eiv.getEmpCons());}else{out.print("");}%>" >
+    								</div>
+    							</div>
+    							<div class="form-group">
+    								<label for="inputEncargado" class="col-sm-4 control-label">Encargado del EISTU*</label>
+    								<div class="col-sm-8">
+      								<select class="form-control" id="inputEncargado" name="id_ingeniero" >
+      									 <%
             if (listaIngenieros!=null){
               Iterator a= listaIngenieros.iterator();
               while (a.hasNext()){
@@ -345,76 +469,32 @@ box.options[i].text = temp_opts[i].text;
                 out.println(str);
               }
             }
-            %>
-                </select> </td>
-            </tr>
-          </table>
-        </div>
-        <div align="center">
-          <script language="JavaScript" type="text/javascript">
-    var frmvalidator  = new Validator("formActualizarEIV");
-
-    frmvalidator.addValidation("fechaPresentacion","req","Indique la fecha de Presentación");
-
-    frmvalidator.addValidation("fechaEnvioSeremitt","req","Indique la fecha de Envío de SEREMITT");
-
-    frmvalidator.addValidation("fechaIngreso","req","Indique la fecha de ingreso(Recepción)");
-
-    frmvalidator.addValidation("fechaVencimiento","req","Indique la fecha de Vencimiento");
-
-    frmvalidator.addValidation("idComuna","req","Debe indicar la comuna");
-
-    frmvalidator.addValidation("direccion","req","Debe indicar la dirección");
-    frmvalidator.addValidation("direccion","maxlen=200","Dirección no puede superar los 200 caracteres");
-    frmvalidator.addValidation("direccion","alnumspace");
-
-    frmvalidator.addValidation("listaRel","req","Debe indicar las redes involucradas");
-
-    frmvalidator.addValidation("estacionamientos","req","Debe indicar la cantidad de estacionamientos");
-    frmvalidator.addValidation("estacionamientos","maxlen=5","Estacionamientos no puede superar los 5 caracteres");
-    frmvalidator.addValidation("estacionamientos","numeric");
-
-    frmvalidator.addValidation("consultor","req","Debe indicar el consultor del EIV");
-    frmvalidator.addValidation("consultor","maxlen=100","Consultor no puede superar los 100 caracteres");
-    frmvalidator.addValidation("consultor","alnumspace");
-
-    frmvalidator.addValidation("empconsultora","maxlen=100","Empresa del Consultor no puede superar los 100 caracteres");
-    frmvalidator.addValidation("empconsultora","alnumspace");
-
-    frmvalidator.addValidation("id_ingeniero","req","Debe indicar ingeniero a cargo");
-  </script>
-        </div></td>
-    </tr>
-    <tr>
-      <td> <div align="center">
-          <input type="submit" name="Submit" value="Guardar Cambios" onClick="javascript:SelectAllList(document.formActualizarEIV.listaRel);">
-          &nbsp;&nbsp;
-          <input name="reset" type="reset" value="Restablecer Valores" />
-        </div></td>
-    </tr>
-  </form>
-</table>
-<script language="JavaScript" type="text/javascript">
-<!-- // create calendar object(s) just after form tag closed
-// specify form element as the only parameter (document.forms['formname'].elements['inputname']);
-// note: you can have as many calendar objects as you need for your application
-				var cal1 = new calendar1(document.forms['formActualizarEIV'].elements['fechaPresentacion']);
-				cal1.year_scroll = true;
-				cal1.time_comp = false;
-
-                                var cal2 = new calendar1(document.forms['formActualizarEIV'].elements['fechaEnvioSeremitt']);
-				cal2.year_scroll = true;
-				cal2.time_comp = false;
-
-                                var cal3 = new calendar1(document.forms['formActualizarEIV'].elements['fechaIngreso']);
-				cal3.year_scroll = true;
-				cal3.time_comp = false;
-
-                                var cal4 = new calendar1(document.forms['formActualizarEIV'].elements['fechaVencimiento']);
-				cal4.year_scroll = true;
-				cal4.time_comp = false;
-							//-->
-</script>
+            %>								</select>
+    								</div>
+    							</div>
+  								
+  							</form>
+						</div>
+				 			
+				 		
+				 		<div class="col-sm-12">
+    										<a href="javascript:void(0)" onclick="javascript:submitThisForm2();" class="botoGris">Guardar Cambios</a>
+    										
+      								</div>
+				 		
+				 		
+					
+					</div> <!--  /desarrollo  -->
+			
+					
+			
+				</div><!-- /row -->
+			
+      		
+      	</div><!-- /container -->
+		
+		</div><!-- /main -->
+	
 
 <script language="JavaScript" type="text/javascript">
 function SelectAllList(CONTROL){
@@ -423,8 +503,17 @@ CONTROL.options[i].selected = true;
 }
 }
 </script>
-<hr>
-<div align="center"><img src="../util/img/volver.jpg" alt="Volver" onclick="history.back()"></div>  <div align="right"><a href="../ayuda/eiv.html" target="_blank">Ayuda</a>
-  </div>
-</body>
+
+
+		
+		
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker.es.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/truncate.js"></script>
+    <script src="js/uoct.js"></script>
+  </body>
 </html>

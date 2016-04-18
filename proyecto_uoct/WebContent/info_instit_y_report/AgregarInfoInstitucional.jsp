@@ -13,11 +13,30 @@ String mensaje=(String) request.getAttribute("mensaje");
 %>
 <html>
 <head>
-  <title>Administraci&oacute;n de Archivos de Informaci&oacute;n Institucional</title>
-  <script language="JavaScript" src="../util/valid/gen_validatorv2.js" type="text/javascript"></script>
-  <link href="../util/styla.css" rel="stylesheet" type="text/css">
-    <!-- validador -->
-    <script language="JavaScript" src="../util/valid/gen_validatorv2.js" type="text/javascript"></script>
+ <head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Intranet de la UOCT">
+		<meta name="author" content="Unidad Operativa de Control de Tránsito">
+		<link rel="icon" href="img/favicon.ico">
+		
+		<title>Unidad Operativa de Control de Tránsito</title>
+		
+		<link href="css/grid.css" rel="stylesheet">
+		<link href="css/glyphs.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
+		
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+
+  </head>
+<body>
+
 <script type="text/javascript">
  function valLargoFile()
 {
@@ -42,39 +61,58 @@ elim=window.confirm('¿Está seguro de eliminar este archivo?');
 (elim)?form2.submit():'return false';
 }
 
+function submitThisForm1() {
+
+
+	var formulario = $('#form1');
+	var action = 'info_instit_y_report/infoinstitAction.do';
+	SubmitFormulario(action,formulario);
+
+}
+
+
 </script>
-  </head>
-<body>
-<div align="center">
-  <table width="750" border="0">
-    <tr>
-      <td><h3 align="left"><strong>Publicar Archivo </strong> </h3>
+
+
+
+<div class="main">
+			<div class="container">
+				<div class="row clearfix">
+				
+					
+				
+					<div class="col-sm-6 desarrollo box boxpost">
+
+
+<h3>Publicar Archivo</h3>
           <%if(mensaje!=null){%>
-        <h3><font color="red"><strong><%=mensaje %></strong></font></h3> <%} %>
-  </td>
-    </tr>
-    <tr>
-      <td>
-	  <html:form action="/info_instit_y_report/infoinstitAction.do" enctype="multipart/form-data" name="form1" type="proyecto_uoct.infoyrep.controller.fileup1ActionForm" >
+        
+<div class="col-sm-8"><h3><strong><%=mensaje %></strong></h3></div> <%} %>
+ 
+ 
+	  <html:form  action="info_instit_y_report/infoinstitAction.do" styleId="form1"  enctype="multipart/form-data" name="form1" type="proyecto_uoct.infoyrep.controller.fileup1ActionForm" >
 	  <input type="hidden" name="hacia" value="agregarArchivo">
-        <table width="494" border="1" align="left">
-          <tr>
-            <td width="146" bgcolor="#ADD8E4"><strong>Seleccione el Archivo:</strong></td>
-            <td width="332"><html:file property="unArchivo"/></td>
-        </tr>
-        <tr>
-            <td height="107" bgcolor="#ADD8E4"><strong>Descripci&oacute;n:</strong>
-            </td>
-          <td><textarea name="descripcion" cols="45" rows="5"></textarea></td>
-        </tr>
-        <tr>
-      <td colspan="2"><div align="center">
-        <input type="submit" name="Submit" value="Guardar">
-        </div></td>
-      </tr>
-    </table>
+       
+       <div class="form-group">
+
+				<label for="inputTitulo" class="col-sm-6 control-label"><strong>Seleccione el Archivo:</strong></label>
+            	<div class="col-sm-12"><html:file property="unArchivo" styleId="unArchivo" /></div>
+       </div>
+           <div class="form-group">  
+           <label for="inputTitulo" class="col-sm-6 control-label">Descripci&oacute;n:</label>
+       		</div>
+      	<div class="form-group">
+      		<div class="col-sm-8"> <textarea name="descripcion" cols="45" rows="5"></textarea></div>
+       </div>
+       
+       <div class="boxOpciones">
+       <input type="hidden" name="Submit" value="Guardar">
+        <input type="button" onclick="javascript:submitThisForm1();" name="Submit1" value="Guardar"> </div>
 
 </html:form>
+
+</div>
+
 	<script language="JavaScript" type="text/javascript">
 	var frmvalidator  = new Validator("form1");
 	frmvalidator.addValidation("unArchivo","req","Debe indicar el archivo");
@@ -88,20 +126,20 @@ elim=window.confirm('¿Está seguro de eliminar este archivo?');
 
     frmvalidator.setAddnlValidationFunction("valLargoFile");
 
-    frmvalidator.addValidation("unArchivo","req","Debe ingresar el archivo");
+    frmvalidator.addValidation("UnArchivo","req","Debe ingresar el archivo");
     frmvalidator.addValidation("descripcion","req","Debe Ingresar Descripción");
     frmvalidator.addValidation("descripcion","maxlen=300","Descripción no puede superar los 300 caracteres");
-  </script></td>
-    </tr>
-    <tr>
-      <td> <div align="left">
+  </script>
+  
+  
           <%if (lista!=null){
   Iterator lis=lista.iterator();
   request.setAttribute("lista",lis);%>
- <form action="infoinstitAction.do" name="form2">
+<div class="box boxpost col-sm-8">  
+ <form action="infoinstitAction.do" name="form2" id="form2">
 
-         <display:table id="archivos" name="lista" class="its" requestURI="infoinstitAction.do">
-          <display:caption>Archivos de Informaci&oacute;n Institucional</display:caption>
+         <display:table id="archivos" name="lista" class="table table-striped table-bordered table-hover" requestURI="infoinstitAction.do">
+          <display:caption><h3>Informaci&oacute;n Institucional Publicada</h3></display:caption>
           <display:column title="Nombre"> <%=((ArchivoInfoVO)archivos).getNomArchivo() %> </display:column>
           <display:column title="Descripción" class="texto">
           <%=((ArchivoInfoVO)archivos).getDescripcion() %> </display:column>
@@ -131,19 +169,22 @@ elim=window.confirm('¿Está seguro de eliminar este archivo?');
           <display:setProperty name="export.pdf.label" value="<img src='../util/img/pdf.gif' width='10' height='10'>"/>
           <display:setProperty name="export.excel.label" value="<img src='../util/img/excel.gif' width='10' height='10'>"/>
           <display:setProperty name="export.amount" value="list"/> </display:table>
-          <%} %>
-        </div></td>
-    </tr>
-  </table>
-
-
- </div>
-
-   <input type="hidden" name="hacia" value="eliminarArchivo" />
+        
+          <input type="hidden" name="hacia" value="eliminarArchivo" />
    <input type="hidden" name="idFile" value="" />
  </form>
-<hr>
-<div align="center"><img src="../util/img/volver.jpg" alt="Volver" onclick="history.back()"></div>  <div align="right"><a href="../ayuda/infoinstit.html" target="_blank">Ayuda</a>
-  </div>
+   </div>
+        
+          <%} %>
+        
+
+
+
+ 
+
+</div>
+</div>
+</div>
+
 </body>
 </html>
